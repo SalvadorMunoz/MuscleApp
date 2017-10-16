@@ -1,9 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.linux.muscleapp.LogInActivity">
+    tools:context="com.example.linux.muscleapp.LogInActivity"
+    android:layout_margin="@dimen/activity_margin">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/txvLoginTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_titlelogin"
+        android:text="@string/login_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilLoginEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txvLoginTitle"
+        >
+        <EditText
+            android:id="@+id/edtLoginEmail"
+            android:hint="@string/login_email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilLoginPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tilLoginEmail"
+        android:layout_marginBottom="@dimen/margin_tillogin">
+        <EditText
+            android:id="@+id/edtLoginPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_pass"/>
+    </android.support.design.widget.TextInputLayout>
+    <LinearLayout
+        android:id="@+id/lilLinks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tilLoginPass"
+        android:orientation="horizontal"
+
+        >
+        <TextView
+            android:id="@+id/txvLoginForget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forgot_pass"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_weight="0.7"/>
+        <TextView
+            android:id="@+id/txvLoginSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_weight="0.3"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnLoginSignIn"
+        android:layout_width="@dimen/btnlogin_width"
+        android:layout_height="wrap_content"
+        style="@style/Widget.Button.Transparent"
+        android:text="@string/sign_in"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/btnlogin_margin"
+        />
+
+</RelativeLayout>

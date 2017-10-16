@@ -8,6 +8,8 @@ import android.os.Bundle;
 /**
  * @author Salvador Muñoz
  * @version 1.0
+ *
+ *This class is a Splash Screen with the app logo
  */
 
 public class SplashScreenActivity extends AppCompatActivity {

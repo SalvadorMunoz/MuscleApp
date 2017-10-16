@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MuscleApp</string>
+    <string name="login_title">Acceso</string>
+    <string name="sign_up">Registro</string>
+    <string name="login_email">Correo electrónico</string>
+    <string name="login_pass">Contraseña</string>
+    <string name="forgot_pass">¿Olvidaste la contraseña?</string>
+    <string name="sign_in">Acceder</string>
 </resources>

@@ -6,11 +6,22 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
     <style name="SplashScreen" parent="AppTheme">
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Widget" parent="@android:style/Widget"/>
+    <style name="Widget.Button" parent="@android:style/Widget.Button"/>
+    <style name="Widget.Button.Transparent" >
+        <item name="android:background">@drawable/btnlogin_shape</item>
+        <item name="@android:textAppearance">?android:attr/textAppearanceSmall</item>
+    </style>
+    
+    <style name="DatePicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
 
 
 </resources>
