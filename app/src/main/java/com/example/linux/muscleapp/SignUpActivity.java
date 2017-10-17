@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import butterknife.ButterKnife;
 public class SignUpActivity extends AppCompatActivity {
     @BindView(R.id.imgSignUpDate) ImageView imgDate;
     @BindView(R.id.txvRes) TextView res;
+    @BindView(R.id.btnSignUpCreateUser) Button btnCreate;
 
     private int day,month,year;
 
@@ -55,6 +57,12 @@ public class SignUpActivity extends AppCompatActivity {
                 dpdDate.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
 
                 dpdDate.show();
+            }
+        });
+        btnCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }

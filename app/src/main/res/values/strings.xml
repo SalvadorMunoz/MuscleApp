@@ -6,4 +6,7 @@
     <string name="login_pass">Contraseña</string>
     <string name="forgot_pass">¿Olvidaste la contraseña?</string>
     <string name="sign_in">Acceder</string>
+    <string name="signup_residence">Lugar de residencia</string>
+    <string name="signup_borndate">Fecha de nacimiento:</string>
+    <string name="make_user">Crear usuario</string>
 </resources>
