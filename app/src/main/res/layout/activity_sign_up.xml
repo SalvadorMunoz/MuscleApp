@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.linux.muscleapp.SignUpActivity"
     android:layout_margin="@dimen/activity_margin"
-    android:id="@+id/relativeLayout">
+    >
     <TextView
         android:id="@+id/txvSignUpTitle"
         android:layout_width="wrap_content"

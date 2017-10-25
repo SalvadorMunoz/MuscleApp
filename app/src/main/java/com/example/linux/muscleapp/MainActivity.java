@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,11 +24,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     //Create and inflate container
     @BindView(R.id.srlContainer) SwipeRefreshLayout swipeContainer;
     @BindView(R.id.hola) TextView hola;
-    @BindView(R.id.fbtVideo) FloatingActionButton fbtVideo;
+    @BindView(R.id.fbtAdd) FloatingActionButton fbtAdd;
 
-    //Camera intent id and camera limit
-    private static final int CAMERA_ID =1;
-    private static final int VIDEO_LIMIT=30;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +39,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         //Change swipe load color
         swipeContainer.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
 
-        fbtVideo.setOnClickListener(new View.OnClickListener() {
+        fbtAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Create camera intent and set limit
-                Intent cameraintent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                cameraintent.putExtra(MediaStore.EXTRA_DURATION_LIMIT,VIDEO_LIMIT);
-                //Launch camera
-                startActivityForResult(cameraintent,CAMERA_ID);
+                Intent intent = new Intent(MainActivity.this,AddSessionActivity.class);
+                startActivity(intent);
+
             }
         });
 
@@ -69,19 +63,5 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     }
 
-    //See the results of callbacks intent
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        //Check the activity result
-        switch (requestCode){
-            case CAMERA_ID:
-                if(resultCode == Dialog.BUTTON_POSITIVE)
-                    hola.setText("Video grabado...");
-                break;
-        }
-
-
-    }
 }

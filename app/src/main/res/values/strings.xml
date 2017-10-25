@@ -9,4 +9,15 @@
     <string name="signup_residence">Lugar de residencia</string>
     <string name="signup_borndate">Fecha de nacimiento:</string>
     <string name="make_user">Crear usuario</string>
+    <string name="add_session">Crear sesión de entrenamiento</string>
+    <string name="name">Nombre</string>
+    <string name="date">Fecha</string>
+    <string name="create_session">Crear sesión</string>
+    <string name="see">Ver</string>
+    <string name="add_excersice_title">Crear entrenamiento</string>
+    <string name="muscle">Músculo</string>
+    <string name="repetitions">Nº Repeticiones</string>
+    <string name="series">Nº series</string>
+    <string name="time">Tiempo</string>
+    <string name="create_excersice">Crear ejercicio</string>
 </resources>

@@ -1,7 +1,11 @@
 package com.example.linux.muscleapp;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +17,6 @@ import android.widget.TextView;
 import com.example.linux.muscleapp.model.Date;
 
 import java.util.Calendar;
-import java.util.StringTokenizer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,52 +25,74 @@ import butterknife.ButterKnife;
  * @author Salvador Muñoz
  * @version 1.0
  *
- * This class is a sign up window with user's information
+ * This class add a training session with it's properties
  */
+public class AddSessionActivity extends AppCompatActivity {
 
-public class SignUpActivity extends AppCompatActivity {
-    @BindView(R.id.imgSignUpDate) ImageView imgDate;
-    @BindView(R.id.txvRes) TextView res;
-    @BindView(R.id.btnSignUpCreateUser) Button btnCreate;
+    @BindView(R.id.fbtAddExcersice) FloatingActionButton fbtExcersice;
+    @BindView(R.id.imgAddSessionDate) ImageView imgDate;
+    @BindView(R.id.txvSeeSessionDates) TextView txvSessionDates;
+    @BindView(R.id.btnCreateSession) Button btnCreate;
+    DatePickerListener dplistener = new DatePickerListener();
+    int contador = 0;
+
+
 
     Date date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_add_session);
+
+        ButterKnife.bind(this);
+
+
         date = new Date();
         date.GetDate();
-        ButterKnife.bind(this);
-        //Listener for DaterPickerDialog
-        final DatePickerDialog.OnDateSetListener dateSetListener= new DatePickerDialog.OnDateSetListener() {
+
+
+
+        fbtExcersice.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                //Show date selected
-                res.setText(String.format("%04d-%02d-%02d",i,i1,i2));
+            public void onClick(View view) {
+
+                Intent intent = new Intent(AddSessionActivity.this,AddExcersiceActivity.class);
+                startActivity(intent);
             }
-        };
+        });
+
+
 
         //Open DatePickerDialog when you click on the calendar image
         imgDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //create datepicker (context activity, style, listener,year, month,day)
-                DatePickerDialog dpdDate = new DatePickerDialog(SignUpActivity.this,R.style.DatePicker,dateSetListener,date.getYear(),date.getMonth(),date.getDay());
+                DatePickerDialog dpdDate = new DatePickerDialog(AddSessionActivity.this,R.style.DatePicker,dplistener,date.getYear(),date.getMonth(),date.getDay());
                 //Set max limit on current date
-                dpdDate.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
-
                 dpdDate.show();
             }
         });
+
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+
+
     }
 
 
+    class DatePickerListener implements DatePickerDialog.OnDateSetListener{
+
+        @Override
+        public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+        }
+
+
+    }
 
 }
