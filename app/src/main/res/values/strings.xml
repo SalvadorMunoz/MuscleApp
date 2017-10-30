@@ -20,4 +20,7 @@
     <string name="series">Nº series</string>
     <string name="time">Tiempo</string>
     <string name="create_excersice">Crear ejercicio</string>
+    <string name="no_elements">No hay elementos</string>
+    <string name="comment">Comentarios</string>
+    <string name="creation">Creación:</string>
 </resources>

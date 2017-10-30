@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.linux.muscleapp.LogInActivity"
-    android:layout_margin="@dimen/activity_margin"
+    android:padding="@dimen/activity_padding"
     android:id="@+id/constraintLayout">
 
     <TextView

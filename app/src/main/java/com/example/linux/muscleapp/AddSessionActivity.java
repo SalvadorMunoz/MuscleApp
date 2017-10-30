@@ -1,10 +1,7 @@
 package com.example.linux.muscleapp;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,9 +11,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.linux.muscleapp.model.Date;
-
-import java.util.Calendar;
+import com.example.linux.muscleapp.pojo.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

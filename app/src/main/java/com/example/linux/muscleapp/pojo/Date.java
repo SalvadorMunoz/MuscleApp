@@ -1,4 +1,4 @@
-package com.example.linux.muscleapp.model;
+package com.example.linux.muscleapp.pojo;
 
 import java.util.Calendar;
 
