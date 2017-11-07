@@ -1,5 +1,6 @@
 package com.example.linux.muscleapp.repositories;
 
+import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.pojo.Session;
 
 import java.util.ArrayList;
@@ -28,8 +29,14 @@ public class SessionsRepository {
     }
 
     private void initialize (){
-        add(new Session("Ejercicios para penaltis","02-10-2017","Juan",null,null));
-        add(new Session("Ejercicios para bicicleta","02-09-2017","Raquel",null,null));
+        add(new Session(1, R.drawable.bicho,"Ejercicios para penaltis","02-10-2017","Cristiano Ronaldo",null,null));
+        add(new Session(2, R.drawable.indurain,"Ejercicios para bicicleta","02-09-2017","Indurain",null,null));
+        add(new Session(1, R.drawable.bicho,"Ejercicios para penaltis","02-10-2017","Cristiano Ronaldo",null,null));
+        add(new Session(2, R.drawable.indurain,"Ejercicios para bicicleta","02-09-2017","Indurain",null,null));
+        add(new Session(1, R.drawable.bicho,"Ejercicios para penaltis","02-10-2017","Cristiano Ronaldo",null,null));
+        add(new Session(2, R.drawable.indurain,"Ejercicios para bicicleta","02-09-2017","Indurain",null,null));
+        add(new Session(1, R.drawable.bicho,"Ejercicios para penaltis","02-10-2017","Cristiano Ronaldo",null,null));
+        add(new Session(2, R.drawable.indurain,"Ejercicios para bicicleta","02-09-2017","Indurain",null,null));
 
     }
     public void add (Session session){

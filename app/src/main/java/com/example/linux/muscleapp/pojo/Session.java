@@ -12,12 +12,14 @@ import java.util.ArrayList;
  */
 
 public class Session implements Parcelable{
-    int id;
+    int id,url;
     String name, creationDate, creator;
     ArrayList<String> trainingDates;
     ArrayList<Excersice> excersices;
 
-    public Session(String name, String creationDate, String creator, ArrayList<String> trainingDates, ArrayList<Excersice> excersices) {
+    public Session(int id, int url, String name, String creationDate, String creator, ArrayList<String> trainingDates, ArrayList<Excersice> excersices) {
+        this.id = id;
+        this.url = url;
         this.name = name;
         this.creationDate = creationDate;
         this.creator = creator;
@@ -27,6 +29,7 @@ public class Session implements Parcelable{
 
     protected Session(Parcel in) {
         id = in.readInt();
+        url = in.readInt();
         name = in.readString();
         creationDate = in.readString();
         creator = in.readString();
@@ -69,6 +72,10 @@ public class Session implements Parcelable{
         return excersices;
     }
 
+    public int getUrl() {
+        return url;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -77,6 +84,7 @@ public class Session implements Parcelable{
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
+        parcel.writeInt(url);
         parcel.writeString(name);
         parcel.writeString(creationDate);
         parcel.writeString(creator);

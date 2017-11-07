@@ -1,118 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
+    android:padding="8dp"
     >
 
-    <android.support.v7.widget.CardView
+<android.support.v7.widget.CardView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:selectableItemBackground"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?android:selectableItemBackground">
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/list_padding"
+        android:paddingTop="@dimen/list_padding">
 
-        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/list_padding"
-            android:paddingTop="@dimen/list_padding"
+        <com.pkmmte.view.CircularImageView
+            android:id="@+id/civItemSessionImage"
+            android:layout_width="@dimen/img_recyler"
+            android:layout_height="@dimen/img_recyler"
+            android:scaleType="centerCrop"
+            android:src="@drawable/no_photo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.110000014" />
 
-            >
+        <TextView
+            android:id="@+id/txvSessionName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="Nombre"
 
-            <TextView
-                android:id="@+id/txvSessionName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Nombre"
-                android:textColor="@android:color/primary_text_light"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:textColor="@android:color/primary_text_light"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/civItemSessionImage"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/txvCreator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/creation"
-                android:textColor="@android:color/secondary_text_light"
-                app:layout_constraintEnd_toEndOf="@+id/barrier"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/txvSessionName" />
-
-            <TextView
-                android:id="@+id/txvSessionRes"
-                android:layout_width="wrap_content"
-                android:layout_height="18dp"
-                android:layout_marginStart="8dp"
-                android:text="Resultado"
-                android:textColor="@android:color/secondary_text_light"
-                app:layout_constraintBaseline_toBaselineOf="@+id/txvCreator"
-                app:layout_constraintEnd_toEndOf="@+id/barrier4"
-                app:layout_constraintStart_toEndOf="@+id/barrier" />
+        <TextView
+            android:id="@+id/txvSessionRes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Resultado"
+            android:textColor="@android:color/secondary_text_light"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/civItemSessionImage"
+            app:layout_constraintTop_toBottomOf="@+id/txvSessionName" />
 
 
-            <TextView
-                android:id="@+id/txvSessionComments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/comment"
-                android:textColor="@android:color/secondary_text_light"
-                app:layout_constraintBaseline_toBaselineOf="@+id/txvSessionRes"
-                app:layout_constraintEnd_toStartOf="@+id/guideline2"
-                app:layout_constraintHorizontal_bias="0.17"
-                app:layout_constraintStart_toEndOf="@+id/barrier4" />
+        <ImageView
+            android:id="@+id/imgFollow"
+            android:layout_width="24dp"
+            android:layout_height="@dimen/icon"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvSessionRes"
+            app:srcCompat="@drawable/ic_follow" />
 
-            <ImageView
-                android:id="@+id/imgFollow"
-                android:layout_width="24dp"
-                android:layout_height="22dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline2"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/txvSessionName"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_follow" />
+        <ImageView
+            android:id="@+id/imgItemComments"
+            android:layout_width="@dimen/icon"
+            android:layout_height="@dimen/icon"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/civItemSessionImage"
+            app:layout_constraintTop_toBottomOf="@+id/txvSessionRes"
+            app:layout_constraintVertical_bias="0.157"
+            app:srcCompat="@drawable/ic_comments"
+            android:clickable="true"/>
 
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="16dp" />
+        <TextView
+            android:id="@+id/txvNumComments"
+            android:layout_width="14dp"
+            android:layout_height="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="2"
+            android:textColor="@android:color/secondary_text_light"
+            app:layout_constraintStart_toEndOf="@+id/imgItemComments"
+            app:layout_constraintTop_toBottomOf="@+id/txvSessionRes" />
 
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="367dp" />
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="336dp" />
 
-            <android.support.constraint.Barrier
-                android:id="@+id/barrier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:barrierDirection="right"
-                app:constraint_referenced_ids="txvCreator"
-                tools:layout_editor_absoluteX="210dp"
-                tools:layout_editor_absoluteY="20dp" />
-
-            <android.support.constraint.Barrier
-                android:id="@+id/barrier4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:barrierDirection="right"
-                app:constraint_referenced_ids="txvSessionRes"
-                tools:layout_editor_absoluteY="20dp" />
-
-        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>
