@@ -34,7 +34,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".AddSessionActivity" />
         <activity android:name=".AddExcersiceActivity" />
-        <activity android:name=".CommentsActivity"></activity>
+        <activity android:name=".CommentsActivity" />
+        <activity android:name=".AddDateActivity"></activity>
     </application>
 
 </manifest>

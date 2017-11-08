@@ -9,7 +9,6 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.linux.muscleapp.pojo.Date;
 
 import java.util.Calendar;
 
@@ -18,7 +17,7 @@ import butterknife.ButterKnife;
 
 /**
  * @author Salvador Muñoz
- * @version 1.0
+ * @version 2.0
  *
  * This class is a sign up window with user's information
  */
@@ -28,14 +27,12 @@ public class SignUpActivity extends AppCompatActivity {
     @BindView(R.id.txvRes) TextView res;
     @BindView(R.id.btnSignUpCreateUser) Button btnCreate;
 
-    Date date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        date = new Date();
-        date.GetDate();
+
         ButterKnife.bind(this);
         //Listener for DaterPickerDialog
         final DatePickerDialog.OnDateSetListener dateSetListener= new DatePickerDialog.OnDateSetListener() {
@@ -51,8 +48,11 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //create datepicker (context activity, style, listener,year, month,day)
-                DatePickerDialog dpdDate = new DatePickerDialog(SignUpActivity.this,R.style.DatePicker,dateSetListener,date.getYear(),date.getMonth(),date.getDay());
-                //Set max limit on current date
+                DatePickerDialog dpdDate = new DatePickerDialog(SignUpActivity.this,
+                        R.style.DatePicker,dateSetListener,
+                        Calendar.getInstance().get(Calendar.YEAR),
+                        Calendar.getInstance().get(Calendar.MONTH),
+                        Calendar.getInstance().get(Calendar.DAY_OF_MONTH));                //Set max limit on current date
                 dpdDate.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
 
                 dpdDate.show();

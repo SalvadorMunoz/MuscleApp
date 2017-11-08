@@ -8,19 +8,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.NumberPicker;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * @author Salvador Muñoz
- * @version 1.0
+ * @version 2.0
  * This class creates a excersice with it's properties and a possible video
  */
 
 public class AddExcersiceActivity extends AppCompatActivity {
     @BindView(R.id.btnCreateExcersice) Button btnCreate;
     @BindView(R.id.fbtAddVideo) FloatingActionButton fbtVideo;
+    @BindView(R.id.nbpTime) NumberPicker time;
+    @BindView(R.id.nbpSeries) NumberPicker series;
+    @BindView(R.id.nbpRepetitions) NumberPicker repetitions;
+
+    @BindView(R.id.spnType) Spinner type;
+
+    private static final int LIMIT = 30;
 
     //Camera intent id and camera limit
     private static final int CAMERA_REQUEST =1;
@@ -31,6 +41,10 @@ public class AddExcersiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_excersice);
         ButterKnife.bind(this);
+        time.setMaxValue(LIMIT);
+        repetitions.setMaxValue(LIMIT);
+        series.setMaxValue(LIMIT);
+
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +62,8 @@ public class AddExcersiceActivity extends AppCompatActivity {
                     startActivityForResult(cameraIntent,CAMERA_REQUEST);
             }
         });
+
+
     }
 
     //See the results of callbacks intent

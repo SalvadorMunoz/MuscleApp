@@ -24,4 +24,9 @@
     <string name="comment">Comentarios</string>
     <string name="creation">Creación:</string>
     <string name="write_comment">Escribe un comentario</string>
+    <string name="add_date">Añadir fecha</string>
+    <string-array name="time_types">
+        <item>segundos</item>
+        <item>minutos</item>
+    </string-array>
 </resources>

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.linux.muscleapp.AddSessionActivity"
-    android:padding="@dimen/activity_padding">
+    android:padding="@dimen/activity_padding"
+    tools:context="com.example.linux.muscleapp.AddSessionActivity">
 
     <TextView
         android:id="@+id/txvAddTitle"
@@ -54,21 +54,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/date"
+        android:text="@string/add_date"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilAddSessionPass" />
 
-    <TextView
-        android:id="@+id/txvSeeSessionDates"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="@string/see"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txvAddSessionDate"
-        app:layout_constraintStart_toEndOf="@+id/txvAddSessionDate"
-        android:textColor="@android:color/holo_blue_dark"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fbtAddExcersice"
@@ -81,28 +71,32 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85" />
+        app:layout_constraintVertical_bias="0.89" />
 
-    <ImageView
-        android:id="@+id/imgAddSessionDate"
-        android:layout_width="42dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvAddSessionDate"
-        app:srcCompat="@mipmap/ic_datepicker" />
 
     <Button
         android:id="@+id/btnCreateSession"
+        style="@style/Widget.Button.Transparent"
         android:layout_width="@dimen/btnlogin_width"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:background="@color/colorPrimary"
         android:text="@string/create_session"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ListView
+        android:id="@+id/lstExcersices"
+        android:layout_width="350dp"
+        android:layout_height="177dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateSession"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.112"
         app:layout_constraintStart_toStartOf="parent"
-        style="@style/Widget.Button.Transparent"
-        android:background="@color/colorPrimary"
-        android:textColor="@android:color/white"/>
+        app:layout_constraintTop_toBottomOf="@+id/txvAddSessionDate" />
 </android.support.constraint.ConstraintLayout>
