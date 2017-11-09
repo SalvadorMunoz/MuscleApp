@@ -50,7 +50,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     @Override
     public SessionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.item_mainlist,null);
+        View view = inflater.inflate(R.layout.item_mainlist,parent,false);
+        view.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT));
         return new SessionHolder(view);
     }
 

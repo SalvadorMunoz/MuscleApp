@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -30,6 +31,7 @@ public class AddSessionActivity extends AppCompatActivity {
     @BindView(R.id.btnCreateSession) Button btnCreate;
     @BindView(R.id.txvAddSessionDate) TextView txvAddDate;
     @BindView(R.id.lstExcersices) ListView listView;
+    @BindView(R.id.toolbar)Toolbar toolbar;
 
     ExcersicesAdapter adapter;
 
@@ -39,6 +41,8 @@ public class AddSessionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_session);
 
         ButterKnife.bind(this);
+
+        toolbar.setTitle(R.string.add_session);
 
         adapter = new ExcersicesAdapter(this);
         listView.setAdapter(adapter);

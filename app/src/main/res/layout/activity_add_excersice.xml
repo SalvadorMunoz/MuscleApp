@@ -5,16 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.linux.muscleapp.AddExcersiceActivity"
-    android:padding="@dimen/activity_padding">
-
-    <TextView
-        android:id="@+id/txvAddExcersiceTitle"
-        android:layout_width="wrap_content"
+    >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_excersice_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:titleTextColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
+
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/tilAddExcersiceName"
@@ -23,7 +25,9 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvAddExcersiceTitle">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:layout_marginEnd="@dimen/activity_padding"
+        android:layout_marginStart="@dimen/activity_padding">
 
         <EditText
             android:id="@+id/edtAddExcersiceName"
@@ -40,6 +44,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="@dimen/activity_padding"
+        android:layout_marginStart="@dimen/activity_padding"
         app:layout_constraintTop_toBottomOf="@+id/tilAddExcersiceName">
 
         <EditText
@@ -54,75 +60,85 @@
         android:id="@+id/fbtAddVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="@dimen/activity_padding"
+        android:layout_marginEnd="@dimen/activity_padding"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_video"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85" />
+        app:layout_constraintVertical_bias="0.82" />
 
     <Button
         android:id="@+id/btnCreateExcersice"
+        style="@style/Widget.Button.Transparent"
         android:layout_width="@dimen/btnlogin_width"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:background="@color/colorPrimary"
         android:text="@string/create_excersice"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/colorPrimary"
-        android:textColor="@android:color/white"
-        style="@style/Widget.Button.Transparent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/txvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
         android:text="@string/time"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilAddExcersiceMuscle" />
+        app:layout_constraintTop_toBottomOf="@+id/txvSeries"
+        app:layout_constraintVertical_bias="0.35000002" />
 
     <NumberPicker
         android:id="@+id/nbpTime"
         android:layout_width="47dp"
         android:layout_height="84dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txvTime"
-        app:layout_constraintTop_toBottomOf="@+id/tilAddExcersiceMuscle" />
+        app:layout_constraintTop_toBottomOf="@+id/txvSeries"
+        app:layout_constraintVertical_bias="0.32999998" />
 
     <Spinner
         android:id="@+id/spnType"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
         android:entries="@array/time_types"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/nbpTime"
-        app:layout_constraintTop_toBottomOf="@+id/tilAddExcersiceMuscle" />
+        app:layout_constraintTop_toBottomOf="@+id/txvSeries"
+        app:layout_constraintVertical_bias="0.36" />
 
     <TextView
         android:id="@+id/txvSeries"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:text="@string/series"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nbpTime" />
+        app:layout_constraintTop_toBottomOf="@+id/tilAddExcersiceMuscle" />
 
     <NumberPicker
         android:id="@+id/nbpSeries"
         android:layout_width="47dp"
         android:layout_height="84dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/txvSeries"
-        app:layout_constraintTop_toBottomOf="@+id/nbpTime" />
+        app:layout_constraintTop_toBottomOf="@+id/tilAddExcersiceMuscle" />
 
     <TextView
         android:id="@+id/txvRepetitions"
@@ -132,13 +148,14 @@
         android:text="@string/repetitions"
         app:layout_constraintBaseline_toBaselineOf="@+id/txvSeries"
         app:layout_constraintStart_toEndOf="@+id/nbpSeries" />
+
     <NumberPicker
         android:id="@+id/nbpRepetitions"
         android:layout_width="47dp"
         android:layout_height="84dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/txvRepetitions"
-        app:layout_constraintTop_toBottomOf="@+id/nbpTime" />
+        app:layout_constraintTop_toBottomOf="@+id/tilAddExcersiceMuscle" />
 
 </android.support.constraint.ConstraintLayout>

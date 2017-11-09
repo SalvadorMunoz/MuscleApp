@@ -6,6 +6,7 @@ import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
@@ -27,6 +28,7 @@ public class AddExcersiceActivity extends AppCompatActivity {
     @BindView(R.id.nbpTime) NumberPicker time;
     @BindView(R.id.nbpSeries) NumberPicker series;
     @BindView(R.id.nbpRepetitions) NumberPicker repetitions;
+    @BindView(R.id.toolbar)Toolbar toolbar;
 
     @BindView(R.id.spnType) Spinner type;
 
@@ -41,9 +43,12 @@ public class AddExcersiceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_excersice);
         ButterKnife.bind(this);
+
         time.setMaxValue(LIMIT);
         repetitions.setMaxValue(LIMIT);
         series.setMaxValue(LIMIT);
+
+        toolbar.setTitle(R.string.add_excersice_title);
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override

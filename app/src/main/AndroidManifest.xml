@@ -32,9 +32,11 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".AddSessionActivity" />
+        <activity android:name=".AddSessionActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity android:name=".AddExcersiceActivity" />
-        <activity android:name=".CommentsActivity" />
+        <activity android:name=".CommentsActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize"/>
         <activity android:name=".AddDateActivity"></activity>
     </application>
 

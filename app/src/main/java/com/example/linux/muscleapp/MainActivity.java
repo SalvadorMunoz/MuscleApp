@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.linux.muscleapp.adapters.MainAdapter;
@@ -17,7 +18,7 @@ import butterknife.ButterKnife;
 
 /**
  * @author Salvador Muñoz
- * @version 3.0
+ * @version 4.0
  *
  * This class is the main activity has got the sessions list, navigation drawer, add session button...
  */
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity   implements SwipeRefreshLay
     //Create and inflate container
     @BindView(R.id.srlContainer) SwipeRefreshLayout swipeContainer;
     @BindView(R.id.fbtAdd) FloatingActionButton fbtAdd;
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     //Recycler view elements
     MainAdapter adapter;
@@ -36,10 +38,13 @@ public class MainActivity extends AppCompatActivity   implements SwipeRefreshLay
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
+
         //set property to paint the items
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(this));
-        //create and set recyclerview's adapter
+        //create and set recyclerview's adapterLinearLayoutManager
         adapter = new MainAdapter();
         recycler.setAdapter(adapter);
         //Add listener
