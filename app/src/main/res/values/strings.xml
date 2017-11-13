@@ -25,6 +25,12 @@
     <string name="creation">Creación:</string>
     <string name="write_comment">Escribe un comentario</string>
     <string name="add_date">Añadir fecha</string>
+    <string name="action_perfil">Perfil</string>
+    <string name="action_favourites">Sesiones favoritas</string>
+    <string name="action_today">Sesiones de hoy</string>
+    <string name="action_search_user">Buscar usuarios</string>
+    <string name="action_setting">Ajustes</string>
+    <string name="action_aboutus">Sobre nosotros</string>
     <string-array name="time_types">
         <item>segundos</item>
         <item>minutos</item>

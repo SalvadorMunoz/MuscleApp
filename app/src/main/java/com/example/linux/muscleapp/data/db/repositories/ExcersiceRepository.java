@@ -1,8 +1,7 @@
-package com.example.linux.muscleapp.repositories;
+package com.example.linux.muscleapp.data.db.repositories;
 
-import android.widget.ArrayAdapter;
 
-import com.example.linux.muscleapp.pojo.Excersice;
+import com.example.linux.muscleapp.data.db.pojo.Excersice;
 
 import java.util.ArrayList;
 

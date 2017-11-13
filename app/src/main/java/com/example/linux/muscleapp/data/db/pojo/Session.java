@@ -1,4 +1,4 @@
-package com.example.linux.muscleapp.pojo;
+package com.example.linux.muscleapp.data.db.pojo;
 
 import android.os.Parcel;
 import android.os.Parcelable;

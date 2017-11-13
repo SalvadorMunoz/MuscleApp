@@ -3,25 +3,15 @@ package com.example.linux.muscleapp.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.Inflater;
-
-import com.example.linux.muscleapp.CommentsActivity;
 import com.example.linux.muscleapp.R;
-import com.example.linux.muscleapp.pojo.Commentary;
-import com.example.linux.muscleapp.pojo.Session;
-import com.example.linux.muscleapp.repositories.CommentsRepository;
-import com.example.linux.muscleapp.repositories.SessionsRepository;
-
-import org.w3c.dom.Comment;
+import com.example.linux.muscleapp.data.db.pojo.Commentary;
+import com.example.linux.muscleapp.data.db.repositories.CommentsRepository;
 
 /**
  * @author Salvador Muñoz

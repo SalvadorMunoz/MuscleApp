@@ -2,7 +2,7 @@
 <shape android:shape="rectangle"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <stroke
-        android:color="@color/colorPrimary"
+        android:color="@android:color/white"
         android:width="@dimen/button_border"
         />
 </shape>

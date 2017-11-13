@@ -1,6 +1,7 @@
-package com.example.linux.muscleapp.repositories;
+package com.example.linux.muscleapp.data.db.repositories;
 
-import com.example.linux.muscleapp.pojo.SessionDate;
+
+import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 
 import java.util.ArrayList;
 

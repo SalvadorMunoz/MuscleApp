@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="set_titles">Ajustes de la cuenta</string>
+    <string name="set_rememberuser">Cerrar sesión</string>
+    <string name="set_description_rememberuser">Cerrar sesión permanentemente</string>
+    <string name="set_name">Nuevo nombre de usuario</string>
+    <string name="set_pass">Nueva contraseña</string>
+</resources>

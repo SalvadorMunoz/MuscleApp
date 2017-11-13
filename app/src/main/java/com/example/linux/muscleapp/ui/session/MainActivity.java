@@ -1,4 +1,4 @@
-package com.example.linux.muscleapp;
+package com.example.linux.muscleapp.ui.session;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
+import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.adapters.MainAdapter;
+import com.example.linux.muscleapp.ui.about.AboutUsActivity;
+import com.example.linux.muscleapp.ui.setting.SettingsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,5 +82,26 @@ public class MainActivity extends AppCompatActivity   implements SwipeRefreshLay
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = null;
+        switch (item.getItemId()){
+            case R.id.actionAccountSettings:
+                intent = new Intent(MainActivity.this,SettingsActivity.class);
+                break;
+            case R.id.actionAboutUs:
+                intent = new Intent(MainActivity.this,AboutUsActivity.class);
+                break;
+        }
+        if(intent != null)
+            startActivity(intent);
+        return super.onOptionsItemSelected(item);
+    }
 }

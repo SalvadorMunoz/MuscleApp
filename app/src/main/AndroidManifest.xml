@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".ui.login.LogInActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,20 +24,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LogInActivity"
+            android:name=".ui.setting.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".ui.signup.SignUpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.session.MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".AddSessionActivity"
+        <activity android:name=".ui.session.AddSessionActivity"
             android:windowSoftInputMode="adjustPan|adjustResize"/>
-        <activity android:name=".AddExcersiceActivity" />
-        <activity android:name=".CommentsActivity"
+        <activity android:name=".ui.excersice.AddExcersiceActivity" />
+        <activity android:name=".ui.comment.CommentsActivity"
             android:windowSoftInputMode="adjustPan|adjustResize"/>
-        <activity android:name=".AddDateActivity"></activity>
+        <activity android:name=".ui.dates.AddDateActivity"></activity>
+        <activity android:name=".ui.about.AboutUsActivity"/>
     </application>
 
 </manifest>

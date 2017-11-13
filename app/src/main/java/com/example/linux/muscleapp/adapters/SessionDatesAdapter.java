@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.linux.muscleapp.R;
-import com.example.linux.muscleapp.pojo.SessionDate;
-import com.example.linux.muscleapp.repositories.SessionDatesRepository;
+import com.example.linux.muscleapp.data.db.pojo.SessionDate;
+import com.example.linux.muscleapp.data.db.repositories.SessionDatesRepository;
 
 /**
  * @author Salvador Muñoz

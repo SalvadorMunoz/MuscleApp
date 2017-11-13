@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.linux.muscleapp.CommentsActivity;
 import com.example.linux.muscleapp.R;
-import com.example.linux.muscleapp.pojo.Session;
-import com.example.linux.muscleapp.repositories.CommentsRepository;
-import com.example.linux.muscleapp.repositories.SessionsRepository;
+import com.example.linux.muscleapp.data.db.pojo.Session;
+import com.example.linux.muscleapp.data.db.repositories.CommentsRepository;
+import com.example.linux.muscleapp.data.db.repositories.SessionsRepository;
+import com.example.linux.muscleapp.ui.comment.CommentsActivity;
 import com.pkmmte.view.CircularImageView;
 
 import java.util.ArrayList;

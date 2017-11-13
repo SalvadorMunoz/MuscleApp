@@ -1,6 +1,7 @@
-package com.example.linux.muscleapp.repositories;
+package com.example.linux.muscleapp.data.db.repositories;
 
-import com.example.linux.muscleapp.pojo.Commentary;
+
+import com.example.linux.muscleapp.data.db.pojo.Commentary;
 
 import java.util.ArrayList;
 

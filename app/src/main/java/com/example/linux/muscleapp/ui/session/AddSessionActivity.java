@@ -1,20 +1,19 @@
-package com.example.linux.muscleapp;
+package com.example.linux.muscleapp.ui.session;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
+import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.adapters.ExcersicesAdapter;
+import com.example.linux.muscleapp.ui.dates.AddDateActivity;
+import com.example.linux.muscleapp.ui.excersice.AddExcersiceActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

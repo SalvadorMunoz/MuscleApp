@@ -1,14 +1,14 @@
-package com.example.linux.muscleapp;
+package com.example.linux.muscleapp.ui.dates;
 
 import android.app.DatePickerDialog;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ListView;
 
-
+import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.adapters.SessionDatesAdapter;
 
 import java.util.Calendar;

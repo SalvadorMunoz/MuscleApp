@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.linux.muscleapp.R;
-import com.example.linux.muscleapp.pojo.Excersice;
-import com.example.linux.muscleapp.repositories.ExcersiceRepository;
+import com.example.linux.muscleapp.data.db.pojo.Excersice;
+import com.example.linux.muscleapp.data.db.repositories.ExcersiceRepository;
 
 /**
  * @author Salvador Muñoz

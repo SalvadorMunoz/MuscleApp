@@ -1,14 +1,16 @@
-package com.example.linux.muscleapp;
+package com.example.linux.muscleapp.ui.signup;
 
 import android.app.DatePickerDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.linux.muscleapp.R;
 
 import java.util.Calendar;
 
@@ -26,6 +28,8 @@ public class SignUpActivity extends AppCompatActivity {
     @BindView(R.id.imgSignUpDate) ImageView imgDate;
     @BindView(R.id.txvRes) TextView res;
     @BindView(R.id.btnSignUpCreateUser) Button btnCreate;
+    @BindView(R.id.toolbar)Toolbar toolbar;
+
 
 
     @Override
@@ -34,6 +38,8 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         ButterKnife.bind(this);
+        toolbar.setTitle(R.string.sign_up);
+
         //Listener for DaterPickerDialog
         final DatePickerDialog.OnDateSetListener dateSetListener= new DatePickerDialog.OnDateSetListener() {
             @Override

@@ -5,68 +5,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.linux.muscleapp.SignUpActivity"
-    android:padding="@dimen/activity_padding"
     >
-    <TextView
-        android:id="@+id/txvSignUpTitle"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_titlelogin"
-        android:text="@string/sign_up"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:titleTextColor="@android:color/white"
+        />
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/tilSignupEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="@dimen/margin_titlelogin"
-        app:layout_constraintTop_toBottomOf="@id/txvSignUpTitle">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
         <EditText
             android:id="@+id/edtSingupEmail"
-            android:hint="@string/login_email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            />
+            android:hint="@string/login_email" />
     </android.support.design.widget.TextInputLayout>
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/tilSignupPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilSignupEmail">
+
         <EditText
             android:id="@+id/edtSingupPass"
-            android:hint="@string/login_pass"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textPassword"
-            />
+            android:hint="@string/login_pass"
+            android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/tilSignupResidence"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_tillogin"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilSignupPass">
+
         <EditText
             android:id="@+id/edtSingupResidence"
-            android:hint="@string/signup_residence"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            />
+            android:hint="@string/signup_residence" />
     </android.support.design.widget.TextInputLayout>
 
     <TextView
         android:id="@+id/txvSignUpDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/signup_borndate"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/margin_tillogin"
-        app:layout_constraintTop_toBottomOf="@id/tilSignupResidence" />
+        app:layout_constraintTop_toBottomOf="@+id/tilSignupResidence"
+        tools:layout_editor_absoluteX="16dp" />
     <TextView
         android:id="@+id/txvRes"
         android:layout_width="wrap_content"
@@ -74,10 +84,12 @@
         app:layout_constraintBaseline_toBaselineOf="@id/txvSignUpDate"
         app:layout_constraintStart_toEndOf="@id/txvSignUpDate"
         android:layout_margin="4dp"/>
+
     <ImageView
         android:id="@+id/imgSignUpDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:src="@mipmap/ic_datepicker"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txvSignUpDate" />

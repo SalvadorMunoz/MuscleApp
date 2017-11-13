@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/actionPerfil"
+        android:title="@string/action_perfil"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/actionFavourites"
+        android:title="@string/action_favourites"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/actionSessionsToday"
+        android:title="@string/action_today"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/actionSearchUser"
+        android:title="@string/action_search_user"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/actionAccountSettings"
+        android:title="@string/action_setting"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/actionAboutUs"
+        android:title="@string/action_aboutus"
+        app:showAsAction="never"/>
+
+</menu>
