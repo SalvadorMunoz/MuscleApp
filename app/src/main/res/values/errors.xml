@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="err_emptypass">Contraseña vacía</string>
+    <string name="err_emptyemail">Correo electrónico vacío</string>
+    <string name="err_signin">Credenciales incorrectas</string>
+    <string name="err_emailexists">El email ya existe</string>
+    <string name="err_emptyresidence">Residenca vacía</string>
+    <string name="err_emptyborndate">Fecha de nacimiento vacía</string>
+    <string name="err_emptyname">Nombre vacío</string>
+
+</resources>

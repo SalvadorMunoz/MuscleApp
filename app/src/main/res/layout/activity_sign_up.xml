@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.linux.muscleapp.SignUpActivity"
+    tools:context="com.example.linux.muscleapp.ui.signup.SignUpActivity"
     >
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -25,7 +25,8 @@
         android:layout_marginTop="@dimen/margin_titlelogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        >
 
         <EditText
             android:id="@+id/edtSingupEmail"
@@ -42,7 +43,8 @@
         android:layout_marginStart="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilSignupEmail">
+        app:layout_constraintTop_toBottomOf="@id/tilSignupEmail"
+        >
 
         <EditText
             android:id="@+id/edtSingupPass"
@@ -53,6 +55,24 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilSignupName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilSignupPass"
+       >
+
+        <EditText
+            android:id="@+id/edtSingupName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/signup_name" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
         android:id="@+id/tilSignupResidence"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,7 +80,8 @@
         android:layout_marginStart="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilSignupPass">
+        app:layout_constraintTop_toBottomOf="@id/tilSignupName"
+        >
 
         <EditText
             android:id="@+id/edtSingupResidence"
@@ -73,10 +94,11 @@
         android:id="@+id/txvSignUpDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/signup_borndate"
-        app:layout_constraintTop_toBottomOf="@+id/tilSignupResidence"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilSignupResidence" />
     <TextView
         android:id="@+id/txvRes"
         android:layout_width="wrap_content"

@@ -31,6 +31,7 @@
     <string name="action_search_user">Buscar usuarios</string>
     <string name="action_setting">Ajustes</string>
     <string name="action_aboutus">Sobre nosotros</string>
+    <string name="signup_name">Nombre del usuario</string>
     <string-array name="time_types">
         <item>segundos</item>
         <item>minutos</item>

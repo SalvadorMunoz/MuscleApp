@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.linux.muscleapp.LogInActivity"
+    tools:context="com.example.linux.muscleapp.ui.login.LogInActivity"
     android:padding="@dimen/activity_padding"
-    android:id="@+id/constraintLayout"
+    android:id="@+id/android.R.id.content"
     android:background="@color/colorPrimary"
     >
 
@@ -28,7 +28,8 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:hintTextAppearance="@style/EditTextLoginTheme">
+        app:hintTextAppearance="@style/EditTextLoginTheme"
+        >
 
         <EditText
             android:id="@+id/edtLoginEmail"
@@ -45,7 +46,8 @@
         android:layout_marginBottom="@dimen/margin_tillogin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilLoginEmail"
-        app:hintTextAppearance="@style/EditTextLoginTheme">
+        app:hintTextAppearance="@style/EditTextLoginTheme"
+        >
         <EditText
             android:id="@+id/edtLoginPass"
             android:layout_width="match_parent"
