@@ -36,8 +36,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     /**
      * Empty constructor add a session from the repository
      */
-    public MainAdapter(){
-        sessions = SessionsRepository.getInstace().getSessions();
+    public MainAdapter(ArrayList<Session> sessions){
+        this.sessions = sessions;
         listener = new clickItem();
     }
 

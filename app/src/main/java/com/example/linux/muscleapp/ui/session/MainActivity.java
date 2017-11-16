@@ -16,8 +16,11 @@ import android.view.View;
 
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.adapters.MainAdapter;
+import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.ui.about.AboutUsActivity;
 import com.example.linux.muscleapp.ui.setting.SettingsActivity;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,11 +31,14 @@ import butterknife.ButterKnife;
  *
  * This class is the main activity has got the sessions list, navigation drawer, add session button...
  */
-public class MainActivity extends AppCompatActivity   implements SwipeRefreshLayout.OnRefreshListener{
+public class MainActivity extends AppCompatActivity   implements SwipeRefreshLayout.OnRefreshListener,MainView{
     //Create and inflate container
     @BindView(R.id.srlContainer) SwipeRefreshLayout swipeContainer;
     @BindView(R.id.fbtAdd) FloatingActionButton fbtAdd;
     @BindView(R.id.toolbar) Toolbar toolbar;
+    ArrayList<Session> sessions;
+
+    MainPresenter presenter;
 
     //Recycler view elements
     MainAdapter adapter;
@@ -43,6 +49,9 @@ public class MainActivity extends AppCompatActivity   implements SwipeRefreshLay
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sessions = new ArrayList<>();
+        presenter = new MainPresenterImp(this);
+        presenter.getSessions();
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
@@ -51,7 +60,7 @@ public class MainActivity extends AppCompatActivity   implements SwipeRefreshLay
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(this));
         //create and set recyclerview's adapterLinearLayoutManager
-        adapter = new MainAdapter();
+        adapter = new MainAdapter(sessions);
         recycler.setAdapter(adapter);
         //Add listener
         swipeContainer.setOnRefreshListener(this);
@@ -103,5 +112,16 @@ public class MainActivity extends AppCompatActivity   implements SwipeRefreshLay
         if(intent != null)
             startActivity(intent);
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void fillSessions(ArrayList<Session> sessions) {
+        this.sessions = sessions;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 }
