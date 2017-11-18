@@ -4,6 +4,7 @@ package com.example.linux.muscleapp.data.db.repositories;
 import com.example.linux.muscleapp.data.db.pojo.Commentary;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by linux on 7/11/17.
@@ -38,6 +39,7 @@ public class CommentsRepository {
             if(comments.get(i).getIdSession() == idSession)
                 res.add(comments.get(i));
         }
+        Collections.sort(res);
         return  res;
     }
 

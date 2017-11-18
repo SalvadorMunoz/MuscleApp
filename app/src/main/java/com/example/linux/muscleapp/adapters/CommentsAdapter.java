@@ -13,6 +13,8 @@ import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Commentary;
 import com.example.linux.muscleapp.data.db.repositories.CommentsRepository;
 
+import java.util.ArrayList;
+
 /**
  * @author Salvador Muñoz
  * @version 1.0
@@ -22,8 +24,8 @@ import com.example.linux.muscleapp.data.db.repositories.CommentsRepository;
 
 public class CommentsAdapter extends ArrayAdapter<Commentary>{
 
-    public CommentsAdapter(@NonNull Context context, int resource) {
-        super(context, R.layout.item_comments, CommentsRepository.getInstace().getComments(resource));
+    public CommentsAdapter(@NonNull Context context, int resource, ArrayList<Commentary> comments) {
+        super(context, R.layout.item_comments, comments);
     }
 
     @NonNull

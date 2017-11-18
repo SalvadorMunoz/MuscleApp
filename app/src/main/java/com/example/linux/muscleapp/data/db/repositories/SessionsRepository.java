@@ -4,6 +4,7 @@ import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * @author Salvador Muñoz
@@ -44,6 +45,7 @@ public class SessionsRepository {
     }
 
     public ArrayList<Session> getSessions(){
+        Collections.sort(sessions);
         return sessions;
     }
 }

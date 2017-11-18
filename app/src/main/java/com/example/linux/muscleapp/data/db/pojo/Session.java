@@ -2,8 +2,13 @@ package com.example.linux.muscleapp.data.db.pojo;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author Salvador Muñoz
@@ -11,7 +16,7 @@ import java.util.ArrayList;
  * This class is a training session
  */
 
-public class Session implements Parcelable{
+public class Session implements Parcelable,Comparable{
     int id,url;
     String name, creationDate, creator;
     ArrayList<String> trainingDates;
@@ -89,5 +94,21 @@ public class Session implements Parcelable{
         parcel.writeString(creationDate);
         parcel.writeString(creator);
         parcel.writeStringList(trainingDates);
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        String tmp= ((Session)o).getCreationDate();
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat thisDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = null;
+        Date thisDate = null;
+        try {
+             date = dateFormat.parse(tmp);
+             thisDate = thisDateFormat.parse(getCreationDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date.compareTo(thisDate);
     }
 }
