@@ -13,8 +13,10 @@ public class LoginInteractorImp implements LoginInteractor{
             loginFinished.onEmptyEmail();
         else if(pass.isEmpty())
             loginFinished.onEmptyPass();
-        else if(UsersRepository.getInstance().validateCredentials(email,pass))
+        else if(UsersRepository.getInstance().validateCredentials(email,pass)) {
+            UsersRepository.getInstance().setCurrentUser(email);
             loginFinished.onSucces();
+        }
         else
             loginFinished.onSigninError();
     }

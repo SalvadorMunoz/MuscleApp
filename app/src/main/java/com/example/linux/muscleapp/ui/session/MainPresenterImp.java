@@ -1,6 +1,7 @@
 package com.example.linux.muscleapp.ui.session;
 
 import com.example.linux.muscleapp.data.db.pojo.Session;
+import com.example.linux.muscleapp.data.db.pojo.User;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,11 @@ public class MainPresenterImp implements MainPresenter,MainInteractor.onLoadFini
     }
 
     @Override
+    public void getCurrentUser() {
+        interactor.getCurrentUser(this);
+    }
+
+    @Override
     public void onDestroy() {
         view = null;
     }
@@ -29,5 +35,10 @@ public class MainPresenterImp implements MainPresenter,MainInteractor.onLoadFini
     @Override
     public void giveSessions(ArrayList<Session> sessions) {
         view.fillSessions(sessions);
+    }
+
+    @Override
+    public void giveCurrentUser(User user) {
+        view.getCurrentUser(user);
     }
 }

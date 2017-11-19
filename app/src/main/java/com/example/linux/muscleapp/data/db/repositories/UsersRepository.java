@@ -14,6 +14,8 @@ import java.util.ArrayList;
 public class UsersRepository {
     private ArrayList<User>users;
     private static UsersRepository instance;
+
+    private User currentUser;
     private UsersRepository(){
         users = new ArrayList<>();
         initialize();
@@ -52,5 +54,16 @@ public class UsersRepository {
                 res = true;
         }
         return res;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(String email) {
+        for(int i = 0; i< users.size();i++) {
+            if(users.get(i).getEmail().equals(email))
+                this.currentUser = users.get(i);
+        }
     }
 }

@@ -10,7 +10,11 @@ import java.util.ArrayList;
 
 public interface CommentsInteractor {
     void fillComments(int resource, OnLoadFinish onLoadFinish);
+    void addComment(int resource,String user,String message, OnCommentAdded onCommentAdded);
     interface OnLoadFinish{
         void onLoadFinish(ArrayList<Commentary> comments);
+    }
+    interface  OnCommentAdded{
+        void onCommentAdded();
     }
 }

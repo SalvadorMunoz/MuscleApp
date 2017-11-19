@@ -10,4 +10,5 @@ import java.util.ArrayList;
 
 public interface CommentsView {
     void fillComments(ArrayList<Commentary> comments);
+    void updateComments();
 }

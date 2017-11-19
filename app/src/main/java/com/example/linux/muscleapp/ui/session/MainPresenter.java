@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public interface MainPresenter {
     void getSessions();
+    void getCurrentUser();
     void onDestroy();
 
 

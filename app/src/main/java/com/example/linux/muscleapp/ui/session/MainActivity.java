@@ -17,6 +17,7 @@ import android.view.View;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.adapters.MainAdapter;
 import com.example.linux.muscleapp.data.db.pojo.Session;
+import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.ui.about.AboutUsActivity;
 import com.example.linux.muscleapp.ui.setting.SettingsActivity;
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity   implements SwipeRefreshLay
     @BindView(R.id.fbtAdd) FloatingActionButton fbtAdd;
     @BindView(R.id.toolbar) Toolbar toolbar;
     ArrayList<Session> sessions;
+    User current;
 
     MainPresenter presenter;
 
@@ -50,8 +52,11 @@ public class MainActivity extends AppCompatActivity   implements SwipeRefreshLay
         setContentView(R.layout.activity_main);
 
         sessions = new ArrayList<>();
+
         presenter = new MainPresenterImp(this);
         presenter.getSessions();
+        presenter.getCurrentUser();
+
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
@@ -60,7 +65,7 @@ public class MainActivity extends AppCompatActivity   implements SwipeRefreshLay
         recycler.setHasFixedSize(true);
         recycler.setLayoutManager(new LinearLayoutManager(this));
         //create and set recyclerview's adapterLinearLayoutManager
-        adapter = new MainAdapter(sessions);
+        adapter = new MainAdapter(sessions,current);
         recycler.setAdapter(adapter);
         //Add listener
         swipeContainer.setOnRefreshListener(this);
@@ -95,6 +100,8 @@ public class MainActivity extends AppCompatActivity   implements SwipeRefreshLay
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu,menu);
+        MenuItem item = menu.findItem(R.id.actionPerfil);
+        item.setTitle(current.getName());
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -117,6 +124,11 @@ public class MainActivity extends AppCompatActivity   implements SwipeRefreshLay
     @Override
     public void fillSessions(ArrayList<Session> sessions) {
         this.sessions = sessions;
+    }
+
+    @Override
+    public void getCurrentUser(User user) {
+        current = user;
     }
 
     @Override

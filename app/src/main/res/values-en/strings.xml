@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MuscleApp</string>
+    <string name="set_titles">Account settings</string>
+    <string name="set_rememberuser">Close session</string>
+    <string name="set_description_rememberuser">Close session permanently</string>
+    <string name="set_name">New name</string>
+    <string name="set_pass">New password</string>
+    <string name="err_emptypass">Empty pass</string>
+    <string name="err_emptyemail">Empty email</string>
+    <string name="err_signin">Sign in error</string>
+    <string name="err_emailexists">Email exists</string>
+    <string name="err_emptyresidence">Empty residence</string>
+    <string name="err_emptyborndate">Born date</string>
+    <string name="err_emptyname">Empty name</string>
+    <string name="login_title">Log in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="login_email">Email</string>
+    <string name="login_pass">Password</string>
+    <string name="forgot_pass">Forgot the password?</string>
+    <string name="sign_in">Sign in</string>
+    <string name="signup_residence">Residence</string>
+    <string name="signup_borndate">Born date</string>
+    <string name="make_user">Create user</string>
+    <string name="add_session">Create session</string>
+    <string name="name">Name</string>
+    <string name="date">Date</string>
+    <string name="create_session">Create session</string>
+    <string name="see">See</string>
+    <string name="add_excersice_title">Create excercise</string>
+    <string name="muscle">Muscle</string>
+    <string name="repetitions">NºRepetitions</string>
+    <string name="time">Time</string>
+    <string name="create_excersice">Create excersice</string>
+    <string name="no_elements">No elements</string>
+    <string name="comment">Comments</string>
+    <string name="creation">"Creation: "</string>
+    <string name="write_comment">Write a comment</string>
+    <string name="add_date">Add date</string>
+    <string name="action_favourites">Favourites\' sessions</string>
+    <string name="action_today">Today\'s sessions</string>
+    <string name="action_search_user">Search users</string>
+    <string name="action_setting">Settings</string>
+    <string name="action_aboutus">About us</string>
+    <string name="signup_name">User name</string>
+</resources>

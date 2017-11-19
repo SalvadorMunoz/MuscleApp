@@ -6,5 +6,6 @@ package com.example.linux.muscleapp.ui.comment;
 
 public interface CommentsPresenter {
     void fillComments(int resource);
+    void addComment(int resource, String user, String message);
     void onDestroy();
 }

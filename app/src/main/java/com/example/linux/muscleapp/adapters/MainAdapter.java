@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Session;
+import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.db.repositories.CommentsRepository;
 import com.example.linux.muscleapp.data.db.repositories.SessionsRepository;
 import com.example.linux.muscleapp.ui.comment.CommentsActivity;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>{
     //Sessions repository
     private ArrayList<Session>sessions;
+    private User current;
 
     //Class listener
     clickItem listener;
@@ -36,8 +38,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     /**
      * Empty constructor add a session from the repository
      */
-    public MainAdapter(ArrayList<Session> sessions){
+    public MainAdapter(ArrayList<Session> sessions,User current){
         this.sessions = sessions;
+        this.current = current;
         listener = new clickItem();
     }
 
@@ -107,6 +110,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
                 case R.id.imgItemComments:
                     intent = new Intent(view.getContext(), CommentsActivity.class);
                     intent.putExtra("idSession",session);
+                    intent.putExtra("current",current);
                     break;
             }
             if(intent != null)

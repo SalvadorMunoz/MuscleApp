@@ -1,6 +1,7 @@
 package com.example.linux.muscleapp.ui.session;
 
 import com.example.linux.muscleapp.data.db.pojo.Session;
+import com.example.linux.muscleapp.data.db.pojo.User;
 
 import java.util.ArrayList;
 
@@ -10,5 +11,5 @@ import java.util.ArrayList;
 
 public interface MainView {
     void fillSessions(ArrayList<Session> sessions);
-
+    void getCurrentUser(User user);
 }

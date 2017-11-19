@@ -14,10 +14,10 @@
     <string name="date">Fecha</string>
     <string name="create_session">Crear sesión</string>
     <string name="see">Ver</string>
-    <string name="add_excersice_title">Crear entrenamiento</string>
+    <string name="add_excersice_title">Crear ejercicio</string>
     <string name="muscle">Músculo</string>
     <string name="repetitions">Nº Repeticiones</string>
-    <string name="series">Nº series</string>
+    <string name="series" translatable="false">Nº series</string>
     <string name="time">Tiempo</string>
     <string name="create_excersice">Crear ejercicio</string>
     <string name="no_elements">No hay elementos</string>
@@ -25,7 +25,7 @@
     <string name="creation">Creación:</string>
     <string name="write_comment">Escribe un comentario</string>
     <string name="add_date">Añadir fecha</string>
-    <string name="action_perfil">Perfil</string>
+    <string name="action_perfil" translatable="false">Perfil</string>
     <string name="action_favourites">Sesiones favoritas</string>
     <string name="action_today">Sesiones de hoy</string>
     <string name="action_search_user">Buscar usuarios</string>
