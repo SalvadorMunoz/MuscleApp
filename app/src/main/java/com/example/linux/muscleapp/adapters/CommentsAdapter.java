@@ -52,6 +52,8 @@ public class CommentsAdapter extends ArrayAdapter<Commentary>{
         return view;
     }
 
+
+
     class CommentaryHolder{
         TextView user, content,date;
     }

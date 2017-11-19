@@ -32,6 +32,7 @@ public class CommentsActivity extends AppCompatActivity implements CommentsView 
     CommentsAdapter adapter;
     ArrayList<Commentary> comments;
     CommentsPresenter presenter;
+    int idSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class CommentsActivity extends AppCompatActivity implements CommentsView 
 
         ButterKnife.bind(this);
 
-        final int idSession = getIntent().getIntExtra("idSession",0);
+         idSession = getIntent().getIntExtra("idSession",0);
         final User current = getIntent().getExtras().getParcelable("current");
 
 
@@ -66,7 +67,11 @@ public class CommentsActivity extends AppCompatActivity implements CommentsView 
 
     @Override
     public void updateComments() {
+        adapter = new CommentsAdapter(this,idSession,comments);
         adapter.notifyDataSetChanged();
+
+        listView.setAdapter(adapter);
+        edtComment.setText("");
     }
 
     @Override

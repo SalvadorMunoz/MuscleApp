@@ -24,6 +24,7 @@ public class CommentsInteractorImp implements CommentsInteractor {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date date = new Date();
         CommentsRepository.getInstace().add(new Commentary(0,resource,user,message,dateFormat.format(date)));
+        int n = CommentsRepository.getInstace().getComments(resource).size();
         onCommentAdded.onCommentAdded();
 
     }
