@@ -70,7 +70,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
         holder.name.setText(sessions.get(position).getName());
         holder.result.setText(sessions.get(position).getCreator()+", "+sessions.get(position).getCreationDate());
         holder.image.setImageResource(sessions.get(position).getUrl());
-        holder.numComments.setText(String.valueOf(CommentsRepository.getInstace().getSize(id)));
+        int num = CommentsRepository.getInstace().getSize(id);
+        holder.numComments.setText(String.valueOf(num));
         holder.comments.setOnClickListener(listener);
         holder.comments.setTag(sessions.get(position));
 

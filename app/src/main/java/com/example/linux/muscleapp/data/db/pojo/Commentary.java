@@ -95,6 +95,6 @@ public class Commentary implements Parcelable, Comparable{
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return date.compareTo(thisDate);
+        return thisDate.compareTo(date);
     }
 }

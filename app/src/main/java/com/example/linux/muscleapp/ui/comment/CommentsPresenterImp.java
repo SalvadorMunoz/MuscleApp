@@ -24,6 +24,7 @@ public class CommentsPresenterImp implements CommentsPresenter,CommentsInteracto
     @Override
     public void addComment(int resource, String user, String message) {
         interactor.addComment(resource,user,message,this);
+
     }
 
     @Override

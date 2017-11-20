@@ -51,6 +51,7 @@ public class CommentsActivity extends AppCompatActivity implements CommentsView 
 
         adapter = new CommentsAdapter(this,idSession,comments);
         listView.setAdapter(adapter);
+        listView.setSelection(listView.getAdapter().getCount()-1);
 
         fbtSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,10 +68,12 @@ public class CommentsActivity extends AppCompatActivity implements CommentsView 
 
     @Override
     public void updateComments() {
+        presenter.fillComments(idSession);
         adapter = new CommentsAdapter(this,idSession,comments);
-        adapter.notifyDataSetChanged();
 
         listView.setAdapter(adapter);
+        listView.setSelection(listView.getAdapter().getCount()-1);
+
         edtComment.setText("");
     }
 

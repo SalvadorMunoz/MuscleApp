@@ -83,6 +83,12 @@ public class MainActivity extends AppCompatActivity   implements SwipeRefreshLay
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter = new MainAdapter(sessions,current);
+        recycler.setAdapter(adapter);
+    }
 
     //Change tag when swipe activity refresh
     @Override

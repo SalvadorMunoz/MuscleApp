@@ -12,4 +12,7 @@ import java.util.ArrayList;
 public interface MainView {
     void fillSessions(ArrayList<Session> sessions);
     void getCurrentUser(User user);
+    interface Comment{
+        void getCommentNumbers(int idSession);
+    }
 }
