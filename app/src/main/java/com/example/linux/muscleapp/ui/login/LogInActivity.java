@@ -2,20 +2,15 @@ package com.example.linux.muscleapp.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.linux.muscleapp.R;
-import com.example.linux.muscleapp.ui.base.BaseActivity;
+import com.example.linux.muscleapp.ui.login.contract.LoginContract;
+import com.example.linux.muscleapp.ui.login.fragment.SignInFragment;
+import com.example.linux.muscleapp.ui.login.fragment.SignUpFragment;
+import com.example.linux.muscleapp.ui.login.presenter.LoginPresenter;
 import com.example.linux.muscleapp.ui.session.MainActivity;
-import com.example.linux.muscleapp.ui.signup.SignUpActivity;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * @author Salvador Muñoz
@@ -24,64 +19,51 @@ import butterknife.ButterKnife;
  * This class is a login with different options
  */
 
-public class LogInActivity extends BaseActivity implements LoginView {
-    @BindView(R.id.edtLoginEmail) EditText edtEmail;
-    @BindView(R.id.edtLoginPass) EditText edtPass;
-
-    @BindView(R.id.btnLoginSignIn) Button btnSignin;
-    @BindView(R.id.txvLoginSignUp) TextView txvSignUp;
-    LoginPresenter presenter;
+public class LogInActivity extends AppCompatActivity implements SignInFragment.LoginListener,SignUpFragment.SignupListener  {
+    private SignInFragment signInFragmentFragment;
+    private SignUpFragment signUpFragment;
+    private LoginContract.LoginPresenter signinPresenter;
+    private LoginContract.SignupPresenter signupPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-        ButterKnife.bind(this);
+        signInFragmentFragment = (SignInFragment) getSupportFragmentManager().findFragmentByTag(SignInFragment.TAG);
 
-        presenter = new LoginPresenterImp(this);
+        if(signInFragmentFragment == null){
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            signInFragmentFragment = SignInFragment.newInstance(null);
+            transaction.add(android.R.id.content, signInFragmentFragment, SignInFragment.TAG).commit();
+        }
+        signinPresenter = new LoginPresenter(signInFragmentFragment);
+        signInFragmentFragment.setPresenter(signinPresenter);
 
-        txvSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LogInActivity.this,SignUpActivity.class);
-                startActivity(intent);
-            }
-        });
-        btnSignin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.validateCredentials(edtEmail.getText().toString(),edtPass.getText().toString());
-            }
-        });
-    }
-
-    @Override
-    public void goMainActivity() {
-        Intent intent = new Intent(LogInActivity.this,MainActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void setEmptyEmail() {
-        showSnackBar(R.string.err_emptyemail);
-    }
-
-    @Override
-    public void setEmptyPass() {
-        showSnackBar(R.string.err_emptypass);
-    }
-
-    @Override
-    public void setSigninError() {
-        showSnackBar(R.string.err_signin);
     }
 
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy();
-        presenter = null;
+    public void goSignUp() {
+        signUpFragment = (SignUpFragment) getSupportFragmentManager().findFragmentByTag(SignUpFragment.TAG);
+        if(signUpFragment == null){
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            signUpFragment = SignUpFragment.newInstance(null);
+            transaction.addToBackStack(null);
+            transaction.replace(android.R.id.content,signUpFragment,SignUpFragment.TAG).commit();
+        }
+        signupPresenter = new SignupPresenter(signUpFragment);
+        signUpFragment.setPresenter(signupPresenter);
+
+    }
+
+    @Override
+    public void goMain() {
+        startActivity(new Intent(LogInActivity.this, MainActivity.class));
+    }
+
+    @Override
+    public void goLogin() {
+        getSupportFragmentManager().popBackStack();
     }
 }

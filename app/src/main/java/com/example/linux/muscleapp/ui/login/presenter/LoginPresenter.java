@@ -1,4 +1,9 @@
-package com.example.linux.muscleapp.ui.login;
+package com.example.linux.muscleapp.ui.login.presenter;
+
+
+import com.example.linux.muscleapp.ui.login.contract.LoginContract;
+import com.example.linux.muscleapp.ui.login.interactor.LoginInteractor;
+import com.example.linux.muscleapp.ui.login.interactor.LoginInteractorImp;
 
 /**
  * @author Salvador Muñoz
@@ -7,11 +12,11 @@ package com.example.linux.muscleapp.ui.login;
  * Presenter for the login view
  */
 
-public class LoginPresenterImp implements LoginPresenter,LoginInteractor.OnLoginFinished{
-    LoginView view;
+public class LoginPresenter implements LoginContract.LoginPresenter,LoginInteractor.OnLoginFinished {
+    LoginContract.LoginView view;
     private LoginInteractorImp loginInteractorImp;
 
-    public LoginPresenterImp (LoginView view){
+    public LoginPresenter(LoginContract.LoginView view){
         this.view = view;
         this.loginInteractorImp = new LoginInteractorImp();
     }

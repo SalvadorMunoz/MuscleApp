@@ -1,13 +1,17 @@
-package com.example.linux.muscleapp.ui.signup;
+package com.example.linux.muscleapp.ui.login;
+
+import com.example.linux.muscleapp.ui.login.contract.LoginContract;
+import com.example.linux.muscleapp.ui.login.interactor.SignupInteractor;
+import com.example.linux.muscleapp.ui.login.interactor.SignupInteractorImp;
 
 /**
- * Created by linux on 14/11/17.
+ * Created by linux on 28/11/17.
  */
 
-class SignupPresenterImp implements SignupPresenter , SignupInteractor.OnSignupFinish{
-    SignUpView view;
+class SignupPresenter implements LoginContract.SignupPresenter, SignupInteractor.OnSignupFinish {
+    LoginContract.SignUpView view;
     SignupInteractorImp interactor;
-    public SignupPresenterImp(SignUpView view){
+    public SignupPresenter(LoginContract.SignUpView view){
         this.view = view;
         this.interactor = new SignupInteractorImp();
     }
@@ -23,36 +27,37 @@ class SignupPresenterImp implements SignupPresenter , SignupInteractor.OnSignupF
 
     @Override
     public void onSuccess() {
-        view.goLogin();
+        this.view.goLogin();
     }
 
     @Override
     public void onEmptyEmail() {
-        view.setEmptyEmail();
+        this.view.setEmptyEmail();
     }
 
     @Override
     public void onEmptyPass() {
-        view.setEmptyPass();
+        this.view.setEmptyPass();
     }
 
     @Override
     public void onEmptyName() {
-        view.setEmptyName();
+        this.view.setEmptyName();
     }
 
     @Override
     public void onEmptyResidence() {
-        view.setEmptyResidence();
+        this.view.setEmptyResidence();
     }
 
     @Override
     public void onEmptyBornDate() {
-        view.setEmptyBornDate();
+        this.view.setEmptyBornDate();
     }
 
     @Override
     public void onEmailExists() {
-        view.setEmailExists();
+        this.view.setEmailExists();
     }
 }
+

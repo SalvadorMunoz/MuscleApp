@@ -1,7 +1,8 @@
-package com.example.linux.muscleapp.ui.signup;
+package com.example.linux.muscleapp.ui.login.interactor;
 
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
+import com.example.linux.muscleapp.ui.login.interactor.SignupInteractor;
 
 /**
  * Created by linux on 15/11/17.

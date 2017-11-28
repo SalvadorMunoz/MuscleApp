@@ -1,4 +1,4 @@
-package com.example.linux.muscleapp.ui.login;
+package com.example.linux.muscleapp.ui.login.interactor;
 
 import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
 
@@ -6,7 +6,7 @@ import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
  * Created by linux on 14/11/17.
  */
 
-public class LoginInteractorImp implements LoginInteractor{
+public class LoginInteractorImp implements LoginInteractor {
     @Override
     public void validateCredentials(String email, String pass, OnLoginFinished loginFinished) {
         if(email.isEmpty())

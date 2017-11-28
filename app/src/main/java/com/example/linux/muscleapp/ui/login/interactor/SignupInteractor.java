@@ -1,4 +1,4 @@
-package com.example.linux.muscleapp.ui.signup;
+package com.example.linux.muscleapp.ui.login.interactor;
 
 /**
  * Created by linux on 15/11/17.

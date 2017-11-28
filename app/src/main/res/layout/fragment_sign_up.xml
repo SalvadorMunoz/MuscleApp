@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/android.R.id.content"
     tools:context="com.example.linux.muscleapp.ui.signup.SignUpActivity"
     >
     <android.support.v7.widget.Toolbar
@@ -26,6 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:errorEnabled="true"
         >
 
         <EditText
@@ -44,6 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilSignupEmail"
+        app:errorEnabled="true"
         >
 
         <EditText
@@ -63,7 +66,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilSignupPass"
-       >
+        app:errorEnabled="true"
+        >
 
         <EditText
             android:id="@+id/edtSingupName"
@@ -81,6 +85,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilSignupName"
+        app:errorEnabled="true"
         >
 
         <EditText
@@ -131,3 +136,4 @@
 
 
 </android.support.constraint.ConstraintLayout>
+
