@@ -1,7 +1,6 @@
 package com.example.linux.muscleapp.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +12,7 @@ import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.db.repositories.CommentsRepository;
-import com.example.linux.muscleapp.data.db.repositories.SessionsRepository;
-import com.example.linux.muscleapp.ui.comment.CommentsActivity;
+import com.example.linux.muscleapp.ui.session.fragment.MainListFragment;
 import com.pkmmte.view.CircularImageView;
 
 import java.util.ArrayList;
@@ -31,6 +29,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     //Sessions repository
     private ArrayList<Session>sessions;
     private User current;
+    private MainListFragment.MainListListener callback;
 
     //Class listener
     clickItem listener;
@@ -38,10 +37,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     /**
      * Empty constructor add a session from the repository
      */
-    public MainAdapter(ArrayList<Session> sessions,User current){
+    public MainAdapter(ArrayList<Session> sessions, User current, MainListFragment.MainListListener callback){
         this.sessions = sessions;
         this.current = current;
         listener = new clickItem();
+        this.callback = callback;
     }
 
     /**
@@ -104,18 +104,19 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     class clickItem implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            Intent intent= null;
-            int session = ((Session)view.getTag()).getId();
+            /* intent= null;
+            int session = ((Session)view.getTag()).getId();*/
 
             switch (view.getId()){
                 case R.id.imgItemComments:
-                    intent = new Intent(view.getContext(), CommentsActivity.class);
+                   /* intent = new Intent(view.getContext(), CommentsActivity.class);
                     intent.putExtra("idSession",session);
-                    intent.putExtra("current",current);
+                    intent.putExtra("current",current);*/
+                   callback.goComments(current,((Session)view.getTag()).getId());
                     break;
             }
-            if(intent != null)
-                view.getContext().startActivity(intent);
+            /*if(intent != null)
+                view.getContext().startActivity(intent);*/
         }
     }
 }

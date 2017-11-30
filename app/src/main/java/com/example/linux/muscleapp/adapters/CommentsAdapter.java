@@ -24,8 +24,8 @@ import java.util.ArrayList;
 
 public class CommentsAdapter extends ArrayAdapter<Commentary>{
 
-    public CommentsAdapter(@NonNull Context context, int resource, ArrayList<Commentary> comments) {
-        super(context, R.layout.item_comments, comments);
+    public CommentsAdapter(@NonNull Context context, int resource) {
+        super(context, R.layout.item_comments, new ArrayList<Commentary>());
     }
 
     @NonNull

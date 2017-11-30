@@ -1,4 +1,4 @@
-package com.example.linux.muscleapp.ui.comment;
+package com.example.linux.muscleapp.ui.comment.interactor;
 
 import com.example.linux.muscleapp.data.db.pojo.Commentary;
 
@@ -10,11 +10,8 @@ import java.util.ArrayList;
 
 public interface CommentsInteractor {
     void fillComments(int resource, OnLoadFinish onLoadFinish);
-    void addComment(int resource,String user,String message, OnCommentAdded onCommentAdded);
+    void addComment(int resource,String user,String message, OnLoadFinish onLoadFinish);
     interface OnLoadFinish{
         void onLoadFinish(ArrayList<Commentary> comments);
-    }
-    interface  OnCommentAdded{
-        void onCommentAdded();
     }
 }

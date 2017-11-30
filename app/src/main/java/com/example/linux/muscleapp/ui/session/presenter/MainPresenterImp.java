@@ -1,7 +1,10 @@
-package com.example.linux.muscleapp.ui.session;
+package com.example.linux.muscleapp.ui.session.presenter;
 
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
+import com.example.linux.muscleapp.ui.session.contract.SessionContract;
+import com.example.linux.muscleapp.ui.session.interactor.MainInteractor;
+import com.example.linux.muscleapp.ui.session.interactor.MainInteractorImp;
 
 import java.util.ArrayList;
 
@@ -9,11 +12,11 @@ import java.util.ArrayList;
  * Created by linux on 16/11/17.
  */
 
-public class MainPresenterImp implements MainPresenter,MainInteractor.onLoadFinish {
-    MainView view;
+public class MainPresenterImp implements SessionContract.MainPresenter,MainInteractor.onLoadFinish {
+    SessionContract.MainView view;
     MainInteractorImp interactor;
 
-    public MainPresenterImp (MainView view){
+    public MainPresenterImp (SessionContract.MainView view){
         this.view = view;
         interactor = new MainInteractorImp();
     }

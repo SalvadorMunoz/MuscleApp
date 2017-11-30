@@ -149,11 +149,15 @@ public class SignInFragment extends Fragment implements LoginContract.LoginView 
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        callback = null;
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
-        presenter = null;
-
     }
 
 

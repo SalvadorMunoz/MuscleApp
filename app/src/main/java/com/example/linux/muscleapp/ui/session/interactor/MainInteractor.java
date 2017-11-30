@@ -1,4 +1,4 @@
-package com.example.linux.muscleapp.ui.session;
+package com.example.linux.muscleapp.ui.session.interactor;
 
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;

@@ -1,6 +1,10 @@
-package com.example.linux.muscleapp.ui.comment;
+package com.example.linux.muscleapp.ui.comment.presenter;
 
 import com.example.linux.muscleapp.data.db.pojo.Commentary;
+
+import com.example.linux.muscleapp.ui.comment.contract.CommentsContract;
+import com.example.linux.muscleapp.ui.comment.interactor.CommentsInteractor;
+import com.example.linux.muscleapp.ui.comment.interactor.CommentsInteractorImp;
 
 import java.util.ArrayList;
 
@@ -8,10 +12,10 @@ import java.util.ArrayList;
  * Created by linux on 18/11/17.
  */
 
-public class CommentsPresenterImp implements CommentsPresenter,CommentsInteractor.OnLoadFinish,CommentsInteractor.OnCommentAdded{
-    CommentsView view ;
+public class CommentsPresenterImp implements CommentsContract.CommentsPresenter,CommentsInteractor.OnLoadFinish{
+    CommentsContract.CommentsView view ;
     CommentsInteractor interactor;
-    public  CommentsPresenterImp(CommentsView view){
+    public  CommentsPresenterImp(CommentsContract.CommentsView view){
         this.view = view;
         interactor = new CommentsInteractorImp();
     }
@@ -37,8 +41,4 @@ public class CommentsPresenterImp implements CommentsPresenter,CommentsInteracto
         view.fillComments(comments);
     }
 
-    @Override
-    public void onCommentAdded() {
-        view.updateComments();
-    }
 }

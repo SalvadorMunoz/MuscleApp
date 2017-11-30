@@ -224,9 +224,14 @@ public class SignUpFragment extends Fragment implements LoginContract.SignUpView
     }
 
     @Override
+    public void onDetach() {
+        super.onDetach();
+        callback = null;
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
-        presenter = null;
     }
 }
