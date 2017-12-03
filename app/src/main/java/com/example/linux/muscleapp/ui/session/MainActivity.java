@@ -1,5 +1,6 @@
 package com.example.linux.muscleapp.ui.session;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -57,5 +58,12 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
         }
         commentsPresenter = new CommentsPresenterImp(commentListFragment);
         commentListFragment.setPresenter(commentsPresenter);
+    }
+
+    @Override
+    public void addSession(User current) {
+        Intent intent = new Intent(MainActivity.this, SessionActivity.class);
+        intent.putExtra("user",current);
+        startActivity(intent);
     }
 }

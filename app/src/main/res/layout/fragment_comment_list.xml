@@ -5,7 +5,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:id="@+id/android.R.id.content"
-tools:context="com.example.linux.muscleapp.ui.comment.CommentsActivity"
+tools:context="com.example.linux.muscleapp.ui.session.MainActivity"
 android:padding="@dimen/activity_padding">
 
 
@@ -24,6 +24,9 @@ android:padding="@dimen/activity_padding">
         android:layout_height="wrap_content"
         android:hint="@string/write_comment"
         android:inputType="textMultiLine"
+        android:scrollbars = "vertical"
+        android:maxLines="3"
+        android:maxLength="200"
         />
 </android.support.design.widget.TextInputLayout>
 
@@ -37,7 +40,7 @@ android:padding="@dimen/activity_padding">
     android:clickable="true"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/lstComments"
+    app:layout_constraintTop_toBottomOf="@android:id/list"
     app:layout_constraintVertical_bias="1.0"
     app:srcCompat="@drawable/ic_send_white_24dp" />
 

@@ -72,6 +72,7 @@ public class CommentListFragment extends ListFragment implements CommentsContrac
             @Override
             public void onClick(View view) {
                 presenter.addComment(session,username,edtWrite.getText().toString());
+                edtWrite.setText("");
             }
         });
         presenter.fillComments(session);
@@ -85,6 +86,8 @@ public class CommentListFragment extends ListFragment implements CommentsContrac
     public void fillComments(ArrayList<Commentary> comments) {
         adapter.clear();
         adapter.addAll(comments);
+        getListView().setSelection(getListView().getAdapter().getCount()-1);
+
     }
 
 

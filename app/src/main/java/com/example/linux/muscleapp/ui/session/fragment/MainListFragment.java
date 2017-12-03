@@ -47,6 +47,7 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     public interface MainListListener{
         void goComments(User current, int idSession);
+        void addSession(User current);
     }
 
     @Override
@@ -103,8 +104,7 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
         fbtAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(MainActivity.this,AddSessionActivity.class);
-                startActivity(intent);*/
+                callback.addSession(current);
 
             }
         });

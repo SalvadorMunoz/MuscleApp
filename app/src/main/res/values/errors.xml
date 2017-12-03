@@ -7,5 +7,7 @@
     <string name="err_emptyresidence">Residenca vacía</string>
     <string name="err_emptyborndate">Fecha de nacimiento vacía</string>
     <string name="err_emptyname">Nombre vacío</string>
+    <string name="err_emptymuscle">Músculo vacío</string>
+
 
 </resources>

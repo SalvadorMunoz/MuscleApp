@@ -13,6 +13,9 @@ import android.widget.TextView;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 import com.example.linux.muscleapp.data.db.repositories.SessionDatesRepository;
+import com.example.linux.muscleapp.ui.dates.contract.AddDateContract;
+
+import java.util.ArrayList;
 
 /**
  * @author Salvador Muñoz
@@ -22,9 +25,11 @@ import com.example.linux.muscleapp.data.db.repositories.SessionDatesRepository;
  */
 
 public class SessionDatesAdapter extends ArrayAdapter<SessionDate> {
+    private AddDateContract.Presenter presenter;
 
-    public SessionDatesAdapter(@NonNull Context context) {
-        super(context, R.layout.item_date, SessionDatesRepository.getInstance().getSessionDates());
+    public SessionDatesAdapter(@NonNull Context context, AddDateContract.Presenter presenter) {
+        super(context, R.layout.item_date, new ArrayList<SessionDate>());
+        this.presenter = presenter;
     }
 
     @NonNull
@@ -32,6 +37,7 @@ public class SessionDatesAdapter extends ArrayAdapter<SessionDate> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         SessionDatesHolder holder = new SessionDatesHolder();
+        ClickItem clickItem = new ClickItem();
 
         if(view == null){
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -39,6 +45,8 @@ public class SessionDatesAdapter extends ArrayAdapter<SessionDate> {
 
             holder.date = (TextView) view.findViewById(R.id.txvItemDate);
             holder.delete = (ImageView) view.findViewById(R.id.imgDelete);
+            holder.delete.setOnClickListener(clickItem);
+            holder.delete.setTag(position);
 
             view.setTag(holder);
         }
@@ -53,5 +61,12 @@ public class SessionDatesAdapter extends ArrayAdapter<SessionDate> {
     class SessionDatesHolder{
         TextView date;
         ImageView delete;
+    }
+    class ClickItem implements View.OnClickListener{
+
+        @Override
+        public void onClick(View view) {
+            presenter.deleteDate((Integer) view.getTag());
+        }
     }
 }
