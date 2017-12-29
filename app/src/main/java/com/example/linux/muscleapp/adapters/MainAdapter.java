@@ -12,6 +12,7 @@ import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.db.repositories.CommentsRepository;
+import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
 import com.example.linux.muscleapp.ui.session.fragment.MainListFragment;
 import com.pkmmte.view.CircularImageView;
 
@@ -68,8 +69,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
         int id = sessions.get(position).getId();
 
         holder.name.setText(sessions.get(position).getName());
-        holder.result.setText(sessions.get(position).getCreator()+", "+sessions.get(position).getCreationDate());
-        holder.image.setImageResource(sessions.get(position).getUrl());
+        holder.result.setText(UsersRepository.getInstance().getNameFronId(sessions.get(position).getUser())+", "+sessions.get(position).getCreationDate());
+        holder.image.setImageResource(sessions.get(position).getUrlImage());
         int num = CommentsRepository.getInstace().getSize(id);
         holder.numComments.setText(String.valueOf(num));
         holder.comments.setOnClickListener(listener);

@@ -11,6 +11,7 @@ import android.os.Parcelable;
  */
 
 public class User implements Parcelable {
+    int id;
     String email,name,pass,residence,bornDate;
 
     public User(String email, String name, String pass, String residence, String bornDate) {
@@ -21,7 +22,17 @@ public class User implements Parcelable {
         this.bornDate = bornDate;
     }
 
+    public User(int id, String email, String name, String pass, String residence, String bornDate) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.pass = pass;
+        this.residence = residence;
+        this.bornDate = bornDate;
+    }
+
     protected User(Parcel in) {
+        id = in.readInt();
         email = in.readString();
         name = in.readString();
         pass = in.readString();
@@ -41,26 +52,6 @@ public class User implements Parcelable {
         }
     };
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public String getResidence() {
-        return residence;
-    }
-
-    public String getBornDate() {
-        return bornDate;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -68,10 +59,60 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
         parcel.writeString(email);
         parcel.writeString(name);
         parcel.writeString(pass);
         parcel.writeString(residence);
         parcel.writeString(bornDate);
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    public String getResidence() {
+        return residence;
+    }
+
+    public void setResidence(String residence) {
+        this.residence = residence;
+    }
+
+    public String getBornDate() {
+        return bornDate;
+    }
+
+    public void setBornDate(String bornDate) {
+        this.bornDate = bornDate;
+    }
+
 }

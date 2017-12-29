@@ -85,7 +85,6 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
         fbtAdd = (FloatingActionButton) root.findViewById(R.id.fbtAdd);
         recycler = (RecyclerView) root.findViewById(R.id.rcvMain);
 
-        adapter = new MainAdapter(sessions,current, callback);
         setRetainInstance(true);
 
         sessions = new ArrayList<>();
@@ -110,7 +109,7 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
         });
         // Inflate the layout for this fragment
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        presenter.getSessions();
+
         presenter.getCurrentUser();
 
         recycler.setAdapter(adapter);
@@ -123,6 +122,7 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onResume() {
         super.onResume();
+        presenter.getSessions();
         adapter = new MainAdapter(sessions,current,callback);
         recycler.setAdapter(adapter);
     }

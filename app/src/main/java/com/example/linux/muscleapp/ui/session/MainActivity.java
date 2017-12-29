@@ -32,6 +32,11 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         mainListFragment = (MainListFragment) getSupportFragmentManager().findFragmentByTag(MainListFragment.TAG);
 
         if(mainListFragment == null){
@@ -41,8 +46,8 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
         }
         mainPresenter = new MainPresenterImp(mainListFragment);
         mainListFragment.setPresenter(mainPresenter);
-    }
 
+    }
 
     @Override
     public void goComments(User current, int idSession) {

@@ -17,28 +17,25 @@ import java.util.Date;
  */
 
 public class Session implements Parcelable,Comparable{
-    int id,url;
-    String name, creationDate, creator;
-    ArrayList<String> trainingDates;
-    ArrayList<Excersice> excersices;
+    int id,user,urlImage;
+    String name, pass,creationDate;
 
-    public Session(int id, int url, String name, String creationDate, String creator, ArrayList<String> trainingDates, ArrayList<Excersice> excersices) {
+    public Session(int id, int user, int urlImage, String name, String pass, String creationDate) {
         this.id = id;
-        this.url = url;
+        this.user = user;
+        this.urlImage = urlImage;
         this.name = name;
+        this.pass = pass;
         this.creationDate = creationDate;
-        this.creator = creator;
-        this.trainingDates = trainingDates;
-        this.excersices = excersices;
     }
 
     protected Session(Parcel in) {
         id = in.readInt();
-        url = in.readInt();
+        user = in.readInt();
+        urlImage = in.readInt();
         name = in.readString();
+        pass = in.readString();
         creationDate = in.readString();
-        creator = in.readString();
-        trainingDates = in.createStringArrayList();
     }
 
     public static final Creator<Session> CREATOR = new Creator<Session>() {
@@ -53,32 +50,68 @@ public class Session implements Parcelable,Comparable{
         }
     };
 
+    @Override
+    public int compareTo(@NonNull Object o) {
+        String tmp= ((Session)o).getCreationDate();
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat thisDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = null;
+        Date thisDate = null;
+        try {
+            date = dateFormat.parse(tmp);
+            thisDate = thisDateFormat.parse(getCreationDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date.compareTo(thisDate);
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUser() {
+        return user;
+    }
+
+    public void setUser(int user) {
+        this.user = user;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
     public String getCreationDate() {
         return creationDate;
     }
 
-    public String getCreator() {
-        return creator;
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 
-    public ArrayList<String> getTrainingDates() {
-        return trainingDates;
+    public int getUrlImage() {
+        return urlImage;
     }
 
-    public ArrayList<Excersice> getExcersices() {
-        return excersices;
-    }
-
-    public int getUrl() {
-        return url;
+    public void setUrlImage(int urlImage) {
+        this.urlImage = urlImage;
     }
 
     @Override
@@ -89,26 +122,10 @@ public class Session implements Parcelable,Comparable{
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
-        parcel.writeInt(url);
+        parcel.writeInt(user);
+        parcel.writeInt(urlImage);
         parcel.writeString(name);
+        parcel.writeString(pass);
         parcel.writeString(creationDate);
-        parcel.writeString(creator);
-        parcel.writeStringList(trainingDates);
-    }
-
-    @Override
-    public int compareTo(@NonNull Object o) {
-        String tmp= ((Session)o).getCreationDate();
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        DateFormat thisDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = null;
-        Date thisDate = null;
-        try {
-             date = dateFormat.parse(tmp);
-             thisDate = thisDateFormat.parse(getCreationDate());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date.compareTo(thisDate);
     }
 }

@@ -36,7 +36,7 @@ public class UsersRepository {
     }
 
     private void initialize(){
-        add(new User("usuario@usuario.com","usuario","usuario","Malaga","02-11-1990"));
+        add(new User(1,"yo@yo.com","yo","yo","Malaga","21-05-1994"));
     }
     public boolean validateCredentials(String email,String pass){
         boolean res = false;
@@ -65,5 +65,16 @@ public class UsersRepository {
             if(users.get(i).getEmail().equals(email))
                 this.currentUser = users.get(i);
         }
+    }
+    public int getLastId(){
+        return users.get(users.size()-1).getId();
+    }
+    public String getNameFronId(int id){
+        String res="";
+        for(int i = 0; i < users.size();i++){
+            if(users.get(i).getId()== id)
+                res = users.get(i).getName();
+        }
+        return  res;
     }
 }

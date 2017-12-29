@@ -9,9 +9,13 @@ import java.util.ArrayList;
  */
 
 public interface AddSessionInteractor {
+    void addSession(String name,String pass,String date, int user,OnAddSessionFinish onAddSessionFinish);
+
     void getExcersices(OnAddSessionFinish onAddSessionFinish);
     void deleteExcersice(int position, OnAddSessionFinish onAddSessionFinish);
     interface OnAddSessionFinish{
         void onLoadExcersices(ArrayList<Excersice> excersices);
+        void onSuccess();
+        void onEmptyName();
     }
 }

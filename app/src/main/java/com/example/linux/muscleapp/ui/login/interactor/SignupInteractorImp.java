@@ -24,7 +24,7 @@ public class SignupInteractorImp implements SignupInteractor {
         else if(UsersRepository.getInstance().userExists(email))
             onSignupFinish.onEmailExists();
         else {
-            UsersRepository.getInstance().add(new User(email, name, pass, residence, bornDate));
+            UsersRepository.getInstance().add(new User(UsersRepository.getInstance().getLastId()+1,email, name, pass, residence, bornDate));
             onSignupFinish.onSuccess();
         }
     }

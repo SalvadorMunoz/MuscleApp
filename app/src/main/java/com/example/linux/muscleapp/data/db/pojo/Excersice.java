@@ -87,6 +87,10 @@ public class Excersice implements Parcelable {
         return time;
     }
 
+    public void setSession(int session) {
+        this.session = session;
+    }
+
     @Override
     public int describeContents() {
         return 0;

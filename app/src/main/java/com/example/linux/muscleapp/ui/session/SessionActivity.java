@@ -53,6 +53,11 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     }
 
     @Override
+    public void goMain() {
+        finish();
+    }
+
+    @Override
     public void goBack() {
         getSupportFragmentManager().popBackStack();
     }

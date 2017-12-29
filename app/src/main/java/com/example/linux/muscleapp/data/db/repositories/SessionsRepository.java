@@ -30,14 +30,9 @@ public class SessionsRepository {
     }
 
     private void initialize (){
-        add(new Session(1, R.drawable.bicho,"Ejercicios para penaltis","02-10-2017","Cristiano Ronaldo",null,null));
-        add(new Session(2, R.drawable.indurain,"Ejercicios para bicicleta","02-09-2017","Indurain",null,null));
-        add(new Session(1, R.drawable.bicho,"Ejercicios para penaltis","02-10-2017","Cristiano Ronaldo",null,null));
-        add(new Session(2, R.drawable.indurain,"Ejercicios para bicicleta","02-09-2017","Indurain",null,null));
-        add(new Session(1, R.drawable.bicho,"Ejercicios para penaltis","02-10-2017","Cristiano Ronaldo",null,null));
-        add(new Session(2, R.drawable.indurain,"Ejercicios para bicicleta","02-09-2017","Indurain",null,null));
-        add(new Session(1, R.drawable.bicho,"Ejercicios para penaltis","02-10-2017","Cristiano Ronaldo",null,null));
-        add(new Session(2, R.drawable.indurain,"Ejercicios para bicicleta","02-09-2017","Indurain",null,null));
+        add(new Session(1, 100000,R.drawable.bicho,"Ejercicios para penaltis","","02-10-2017"));
+        add(new Session(2, 200000,R.drawable.indurain,"Ejercicios para bicicleta","","02-09-2017"));
+
 
     }
     public void add (Session session){
@@ -47,5 +42,8 @@ public class SessionsRepository {
     public ArrayList<Session> getSessions(){
         Collections.sort(sessions);
         return sessions;
+    }
+    public int getLastId(){
+        return sessions.get(sessions.size()-1).getId();
     }
 }

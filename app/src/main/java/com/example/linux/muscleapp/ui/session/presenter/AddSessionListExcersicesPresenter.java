@@ -19,6 +19,12 @@ public class AddSessionListExcersicesPresenter implements SessionContract.AddSes
         this.view = view;
         this.interactor = new AddSessionInteractorImp();
     }
+
+    @Override
+    public void addSession(String name, String pass, String date, int user) {
+        interactor.addSession(name,pass,date,user,this);
+    }
+
     @Override
     public void getExcersices() {
         interactor.getExcersices(this);
@@ -38,5 +44,15 @@ public class AddSessionListExcersicesPresenter implements SessionContract.AddSes
     @Override
     public void onLoadExcersices(ArrayList<Excersice> excersices) {
         view.fillExcersices(excersices);
+    }
+
+    @Override
+    public void onSuccess() {
+        view.goBack();
+    }
+
+    @Override
+    public void onEmptyName() {
+        view.setEmptyName();
     }
 }

@@ -20,6 +20,9 @@ public class MainPresenterImp implements SessionContract.MainPresenter,MainInter
         this.view = view;
         interactor = new MainInteractorImp();
     }
+
+
+
     @Override
     public void getSessions() {
         interactor.getSessions(this);

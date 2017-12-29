@@ -58,6 +58,10 @@ public class SessionDate implements Parcelable{
         return year;
     }
 
+    public void setSessionId(int sessionId) {
+        this.sessionId = sessionId;
+    }
+
     @Override
     public int describeContents() {
         return 0;
