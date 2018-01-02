@@ -2,10 +2,16 @@ package com.example.linux.muscleapp.ui.excersice.fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -21,18 +27,30 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
+import com.example.linux.muscleapp.net.RestClient;
 import com.example.linux.muscleapp.ui.excersice.contract.ExcersiceContract;
 import com.example.linux.muscleapp.ui.excersice.presenter.ExcersicePresenter;
 import com.example.linux.muscleapp.ui.session.fragment.AddSessionFragment;
+import com.example.linux.muscleapp.ui.utils.UriConverter;
+import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.TextHttpResponseHandler;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 
 import butterknife.BindView;
+import butterknife.internal.Utils;
+import cz.msebera.android.httpclient.Header;
 
 
 public class AddExcersiceFragment extends Fragment implements ExcersiceContract.AddExcersiceView{
     public static final  String TAG = "addExcersice";
+    public final static String WEB= "https://muscleapp.club/videoupload.php";
+
 
     private Button btnCreate;
     private TextInputLayout tilName, tilMuscle;
@@ -160,11 +178,67 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
         //Check the activity result
         switch (requestCode) {
             case CAMERA_REQUEST:
-                if (resultCode == Dialog.BUTTON_POSITIVE)
-                    // Do something
+                if (resultCode == Dialog.BUTTON_POSITIVE){
+                    Uri uri = data.getData();
+                    File tmp = new File(UriConverter.getRealPathFromURI(getActivity(),uri));
+                    uploadVideo(tmp);
+                }
                     break;
         }
     }
+
+
+
+    private void uploadVideo(File video) {
+        final ProgressDialog progreso = new ProgressDialog(getContext());
+
+        Boolean existe =true;
+        RequestParams params = new  RequestParams();
+        try
+        {
+            params.put("fileToUpload", video);
+        }
+        catch (FileNotFoundException e) {
+            existe = false;
+        }
+        if(existe)
+            RestClient.post(WEB, params, new TextHttpResponseHandler() {
+
+
+
+                @Override
+                public void onStart() {
+
+                    progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progreso.setMessage("Conectando . . .");
+                    ;
+                    progreso.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            RestClient.cancelRequests(getActivity().getApplicationContext(), true);
+
+                        }
+
+                    });
+                    progreso.show();
+                }
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, String response) {
+                    progreso.dismiss();
+                    Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String response, Throwable t) {
+                    progreso.dismiss();
+                    Toast.makeText(getContext(), t.getMessage().toString(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+    }
+
+
+
+
 
     @Override
     public void setOnEmptyName() {
