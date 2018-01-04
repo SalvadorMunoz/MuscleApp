@@ -35,7 +35,9 @@ import com.example.linux.muscleapp.net.RestClient;
 import com.example.linux.muscleapp.ui.excersice.contract.ExcersiceContract;
 import com.example.linux.muscleapp.ui.excersice.presenter.ExcersicePresenter;
 import com.example.linux.muscleapp.ui.session.fragment.AddSessionFragment;
+import com.example.linux.muscleapp.ui.utils.CameraConfig;
 import com.example.linux.muscleapp.ui.utils.UriConverter;
+import com.example.linux.muscleapp.ui.utils.ZipManager;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 
@@ -161,6 +163,7 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
                 //Create camera intent and set limit
                 Intent cameraIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
                 cameraIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT,VIDEO_LIMIT);
+                CameraConfig.setResolution();
                 if(cameraIntent.resolveActivity(getActivity().getPackageManager()) != null)
                     startActivityForResult(cameraIntent,CAMERA_REQUEST);
             }
@@ -179,8 +182,20 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
         switch (requestCode) {
             case CAMERA_REQUEST:
                 if (resultCode == Dialog.BUTTON_POSITIVE){
+                     String path = getContext().getFilesDir().getPath()+"/";
+
+
+
                     Uri uri = data.getData();
-                    File tmp = new File(UriConverter.getRealPathFromURI(getActivity(),uri));
+
+                    ZipManager manager = new ZipManager();
+
+                    manager.zip(UriConverter.getRealPathFromURI(getActivity(),uri),path+"video.zip");
+
+                    File tmp = new File(path+"video.zip");
+                    Toast.makeText(getContext(),String.valueOf(tmp.length()),Toast.LENGTH_LONG).show();
+
+
                     uploadVideo(tmp);
                 }
                     break;
