@@ -31,6 +31,8 @@ import android.widget.Toast;
 
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
+import com.example.linux.muscleapp.data.db.pojo.User;
+import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.net.RestClient;
 import com.example.linux.muscleapp.ui.excersice.contract.ExcersiceContract;
 import com.example.linux.muscleapp.ui.excersice.presenter.ExcersicePresenter;
@@ -69,6 +71,7 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
     //Camera intent id and camera limit
     private static final int CAMERA_REQUEST =1;
     private static final int VIDEO_LIMIT=5;
+    private User current;
     public interface AddExcersiceListener{
         void goBack();
     }
@@ -106,6 +109,8 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
 
 
         presenter = new ExcersicePresenter(this);
+        current = getArguments().getParcelable("currentUser");
+
 
         return root;
     }
@@ -182,20 +187,16 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
         switch (requestCode) {
             case CAMERA_REQUEST:
                 if (resultCode == Dialog.BUTTON_POSITIVE){
-                     String path = getContext().getFilesDir().getPath()+"/";
-
-
+                    long numtmp = AppPreferencesHelper.newInstance().getNumVideo()+1;
+                    AppPreferencesHelper.newInstance().setNumVideo(numtmp);
+                    String path = getContext().getFilesDir().getPath()+"/"+String.valueOf(current.getId())+String.valueOf(numtmp)+".zip";
 
                     Uri uri = data.getData();
 
                     ZipManager manager = new ZipManager();
+                    manager.zip(UriConverter.getRealPathFromURI(getActivity(),uri),path);
 
-                    manager.zip(UriConverter.getRealPathFromURI(getActivity(),uri),path+"video.zip");
-
-                    File tmp = new File(path+"video.zip");
-                    Toast.makeText(getContext(),String.valueOf(tmp.length()),Toast.LENGTH_LONG).show();
-
-
+                    File tmp = new File(path);
                     uploadVideo(tmp);
                 }
                     break;

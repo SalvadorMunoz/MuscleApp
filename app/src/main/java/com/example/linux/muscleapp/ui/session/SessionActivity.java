@@ -42,11 +42,13 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     }
 
     @Override
-    public void goAddExcersice() {
+    public void goAddExcersice(User current) {
         addExcersiceFragment = (AddExcersiceFragment) getSupportFragmentManager().findFragmentByTag(AddExcersiceFragment.TAG);
         if(addExcersiceFragment == null){
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("currentUser", current);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            addExcersiceFragment = AddExcersiceFragment.newInstance(null);
+            addExcersiceFragment = AddExcersiceFragment.newInstance(bundle);
             transaction.addToBackStack(null);
             transaction.replace(android.R.id.content,addExcersiceFragment,AddExcersiceFragment.TAG).commit();
         }

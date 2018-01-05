@@ -69,7 +69,7 @@ public class AddSessionFragment extends ListFragment implements SessionContract.
 
     public interface AddSessionListener{
         void goAddDate();
-        void goAddExcersice();
+        void goAddExcersice(User current);
         void goMain();
     }
 
@@ -145,7 +145,7 @@ public class AddSessionFragment extends ListFragment implements SessionContract.
         fbtExcersice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callback.goAddExcersice();
+                callback.goAddExcersice(current);
             }
         });
 

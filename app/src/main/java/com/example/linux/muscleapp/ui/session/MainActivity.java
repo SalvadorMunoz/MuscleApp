@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.User;
+import com.example.linux.muscleapp.data.prefs.AppPreferences;
+import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.ui.comment.contract.CommentsContract;
 import com.example.linux.muscleapp.ui.comment.fragment.CommentListFragment;
 import com.example.linux.muscleapp.ui.comment.presenter.CommentsPresenterImp;
@@ -31,6 +33,11 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(AppPreferencesHelper.newInstance().getInitialize() == false){
+            AppPreferencesHelper.newInstance().setInitialize(true);
+            AppPreferencesHelper.newInstance().setNumVideo(0);
+        }
 
     }
 
