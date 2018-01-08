@@ -29,6 +29,8 @@ public class AppPreferencesHelper implements AppPreferences {
     public long getNumVideo(){
         return preferences.getLong(PREFS_KEY_NUM_VIDEOS,-1);
     }
+    public boolean getRemember(){return preferences.getBoolean(PREFS_KEY_REMEMBER,false);}
+    public String getCurrentUser(){return preferences.getString(PREFS_KEY_CURRENT_USER,"");}
 
     public void setInitialize(boolean value){
         preferences.edit().putBoolean(PREFS_KEY_INITIALIZE,value).commit();
@@ -36,5 +38,13 @@ public class AppPreferencesHelper implements AppPreferences {
 
     public void setNumVideo(long value){
         preferences.edit().putLong(PREFS_KEY_NUM_VIDEOS,value).commit();
+    }
+
+    public void setRemember(boolean value){
+        preferences.edit().putBoolean(PREFS_KEY_REMEMBER,value).commit();
+    }
+
+    public void setCurrentUser(String value){
+        preferences.edit().putString(PREFS_KEY_CURRENT_USER,value).commit();
     }
 }

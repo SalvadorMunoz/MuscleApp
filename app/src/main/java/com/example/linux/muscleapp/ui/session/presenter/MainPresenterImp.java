@@ -29,6 +29,11 @@ public class MainPresenterImp implements SessionContract.MainPresenter,MainInter
     }
 
     @Override
+    public void getCurrentUser(String email) {
+        interactor.getCurrentUser(email,this);
+    }
+
+    @Override
     public void getCurrentUser() {
         interactor.getCurrentUser(this);
     }

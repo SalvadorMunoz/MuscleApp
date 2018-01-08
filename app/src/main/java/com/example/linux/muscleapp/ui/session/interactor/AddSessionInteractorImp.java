@@ -9,6 +9,8 @@ import com.example.linux.muscleapp.data.db.repositories.SessionDatesRepository;
 import com.example.linux.muscleapp.data.db.repositories.SessionsRepository;
 import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 
+import java.util.Date;
+
 /**
  * Created by linux on 3/12/17.
  */
@@ -17,13 +19,13 @@ public class AddSessionInteractorImp implements AddSessionInteractor{
 
 
     @Override
-    public void addSession(String name, String pass, String date, int user, OnAddSessionFinish onAddSessionFinish) {
+    public void addSession(String name, String pass, int user, OnAddSessionFinish onAddSessionFinish) {
         Excersice tmpEx = null;
         SessionDate tmpDat = null;
         if(name.isEmpty())
             onAddSessionFinish.onEmptyName();
         else {
-            Session tmp = new Session(SessionsRepository.getInstace().getLastId() + 1, user, R.drawable.no_photo, name, pass, date);
+            Session tmp = new Session(SessionsRepository.getInstace().getLastId() + 1, user, R.drawable.no_photo, name, pass, new Date());
             SessionsRepository.getInstace().add(tmp);
             for(int i = 0; i < SessionTmpDates.getExcersices().size();i++){
                 tmpEx = SessionTmpDates.getExcersices().get(i);

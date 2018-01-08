@@ -16,7 +16,10 @@ import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
 import com.example.linux.muscleapp.ui.session.fragment.MainListFragment;
 import com.pkmmte.view.CircularImageView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -69,13 +72,18 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
         int id = sessions.get(position).getId();
 
         holder.name.setText(sessions.get(position).getName());
-        holder.result.setText(UsersRepository.getInstance().getNameFronId(sessions.get(position).getUser())+", "+sessions.get(position).getCreationDate());
+        holder.result.setText(UsersRepository.getInstance().getNameFronId(sessions.get(position).getUser())+", "+formatDate(sessions.get(position).getCreationDate()));
         holder.image.setImageResource(sessions.get(position).getUrlImage());
         int num = CommentsRepository.getInstace().getSize(id);
         holder.numComments.setText(String.valueOf(num));
         holder.comments.setOnClickListener(listener);
         holder.comments.setTag(sessions.get(position));
 
+    }
+
+    private String  formatDate(Date date){
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        return dateFormat.format(date);
     }
 
     /**

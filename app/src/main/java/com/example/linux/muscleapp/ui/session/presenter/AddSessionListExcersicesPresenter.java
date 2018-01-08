@@ -21,8 +21,8 @@ public class AddSessionListExcersicesPresenter implements SessionContract.AddSes
     }
 
     @Override
-    public void addSession(String name, String pass, String date, int user) {
-        interactor.addSession(name,pass,date,user,this);
+    public void addSession(String name, String pass, int user) {
+        interactor.addSession(name,pass,user,this);
     }
 
     @Override

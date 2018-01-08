@@ -16,11 +16,12 @@ import java.util.Date;
  * This class is a training session
  */
 
-public class Session implements Parcelable,Comparable{
+public class Session implements Parcelable,Comparable<Session>{
     int id,user,urlImage;
-    String name, pass,creationDate;
+    String name, pass;
+    Date creationDate;
 
-    public Session(int id, int user, int urlImage, String name, String pass, String creationDate) {
+    public Session(int id, int user, int urlImage, String name, String pass, Date creationDate) {
         this.id = id;
         this.user = user;
         this.urlImage = urlImage;
@@ -29,13 +30,13 @@ public class Session implements Parcelable,Comparable{
         this.creationDate = creationDate;
     }
 
+
     protected Session(Parcel in) {
         id = in.readInt();
         user = in.readInt();
         urlImage = in.readInt();
         name = in.readString();
         pass = in.readString();
-        creationDate = in.readString();
     }
 
     public static final Creator<Session> CREATOR = new Creator<Session>() {
@@ -50,21 +51,6 @@ public class Session implements Parcelable,Comparable{
         }
     };
 
-    @Override
-    public int compareTo(@NonNull Object o) {
-        String tmp= ((Session)o).getCreationDate();
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        DateFormat thisDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = null;
-        Date thisDate = null;
-        try {
-            date = dateFormat.parse(tmp);
-            thisDate = thisDateFormat.parse(getCreationDate());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date.compareTo(thisDate);
-    }
 
     public int getId() {
         return id;
@@ -98,11 +84,11 @@ public class Session implements Parcelable,Comparable{
         this.pass = pass;
     }
 
-    public String getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -121,11 +107,17 @@ public class Session implements Parcelable,Comparable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+
         parcel.writeInt(id);
         parcel.writeInt(user);
         parcel.writeInt(urlImage);
         parcel.writeString(name);
         parcel.writeString(pass);
-        parcel.writeString(creationDate);
+    }
+
+
+    @Override
+    public int compareTo(@NonNull Session session) {
+        return session.getCreationDate().compareTo(this.getCreationDate());
     }
 }

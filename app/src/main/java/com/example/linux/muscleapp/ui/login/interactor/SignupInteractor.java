@@ -14,5 +14,7 @@ public interface SignupInteractor {
         void onEmptyResidence();
         void onEmptyBornDate();
         void onEmailExists();
+        void onErrorEmail();
+        void onErrorPass();
     }
 }

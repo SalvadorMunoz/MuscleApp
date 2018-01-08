@@ -26,6 +26,7 @@ public interface SessionContract {
     interface MainPresenter {
 
          void getSessions();
+         void getCurrentUser(String email);
          void getCurrentUser();
          void onDestroy();
 
@@ -38,7 +39,7 @@ public interface SessionContract {
     }
 
     interface AddSessionPresenter{
-         void addSession(String name,String pass,String date, int user);
+         void addSession(String name,String pass, int user);
          void getExcersices();
          void deleteExcersice(int position);
          void onDestroy();

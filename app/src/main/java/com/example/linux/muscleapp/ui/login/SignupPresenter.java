@@ -59,5 +59,15 @@ class SignupPresenter implements LoginContract.SignupPresenter, SignupInteractor
     public void onEmailExists() {
         this.view.setEmailExists();
     }
+
+    @Override
+    public void onErrorEmail() {
+        view.setErrorEmail();
+    }
+
+    @Override
+    public void onErrorPass() {
+        view.setErrorPass();
+    }
 }
 

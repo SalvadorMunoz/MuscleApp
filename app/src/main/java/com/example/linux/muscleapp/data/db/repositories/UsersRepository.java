@@ -37,6 +37,9 @@ public class UsersRepository {
 
     private void initialize(){
         add(new User(1,"yo@yo.com","yo","yo","Malaga","21-05-1994"));
+        add(new User(2,"cr7@cr7.com","Cristiano","cris","cr7","21-05-1994"));
+        add(new User(3,"indurain@cr7.com","Indurain","indurain","su","21-05-1994"));
+
     }
     public boolean validateCredentials(String email,String pass){
         boolean res = false;
@@ -58,6 +61,16 @@ public class UsersRepository {
 
     public User getCurrentUser() {
         return currentUser;
+    }
+    public User getCurrentUser(String email){
+        User tmp = null;
+
+        for(int i = 0; i < users.size();i++){
+            if(users.get(i).getEmail().equals(email))
+                tmp=users.get(i);
+        }
+
+        return tmp;
     }
 
     public void setCurrentUser(String email) {

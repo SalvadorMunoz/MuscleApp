@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public interface MainInteractor{
     void getSessions(onLoadFinish onLoadFinish);
     void getCurrentUser(onLoadFinish onLoadFinish);
+    void getCurrentUser(String email,onLoadFinish onLoadFinish);
     interface onLoadFinish{
         void giveSessions(ArrayList<Session> sessions);
         void giveCurrentUser(User user);

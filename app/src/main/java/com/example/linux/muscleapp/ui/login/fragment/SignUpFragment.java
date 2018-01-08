@@ -143,7 +143,7 @@ public class SignUpFragment extends Fragment implements LoginContract.SignUpView
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 //Show date selected
-                res.setText(String.format("%02d-%02d-%04d",i2,i1,i));
+                res.setText(String.format("%02d-%02d-%04d",i2,(i1+1),i));
             }
         };
 
@@ -216,6 +216,16 @@ public class SignUpFragment extends Fragment implements LoginContract.SignUpView
     @Override
     public void setEmptyName() {
         tilName.setError(getResources().getString(R.string.err_emptyname));
+    }
+
+    @Override
+    public void setErrorEmail() {
+        tilEmail.setError(getResources().getString(R.string.err_invalid_format));
+    }
+
+    @Override
+    public void setErrorPass() {
+        tilPass.setError(getResources().getString(R.string.err_invalid_pass_format));
     }
 
     @Override

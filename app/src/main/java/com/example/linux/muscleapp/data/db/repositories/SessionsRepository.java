@@ -5,6 +5,7 @@ import com.example.linux.muscleapp.data.db.pojo.Session;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 /**
  * @author Salvador Muñoz
@@ -30,8 +31,8 @@ public class SessionsRepository {
     }
 
     private void initialize (){
-        add(new Session(1, 100000,R.drawable.bicho,"Ejercicios para penaltis","","02-10-2017"));
-        add(new Session(2, 200000,R.drawable.indurain,"Ejercicios para bicicleta","","02-09-2017"));
+        add(new Session(1, 2,R.drawable.bicho,"Ejercicios para penaltis","",new Date()));
+        add(new Session(2, 3,R.drawable.indurain,"Ejercicios para bicicleta","",new Date()));
 
 
     }

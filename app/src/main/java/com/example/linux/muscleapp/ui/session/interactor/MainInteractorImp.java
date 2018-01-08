@@ -20,4 +20,9 @@ public class MainInteractorImp implements MainInteractor {
     public void getCurrentUser(onLoadFinish onLoadFinish) {
         onLoadFinish.giveCurrentUser(UsersRepository.getInstance().getCurrentUser());
     }
+
+    @Override
+    public void getCurrentUser(String email, onLoadFinish onLoadFinish) {
+        onLoadFinish.giveCurrentUser(UsersRepository.getInstance().getCurrentUser(email));
+    }
 }

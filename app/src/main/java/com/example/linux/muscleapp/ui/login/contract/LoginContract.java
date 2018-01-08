@@ -30,6 +30,8 @@ public interface LoginContract {
         void setEmptyResidence();
         void setEmptyBornDate();
         void setEmptyName();
+        void setErrorEmail();
+        void setErrorPass();
         void goLogin();
     }
 

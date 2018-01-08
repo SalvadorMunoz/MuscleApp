@@ -24,6 +24,8 @@ import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.adapters.MainAdapter;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
+import com.example.linux.muscleapp.data.prefs.AppPreferences;
+import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.ui.session.contract.SessionContract;
 
 import java.util.ArrayList;
@@ -90,6 +92,14 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
         sessions = new ArrayList<>();
 
 
+        if(AppPreferencesHelper.newInstance().getRemember())
+            presenter.getCurrentUser(AppPreferencesHelper.newInstance().getCurrentUser());
+        else{
+            presenter.getCurrentUser();
+            AppPreferencesHelper.newInstance().setRemember(true);
+            AppPreferencesHelper.newInstance().setCurrentUser(current.getEmail());
+        }
+
         return root;
     }
 
@@ -110,7 +120,7 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
         // Inflate the layout for this fragment
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
-        presenter.getCurrentUser();
+
 
         recycler.setAdapter(adapter);
 
