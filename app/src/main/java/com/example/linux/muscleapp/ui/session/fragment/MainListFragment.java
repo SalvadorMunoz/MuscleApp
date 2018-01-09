@@ -157,6 +157,12 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
         item.setTitle(current.getName());
     }
 
+    public void reload(){
+        presenter.getSessions();
+        adapter = new MainAdapter(sessions,current,callback);
+        recycler.setAdapter(adapter);
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

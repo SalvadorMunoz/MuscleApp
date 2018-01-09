@@ -22,7 +22,7 @@ import com.example.linux.muscleapp.ui.session.presenter.MainPresenterImp;
  *
  * This class is the main activity has got the sessions list, navigation drawer, add session button...
  */
-public class MainActivity extends AppCompatActivity  implements MainListFragment.MainListListener {
+public class MainActivity extends AppCompatActivity  implements MainListFragment.MainListListener,CommentListFragment.CommentListListener {
     MainListFragment mainListFragment;
     CommentListFragment commentListFragment;
     SessionContract.MainPresenter mainPresenter;
@@ -44,16 +44,7 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
     @Override
     protected void onResume() {
         super.onResume();
-        mainListFragment = (MainListFragment) getSupportFragmentManager().findFragmentByTag(MainListFragment.TAG);
-
-        if(mainListFragment == null){
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            mainListFragment = MainListFragment.newInstance(null);
-            transaction.add(android.R.id.content,mainListFragment,MainListFragment.TAG).commit();
-        }
-        mainPresenter = new MainPresenterImp(mainListFragment);
-        mainListFragment.setPresenter(mainPresenter);
-
+        loadMain();
     }
 
     @Override
@@ -63,10 +54,9 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
             Bundle bundle = new Bundle();
             bundle.putParcelable("current",current);
             bundle.putInt("session",idSession);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             commentListFragment = CommentListFragment.newInstance(bundle);
-            transaction.addToBackStack(null);
-            transaction.replace(android.R.id.content,commentListFragment,CommentListFragment.TAG).commit();
+            commentListFragment.show(getSupportFragmentManager(),CommentListFragment.TAG);
+
         }
         commentsPresenter = new CommentsPresenterImp(commentListFragment);
         commentListFragment.setPresenter(commentsPresenter);
@@ -77,5 +67,22 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
         Intent intent = new Intent(MainActivity.this, SessionActivity.class);
         intent.putExtra("user",current);
         startActivity(intent);
+    }
+    private void loadMain(){
+        mainListFragment = (MainListFragment) getSupportFragmentManager().findFragmentByTag(MainListFragment.TAG);
+
+        if(mainListFragment == null){
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            mainListFragment = MainListFragment.newInstance(null);
+            transaction.add(android.R.id.content,mainListFragment,MainListFragment.TAG).commit();
+        }
+        mainPresenter = new MainPresenterImp(mainListFragment);
+        mainListFragment.setPresenter(mainPresenter);
+    }
+
+    @Override
+    public void reload() {
+        loadMain();
+        mainListFragment.reload();
     }
 }

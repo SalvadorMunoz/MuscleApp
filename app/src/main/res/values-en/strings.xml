@@ -45,5 +45,5 @@
     <string name="signup_name">User name</string>
     <string name="err_emptymuscle">Empty muscle</string>
     <string name="err_invalid_format">Invalid format</string>
-    <string name="err_invalid_pass_format">Must have</string>
+    <string name="err_invalid_pass_format">Must have  (A,a,1,@...) and almost 6 characters</string>
 </resources>

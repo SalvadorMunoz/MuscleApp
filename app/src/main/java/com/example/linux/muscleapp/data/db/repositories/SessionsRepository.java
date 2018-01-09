@@ -45,6 +45,11 @@ public class SessionsRepository {
         return sessions;
     }
     public int getLastId(){
-        return sessions.get(sessions.size()-1).getId();
+        int res=-1;
+        for(int i = 0;i < sessions.size();i++){
+            if(sessions.get(i).getId() > res)
+                res = sessions.get(i).getId();
+        }
+        return res;
     }
 }
