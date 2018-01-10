@@ -27,6 +27,7 @@ import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.prefs.AppPreferences;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.ui.session.contract.SessionContract;
+import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 
 import java.util.ArrayList;
 
@@ -157,12 +158,7 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
         item.setTitle(current.getName());
     }
 
-    public void reload(){
-        presenter.getSessions();
-        adapter = new MainAdapter(sessions,current,callback);
-        recycler.setAdapter(adapter);
 
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

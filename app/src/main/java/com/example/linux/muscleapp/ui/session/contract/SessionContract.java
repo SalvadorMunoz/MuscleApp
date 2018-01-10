@@ -17,6 +17,7 @@ public interface SessionContract {
          void setPresenter(SessionContract.MainPresenter presenter);
          void getCurrentUser(User user);
 
+
          interface Comment {
              void getCommentNumbers(int idSession);
          }
@@ -41,6 +42,7 @@ public interface SessionContract {
     interface AddSessionPresenter{
          void addSession(String name,String pass, int user);
          void getExcersices();
+
          void deleteExcersice(int position);
          void onDestroy();
     }

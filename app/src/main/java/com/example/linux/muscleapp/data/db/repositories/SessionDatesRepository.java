@@ -31,12 +31,24 @@ public class SessionDatesRepository {
     }
 
     public void initialize(){
-        add(new SessionDate(11,11,2017,1));
-        add(new SessionDate(13,11,2017,1));
+        add(new SessionDate(1,11,11,2017,1));
+        add(new SessionDate(2,13,11,2017,1));
 
     }
 
     public ArrayList<SessionDate> getSessionDates(){
         return dates;
+    }
+    public int getLastId(){
+        int res=-1;
+        if(dates.size()==0)
+            res = 1;
+        else{
+            for(int i = 0;i < dates.size();i++){
+                if(dates.get(i).getId() > res)
+                    res = dates.get(i).getId();
+            }
+        }
+        return res;
     }
 }

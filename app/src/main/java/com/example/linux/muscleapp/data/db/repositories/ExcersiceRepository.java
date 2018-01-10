@@ -35,4 +35,16 @@ public class ExcersiceRepository {
     public ArrayList<Excersice> getExcersices(){
         return excersices;
     }
+    public int getLastId(){
+        int res=-1;
+        if(excersices.size()==0)
+            res = 1;
+        else{
+            for(int i = 0;i < excersices.size();i++){
+                if(excersices.get(i).getId() > res)
+                    res = excersices.get(i).getId();
+            }
+        }
+        return res;
+    }
 }

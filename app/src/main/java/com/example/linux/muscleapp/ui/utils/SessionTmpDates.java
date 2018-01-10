@@ -15,6 +15,7 @@ public class SessionTmpDates {
     public static final int EXCERSICES_LIMIT = 10;
     private static ArrayList<SessionDate> dates;
     private static ArrayList<Excersice>  excersices;
+    private static int pos;
 
     public static void initialize(){
         if(dates == null && excersices == null) {
@@ -48,5 +49,13 @@ public class SessionTmpDates {
     }
     public static void deleteExcersice (int position){
         excersices.remove(position);
+    }
+
+    public static int getPos() {
+        return pos;
+    }
+
+    public static void setPos(int pos) {
+        SessionTmpDates.pos = pos;
     }
 }

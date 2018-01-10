@@ -11,23 +11,40 @@ import android.os.Parcelable;
  */
 
 public class SessionDate implements Parcelable{
+    private int id;
     private  int day;
     private  int month;
     private  int year;
     private int sessionId;
 
-    public SessionDate(int day, int month, int year,int sessionId) {
+    public SessionDate(int id,int day, int month, int year,int sessionId) {
         this.day = day;
         this.month = month;
         this.year = year;
         this.sessionId = sessionId;
     }
 
+
     protected SessionDate(Parcel in) {
+        id = in.readInt();
         day = in.readInt();
         month = in.readInt();
         year = in.readInt();
         sessionId = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(day);
+        dest.writeInt(month);
+        dest.writeInt(year);
+        dest.writeInt(sessionId);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<SessionDate> CREATOR = new Creator<SessionDate>() {
@@ -62,16 +79,11 @@ public class SessionDate implements Parcelable{
         this.sessionId = sessionId;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public int getId() {
+        return id;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(day);
-        parcel.writeInt(month);
-        parcel.writeInt(year);
-        parcel.writeInt(sessionId);
+    public void setId(int id) {
+        this.id = id;
     }
 }

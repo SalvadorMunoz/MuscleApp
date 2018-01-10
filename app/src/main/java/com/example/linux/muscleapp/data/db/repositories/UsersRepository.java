@@ -80,8 +80,18 @@ public class UsersRepository {
         }
     }
     public int getLastId(){
-        return users.get(users.size()-1).getId();
+        int res=-1;
+        if(users.size()==0)
+            res = 1;
+        else{
+            for(int i = 0;i < users.size();i++){
+                if(users.get(i).getId() > res)
+                    res = users.get(i).getId();
+            }
+        }
+        return res;
     }
+
     public String getNameFronId(int id){
         String res="";
         for(int i = 0; i < users.size();i++){

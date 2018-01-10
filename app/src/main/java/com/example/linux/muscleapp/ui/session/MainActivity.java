@@ -22,7 +22,7 @@ import com.example.linux.muscleapp.ui.session.presenter.MainPresenterImp;
  *
  * This class is the main activity has got the sessions list, navigation drawer, add session button...
  */
-public class MainActivity extends AppCompatActivity  implements MainListFragment.MainListListener,CommentListFragment.CommentListListener {
+public class MainActivity extends AppCompatActivity  implements MainListFragment.MainListListener {
     MainListFragment mainListFragment;
     CommentListFragment commentListFragment;
     SessionContract.MainPresenter mainPresenter;
@@ -44,8 +44,15 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
     @Override
     protected void onResume() {
         super.onResume();
-        loadMain();
-    }
+        mainListFragment = (MainListFragment) getSupportFragmentManager().findFragmentByTag(MainListFragment.TAG);
+
+        if(mainListFragment == null){
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            mainListFragment = MainListFragment.newInstance(null);
+            transaction.add(android.R.id.content,mainListFragment,MainListFragment.TAG).commit();
+        }
+        mainPresenter = new MainPresenterImp(mainListFragment);
+        mainListFragment.setPresenter(mainPresenter);    }
 
     @Override
     public void goComments(User current, int idSession) {
@@ -68,21 +75,7 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
         intent.putExtra("user",current);
         startActivity(intent);
     }
-    private void loadMain(){
-        mainListFragment = (MainListFragment) getSupportFragmentManager().findFragmentByTag(MainListFragment.TAG);
 
-        if(mainListFragment == null){
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            mainListFragment = MainListFragment.newInstance(null);
-            transaction.add(android.R.id.content,mainListFragment,MainListFragment.TAG).commit();
-        }
-        mainPresenter = new MainPresenterImp(mainListFragment);
-        mainListFragment.setPresenter(mainPresenter);
-    }
 
-    @Override
-    public void reload() {
-        loadMain();
-        mainListFragment.reload();
-    }
+
 }

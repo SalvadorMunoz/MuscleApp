@@ -62,8 +62,10 @@ public class SignInFragment extends Fragment implements LoginContract.LoginView 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if(AppPreferencesHelper.newInstance().getRemember() == true)
+        if(AppPreferencesHelper.newInstance().getRemember() == true) {
             callback.goMain();
+            getActivity().finish();
+        }
 
         View root = inflater.inflate(R.layout.fragment_sign_in,container,false);
 

@@ -51,6 +51,10 @@ public class Excersice implements Parcelable {
         }
     };
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }

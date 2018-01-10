@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +30,9 @@ import java.util.Calendar;
 public class AddSessionDateFragment extends ListFragment implements AddDateContract.View{
     public static final String TAG="addDate";
     private    FloatingActionButton fbtAdd;
-    DatePickerListener dplistener;
+    private DatePickerListener dplistener;
+    private Toolbar toolbar;
+
     private SessionDatesAdapter adapter;
     private AddDateContract.Presenter presenter;
 
@@ -49,6 +53,7 @@ public class AddSessionDateFragment extends ListFragment implements AddDateContr
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_add_session_date,container,false);
         fbtAdd = (FloatingActionButton) root.findViewById(R.id.fbtAddDate);
+        toolbar = (Toolbar) root.findViewById(R.id.toolbar);
         presenter = new AddSessionDatePresenter(this);
 
         adapter = new SessionDatesAdapter(getActivity(),presenter);
@@ -60,6 +65,8 @@ public class AddSessionDateFragment extends ListFragment implements AddDateContr
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        toolbar.setTitle(getResources().getString(R.string.training_dates));
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         presenter.loadDates();
         fbtAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +93,7 @@ public class AddSessionDateFragment extends ListFragment implements AddDateContr
 
         @Override
         public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-            SessionDate sessionDate = new SessionDate(i2,i1,i,-1);
+            SessionDate sessionDate = new SessionDate(-1,i2,i1+1,i,-1);
             presenter.addDate(sessionDate);
         }
     }

@@ -53,4 +53,16 @@ public class CommentsRepository {
             instance = new CommentsRepository();
         return instance;
     }
+    public int getLastId(){
+        int res=-1;
+        if(comments.size()==0)
+            res = 1;
+        else{
+            for(int i = 0;i < comments.size();i++){
+                if(comments.get(i).getId() > res)
+                    res = comments.get(i).getId();
+            }
+        }
+        return res;
+    }
 }

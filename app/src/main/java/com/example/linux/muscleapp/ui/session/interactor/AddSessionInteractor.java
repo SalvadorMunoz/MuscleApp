@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public interface AddSessionInteractor {
     void addSession(String name,String pass, int user,OnAddSessionFinish onAddSessionFinish);
 
+
     void getExcersices(OnAddSessionFinish onAddSessionFinish);
     void deleteExcersice(int position, OnAddSessionFinish onAddSessionFinish);
     interface OnAddSessionFinish{

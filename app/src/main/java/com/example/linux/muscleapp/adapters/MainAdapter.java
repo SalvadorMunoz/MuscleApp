@@ -14,6 +14,7 @@ import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.db.repositories.CommentsRepository;
 import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
 import com.example.linux.muscleapp.ui.session.fragment.MainListFragment;
+import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 import com.pkmmte.view.CircularImageView;
 
 import java.text.DateFormat;
@@ -34,6 +35,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     private ArrayList<Session>sessions;
     private User current;
     private MainListFragment.MainListListener callback;
+    private static final  int USER_KEY = 0;
+    private static final  int POS_KEY = 1;
+
 
     //Class listener
     clickItem listener;
@@ -74,10 +78,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
         holder.name.setText(sessions.get(position).getName());
         holder.result.setText(UsersRepository.getInstance().getNameFronId(sessions.get(position).getUser())+", "+formatDate(sessions.get(position).getCreationDate()));
         holder.image.setImageResource(sessions.get(position).getUrlImage());
-        int num = CommentsRepository.getInstace().getSize(id);
-        holder.numComments.setText(String.valueOf(num));
-        holder.comments.setOnClickListener(listener);
-        holder.comments.setTag(sessions.get(position));
+        holder.numComments.setOnClickListener(listener);
+        holder.numComments.setTag(sessions.get(position));
+
 
     }
 
@@ -98,7 +101,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     static class SessionHolder extends RecyclerView.ViewHolder{
         private TextView name,result,numComments;
         private CircularImageView image;
-        private ImageView comments;
 
         public SessionHolder(View itemView) {
             super(itemView);
@@ -106,21 +108,16 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
             result = (TextView) itemView.findViewById(R.id.txvSessionRes);
             image = (CircularImageView) itemView.findViewById(R.id.civItemSessionImage);
             numComments = (TextView) itemView.findViewById(R.id.txvNumComments);
-            comments = (ImageView) itemView.findViewById(R.id.imgItemComments);
         }
     }
 
     class clickItem implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-            /* intent= null;
-            int session = ((Session)view.getTag()).getId();*/
+
 
             switch (view.getId()){
-                case R.id.imgItemComments:
-                   /* intent = new Intent(view.getContext(), CommentsActivity.class);
-                    intent.putExtra("idSession",session);
-                    intent.putExtra("current",current);*/
+                case R.id.txvNumComments:
                    callback.goComments(current,((Session)view.getTag()).getId());
                     break;
             }

@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.adapters.CommentsAdapter;
@@ -34,22 +36,13 @@ public class CommentListFragment extends DialogFragment implements CommentsContr
     private EditText edtWrite;
     private FloatingActionButton fbtSend;
     private ListView listView;
+    private TextView txvNoComments;
     private  CommentsContract.CommentsPresenter presenter;
     private CommentsAdapter adapter;
-    private CommentListListener callback;
 
     private int session ;
     private String username ;
 
-    public interface CommentListListener{
-        void reload();
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        callback = (CommentListListener) activity;
-    }
 
     public static CommentListFragment newInstance(Bundle b){
         CommentListFragment commentListFragment = new CommentListFragment();
@@ -77,6 +70,8 @@ public class CommentListFragment extends DialogFragment implements CommentsContr
         edtWrite = (EditText) root.findViewById(R.id.edtWriteComment);
         fbtSend = (FloatingActionButton) root.findViewById(R.id.fbtSend);
         listView = (ListView) root.findViewById(android.R.id.list);
+        txvNoComments = (TextView) root.findViewById(R.id.txvNoComments);
+
 
         session = getArguments().getInt("session");
         username = ((User)getArguments().getParcelable("current")).getName();
@@ -90,15 +85,25 @@ public class CommentListFragment extends DialogFragment implements CommentsContr
             public void onClick(View view) {
                 presenter.addComment(session,username,edtWrite.getText().toString());
                 edtWrite.setText("");
+                checkEmpty();
             }
         });
         presenter.fillComments(session);
+       checkEmpty();
 
         return builder.create();
 
     }
 
-
+    private void checkEmpty(){
+        if(adapter.getCount() ==0){
+            txvNoComments.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+        }else{
+            listView.setVisibility(View.VISIBLE);
+            txvNoComments.setVisibility(View.GONE);
+        }
+    }
 
     @Override
     public void fillComments(ArrayList<Commentary> comments) {
@@ -127,6 +132,5 @@ public class CommentListFragment extends DialogFragment implements CommentsContr
         super.onDismiss(dialog);
         adapter = null;
         presenter.onDestroy();
-        callback.reload();
     }
 }

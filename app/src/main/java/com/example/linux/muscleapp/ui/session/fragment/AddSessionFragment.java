@@ -159,8 +159,6 @@ public class AddSessionFragment extends ListFragment implements SessionContract.
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                Date date = new Date();
                 presenter.addSession(edtName.getText().toString(),edtPass.getText().toString(),current.getId());
             }
         });
