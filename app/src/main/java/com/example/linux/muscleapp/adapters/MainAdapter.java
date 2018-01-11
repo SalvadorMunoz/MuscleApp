@@ -14,6 +14,7 @@ import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.db.repositories.CommentsRepository;
 import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
 import com.example.linux.muscleapp.ui.session.fragment.MainListFragment;
+import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 import com.pkmmte.view.CircularImageView;
 
@@ -78,6 +79,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
         holder.name.setText(sessions.get(position).getName());
         holder.result.setText(UsersRepository.getInstance().getNameFronId(sessions.get(position).getUser())+", "+formatDate(sessions.get(position).getCreationDate()));
         holder.image.setImageResource(sessions.get(position).getUrlImage());
+        holder.name.setOnClickListener(listener);
+        holder.name.setTag(sessions.get(position));
         holder.numComments.setOnClickListener(listener);
         holder.numComments.setTag(sessions.get(position));
 
@@ -119,6 +122,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
             switch (view.getId()){
                 case R.id.txvNumComments:
                    callback.goComments(current,((Session)view.getTag()).getId());
+                    break;
+                case R.id.txvSessionName:
+                    Session tmp = (Session)view.getTag();
+                    if(tmp.getPass().equals(""))
+                        callback.seeSession(tmp, GlobalVariables.OPEN_SEE);
+                    else
+                        callback.checkSessionPassword(tmp);
                     break;
             }
             /*if(intent != null)

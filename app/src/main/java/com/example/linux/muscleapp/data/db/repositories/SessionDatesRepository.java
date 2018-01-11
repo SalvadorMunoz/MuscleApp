@@ -4,6 +4,7 @@ package com.example.linux.muscleapp.data.db.repositories;
 import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author Salvador Muñoz
@@ -36,8 +37,15 @@ public class SessionDatesRepository {
 
     }
 
-    public ArrayList<SessionDate> getSessionDates(){
-        return dates;
+    public ArrayList<SessionDate> getSessionDates(int sessionId){
+        ArrayList<SessionDate> tmp = new ArrayList<>();
+
+        for(int i = 0; i < dates.size();i++){
+            if(sessionId == dates.get(i).getSessionId())
+                tmp.add(dates.get(i));
+        }
+
+        return tmp;
     }
     public int getLastId(){
         int res=-1;

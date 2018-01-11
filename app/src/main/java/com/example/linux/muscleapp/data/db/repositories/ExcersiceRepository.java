@@ -32,8 +32,15 @@ public class ExcersiceRepository {
         add(new Excersice(1,1, "Biceps","Biceps","","",2,4,0));
     }
 
-    public ArrayList<Excersice> getExcersices(){
-        return excersices;
+    public ArrayList<Excersice> getExcersices(int sessionId){
+        ArrayList<Excersice>tmp = new ArrayList<>();
+
+        for (int i = 0; i < excersices.size();i++){
+            if(sessionId == excersices.get(i).getSession())
+                tmp.add(excersices.get(i));
+        }
+
+        return tmp;
     }
     public int getLastId(){
         int res=-1;

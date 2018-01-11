@@ -10,5 +10,7 @@
     <string name="err_emptymuscle">Músculo vacío</string>
     <string name="err_invalid_format">Formato incorrecto</string>
     <string name="err_invalid_pass_format">Debe tener (A,a,1,@...) y al menos 6 caracteres</string>
+    <string name="err_invalid_pass">Contraseña incorrecta</string>
+
 
 </resources>

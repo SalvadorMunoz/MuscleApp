@@ -39,4 +39,13 @@
 
     <string name="training_dates">Fechas del entrenamiento</string>
     <string name="no_comments">Escribe el primer comentario</string>
+    <string name="check_pass_dialog_title">Sesión privada</string>
+    <string name="check_pass_dialog_message">Introduce la contraseña de </string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>

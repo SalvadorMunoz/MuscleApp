@@ -27,6 +27,7 @@ import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.prefs.AppPreferences;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.ui.session.contract.SessionContract;
+import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 
 import java.util.ArrayList;
@@ -50,7 +51,10 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     public interface MainListListener{
         void goComments(User current, int idSession);
-        void addSession(User current);
+        void addSession(User current, int mode);
+        void checkSessionPassword(Session session);
+        void seeSession(Session session,int mode);
+
     }
 
     @Override
@@ -114,7 +118,7 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
         fbtAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callback.addSession(current);
+                callback.addSession(current, GlobalVariables.OPEN_ADD);
 
             }
         });

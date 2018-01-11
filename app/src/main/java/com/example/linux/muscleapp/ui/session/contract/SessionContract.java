@@ -2,6 +2,7 @@ package com.example.linux.muscleapp.ui.session.contract;
 
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.Session;
+import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 import com.example.linux.muscleapp.data.db.pojo.User;
 
 import java.util.ArrayList;
@@ -47,5 +48,21 @@ public interface SessionContract {
          void onDestroy();
     }
 
+    interface SeeSessionView{
+         void fillExcersices(ArrayList<Excersice> excersices);
+    }
+    interface SeeSessionsPresenter{
+        void getExcersices(int sessionId);
+        void onDestroy();
 
+    }
+
+    interface SeeDatesView{
+        void fillDates(ArrayList<SessionDate> dates);
+    }
+    interface SeeDatesPresenter{
+        void getDates(int sessionId);
+        void onDestroy();
+
+    }
 }

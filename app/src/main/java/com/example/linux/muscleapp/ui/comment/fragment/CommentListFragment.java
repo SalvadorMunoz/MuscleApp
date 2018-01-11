@@ -67,6 +67,7 @@ public class CommentListFragment extends DialogFragment implements CommentsContr
         View root = inflater.inflate(R.layout.fragment_comment_list,null);
         builder.setView(root);
 
+
         edtWrite = (EditText) root.findViewById(R.id.edtWriteComment);
         fbtSend = (FloatingActionButton) root.findViewById(R.id.fbtSend);
         listView = (ListView) root.findViewById(android.R.id.list);

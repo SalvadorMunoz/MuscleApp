@@ -12,25 +12,18 @@ import android.widget.TextView;
 
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.SessionDate;
-import com.example.linux.muscleapp.data.db.repositories.SessionDatesRepository;
 import com.example.linux.muscleapp.ui.dates.contract.AddDateContract;
-import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 
 import java.util.ArrayList;
 
 /**
- * @author Salvador Muñoz
- * @version 1.0
- *
- * Date list adapter.
+ * Created by linux on 11/01/18.
  */
 
-public class SessionDatesAdapter extends ArrayAdapter<SessionDate> {
-    private AddDateContract.Presenter presenter;
+public class SeeDatesAdapter extends ArrayAdapter<SessionDate> {
 
-    public SessionDatesAdapter(@NonNull Context context, AddDateContract.Presenter presenter) {
+    public SeeDatesAdapter(@NonNull Context context) {
         super(context, R.layout.item_date, new ArrayList<SessionDate>());
-        this.presenter = presenter;
     }
 
     @NonNull
@@ -38,7 +31,6 @@ public class SessionDatesAdapter extends ArrayAdapter<SessionDate> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         SessionDatesHolder holder = new SessionDatesHolder();
-        ClickItem clickItem = new ClickItem();
 
         if(view == null){
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -46,8 +38,7 @@ public class SessionDatesAdapter extends ArrayAdapter<SessionDate> {
 
             holder.date = (TextView) view.findViewById(R.id.txvItemDate);
             holder.delete = (ImageView) view.findViewById(R.id.imgDelete);
-            holder.delete.setOnClickListener(clickItem);
-            holder.delete.setTag(position);
+            holder.delete.setVisibility(View.GONE);
 
 
             view.setTag(holder);
@@ -64,11 +55,5 @@ public class SessionDatesAdapter extends ArrayAdapter<SessionDate> {
         TextView date;
         ImageView delete;
     }
-    class ClickItem implements View.OnClickListener{
 
-        @Override
-        public void onClick(View view) {
-            presenter.deleteDate((Integer) view.getTag());
-        }
-    }
 }
