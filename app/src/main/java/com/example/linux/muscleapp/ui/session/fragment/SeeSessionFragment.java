@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.linux.muscleapp.R;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SeeSessionFragment extends ListFragment implements SessionContract.SeeSessionView {
+public class SeeSessionFragment extends ListFragment implements SessionContract.SeeSessionView,AdapterView.OnItemClickListener {
     public static final String TAG ="seesession";
     private Toolbar toolbar;
     private FloatingActionButton fbtDates;
@@ -39,8 +40,11 @@ public class SeeSessionFragment extends ListFragment implements SessionContract.
     public SeeSessionFragment() {
         // Required empty public constructor
     }
+
+
     public interface SeeSessionListener{
         void seeDates(int sessionId);
+        void seeExcersice(Excersice excersice);
     }
 
     @Override
@@ -88,6 +92,12 @@ public class SeeSessionFragment extends ListFragment implements SessionContract.
             }
         });
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Excersice tmp = (Excersice) adapterView.getItemAtPosition(i);
+    }
+
 
     @Override
     public void fillExcersices(ArrayList<Excersice> excersices) {

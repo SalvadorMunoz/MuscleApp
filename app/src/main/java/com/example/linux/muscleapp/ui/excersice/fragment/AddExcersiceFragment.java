@@ -15,6 +15,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +30,7 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.afollestad.materialcamera.MaterialCamera;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.User;
@@ -50,10 +52,11 @@ import butterknife.BindView;
 import butterknife.internal.Utils;
 import cz.msebera.android.httpclient.Header;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class AddExcersiceFragment extends Fragment implements ExcersiceContract.AddExcersiceView{
     public static final  String TAG = "addExcersice";
-    public final static String WEB= "https://muscleapp.club/videoupload.php";
 
 
     private Button btnCreate;
@@ -68,12 +71,10 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
 
     private static final int LIMIT = 30;
 
-    //Camera intent id and camera limit
-    private static final int CAMERA_REQUEST =1;
-    private static final int VIDEO_LIMIT=5;
     private User current;
     public interface AddExcersiceListener{
         void goBack();
+        void goRecordVideo(int  curretUser);
     }
 
     @Override
@@ -164,13 +165,7 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
         fbtVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //Create camera intent and set limit
-                Intent cameraIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                cameraIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT,VIDEO_LIMIT);
-                CameraConfig.setResolution();
-                if(cameraIntent.resolveActivity(getActivity().getPackageManager()) != null)
-                    startActivityForResult(cameraIntent,CAMERA_REQUEST);
+                callback.goRecordVideo(current.getId());
             }
         });
     }
@@ -179,82 +174,6 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
         repetitions.setMaxValue(LIMIT);
         series.setMaxValue(LIMIT);
     }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        //Check the activity result
-        switch (requestCode) {
-            case CAMERA_REQUEST:
-                if (resultCode == Dialog.BUTTON_POSITIVE){
-                    long numtmp = AppPreferencesHelper.newInstance().getNumVideo()+1;
-                    AppPreferencesHelper.newInstance().setNumVideo(numtmp);
-                    String path = getContext().getFilesDir().getPath()+"/"+String.valueOf(current.getId())+String.valueOf(numtmp)+".zip";
-
-                    Uri uri = data.getData();
-
-                    ZipManager manager = new ZipManager();
-                    manager.zip(UriConverter.getRealPathFromURI(getActivity(),uri),path);
-
-                    File tmp = new File(path);
-                    uploadVideo(tmp);
-                }
-                    break;
-        }
-    }
-
-
-
-    private void uploadVideo(File video) {
-        final ProgressDialog progreso = new ProgressDialog(getContext());
-
-        Boolean existe =true;
-        RequestParams params = new  RequestParams();
-        try
-        {
-            params.put("fileToUpload", video);
-        }
-        catch (FileNotFoundException e) {
-            existe = false;
-        }
-        if(existe)
-            RestClient.post(WEB, params, new TextHttpResponseHandler() {
-
-
-
-                @Override
-                public void onStart() {
-
-                    progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                    progreso.setMessage("Conectando . . .");
-                    ;
-                    progreso.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-                            RestClient.cancelRequests(getActivity().getApplicationContext(), true);
-
-                        }
-
-                    });
-                    progreso.show();
-                }
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, String response) {
-                    progreso.dismiss();
-                    Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
-                }
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String response, Throwable t) {
-                    progreso.dismiss();
-                    Toast.makeText(getContext(), t.getMessage().toString(), Toast.LENGTH_LONG).show();
-                }
-            });
-
-    }
-
-
-
-
 
     @Override
     public void setOnEmptyName() {

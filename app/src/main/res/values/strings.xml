@@ -43,9 +43,7 @@
     <string name="check_pass_dialog_message">Introduce la contraseña de </string>
     <string name="accept">Aceptar</string>
     <string name="cancel">Cancelar</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="upload_ok">Subido con exito</string>
 
 
 </resources>

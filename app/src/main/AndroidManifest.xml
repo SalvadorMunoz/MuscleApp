@@ -5,11 +5,12 @@
     <!-- Permission to use the camera -->
     <uses-features
         android:name="android.hardware.camera"
-        android:required="true" />
+        android:required="false" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <!-- Para poder acceder a internet -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -41,6 +42,12 @@
         <activity android:name=".ui.session.SessionActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustResize" ></activity>
+        <activity
+            android:name="com.afollestad.materialcamera.CaptureActivity"
+            android:theme="@style/MaterialCamera.CaptureActivity" />
+        <activity
+            android:name="com.afollestad.materialcamera.CaptureActivity2"
+            android:theme="@style/MaterialCamera.CaptureActivity" />
     </application>
 
 </manifest>

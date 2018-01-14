@@ -46,4 +46,11 @@
     <string name="err_emptymuscle">Empty muscle</string>
     <string name="err_invalid_format">Invalid format</string>
     <string name="err_invalid_pass_format">Must have  (A,a,1,@...) and almost 6 characters</string>
+    <string name="training_dates">Training dates</string>
+    <string name="no_comments">Write the first comment</string>
+    <string name="check_pass_dialog_title">Private training session</string>
+    <string name="check_pass_dialog_message">Write the password</string>
+    <string name="accept">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="upload_ok">Upload succesfully</string>
 </resources>
