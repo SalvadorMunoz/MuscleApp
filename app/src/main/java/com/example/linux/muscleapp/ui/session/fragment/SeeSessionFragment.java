@@ -27,7 +27,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SeeSessionFragment extends ListFragment implements SessionContract.SeeSessionView,AdapterView.OnItemClickListener {
+public class SeeSessionFragment extends ListFragment implements SessionContract.SeeSessionView {
     public static final String TAG ="seesession";
     private Toolbar toolbar;
     private FloatingActionButton fbtDates;
@@ -91,12 +91,15 @@ public class SeeSessionFragment extends ListFragment implements SessionContract.
                 calllback.seeDates(tmp.getId());
             }
         });
+        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Excersice tmp = (Excersice) adapterView.getItemAtPosition(i);
+                calllback.seeExcersice(tmp);
+            }
+        });
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Excersice tmp = (Excersice) adapterView.getItemAtPosition(i);
-    }
 
 
     @Override

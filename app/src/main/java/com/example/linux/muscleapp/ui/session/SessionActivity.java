@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,9 +17,11 @@ import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
+import com.example.linux.muscleapp.net.NetFunctions;
 import com.example.linux.muscleapp.net.RestClient;
 import com.example.linux.muscleapp.ui.dates.fragment.AddSessionDateFragment;
 import com.example.linux.muscleapp.ui.excersice.fragment.AddExcersiceFragment;
+import com.example.linux.muscleapp.ui.excersice.fragment.SeeExcersiceFragment;
 import com.example.linux.muscleapp.ui.session.fragment.AddSessionFragment;
 import com.example.linux.muscleapp.ui.session.fragment.SeeSessionFragment;
 import com.example.linux.muscleapp.ui.session.fragment.SeedatesDialog;
@@ -39,16 +42,17 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     private AddExcersiceFragment addExcersiceFragment;
     private SeeSessionFragment seeSessionFragment;
     private SeedatesDialog seedatesDialog;
+    private SeeExcersiceFragment seeExcersiceFragment;
 
     private int currentUser;
     private static final int CAMERA_REQUEST =1;
 
-    public final static String WEB= "https://muscleapp.club/videoupload.php";
-
+    private NetFunctions netFunctions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        netFunctions = new NetFunctions(this);
         switch (getIntent().getIntExtra("mode",-1)){
             case GlobalVariables.OPEN_ADD:
                 User user = getIntent().getParcelableExtra("user");
@@ -101,8 +105,10 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     @Override
     public void goRecordVideo(int currentUser) {
         this.currentUser = currentUser;
+        File saveFolder = new File(Environment.getExternalStorageDirectory(), "muscleapp");
         new MaterialCamera(this).maxAllowedFileSize(1024 * 1024 * 5)
                 .primaryColor(getResources().getColor(R.color.colorPrimary))
+                .saveDir(saveFolder)
                 .qualityProfile(MaterialCamera.QUALITY_480P).
                 showPortraitWarning(false)
                 .countdownMinutes(0.16f)
@@ -145,7 +151,15 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
 
     @Override
     public void seeExcersice(Excersice excersice) {
-
+        seeExcersiceFragment = (SeeExcersiceFragment) getSupportFragmentManager().findFragmentByTag(SeeExcersiceFragment.TAG);
+        if(seeExcersiceFragment == null){
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("current", excersice);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            seeExcersiceFragment = SeeExcersiceFragment.newInstance(bundle);
+            transaction.addToBackStack(null);
+            transaction.replace(android.R.id.content,seeExcersiceFragment,SeeExcersiceFragment.TAG).commit();
+        }
     }
 
     @Override
@@ -166,57 +180,12 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
                     manager.zip(UriConverter.getRealPathFromURI(this,uri),path);
 
                     File tmp = new File(path);
-                    uploadVideo(tmp);
+                    netFunctions.uploadVideo(tmp);
                 }
                 break;
         }
     }
 
 
-    public void uploadVideo(File video) {
-        final ProgressDialog progreso = new ProgressDialog(this);
 
-        Boolean existe =true;
-        RequestParams params = new  RequestParams();
-        try
-        {
-            params.put("fileToUpload", video);
-        }
-        catch (FileNotFoundException e) {
-            existe = false;
-        }
-        if(existe)
-            RestClient.post(WEB, params, new TextHttpResponseHandler() {
-
-
-
-                @Override
-                public void onStart() {
-
-                    progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                    progreso.setMessage("Conectando . . .");
-                    ;
-                    progreso.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-                            RestClient.cancelRequests(getApplicationContext(), true);
-
-                        }
-
-                    });
-                    progreso.show();
-                }
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, String response) {
-                    progreso.dismiss();
-                    Toast.makeText(SessionActivity.this, getResources().getString(R.string.upload_ok), Toast.LENGTH_LONG).show();
-                }
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String response, Throwable t) {
-                    progreso.dismiss();
-                    Toast.makeText(SessionActivity.this, t.getMessage().toString(), Toast.LENGTH_LONG).show();
-                }
-            });
-
-    }
 }
