@@ -45,6 +45,7 @@
     <string name="cancel">Cancelar</string>
     <string name="upload_ok">Subido con exito</string>
     <string name="see_video">Ver vídeo</string>
+    <string name="other">Otras opciones</string>
 
 
 </resources>

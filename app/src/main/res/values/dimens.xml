@@ -12,4 +12,7 @@
     <dimen name="icon">24dp</dimen>
     <dimen name="card_padding">8dp</dimen>
     <dimen name="text_size">18dp</dimen>
+    <dimen name="height_header_nav">154dp</dimen>
+    <dimen name="header_left_padding">16dp</dimen>
+    <dimen name="perfil_size">96dp</dimen>
 </resources>

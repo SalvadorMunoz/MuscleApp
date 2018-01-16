@@ -13,23 +13,18 @@ import android.os.Parcelable;
 public class User implements Parcelable {
     int id;
     String email,name,pass,residence,bornDate;
+    int url;
 
-    public User(String email, String name, String pass, String residence, String bornDate) {
+    public User(int i, String email, String name, String pass, String residence, String bornDate, int url) {
+         this.id = i;
         this.email = email;
         this.name = name;
         this.pass = pass;
         this.residence = residence;
         this.bornDate = bornDate;
+        this.url = url;
     }
 
-    public User(int id, String email, String name, String pass, String residence, String bornDate) {
-        this.id = id;
-        this.email = email;
-        this.name = name;
-        this.pass = pass;
-        this.residence = residence;
-        this.bornDate = bornDate;
-    }
 
     protected User(Parcel in) {
         id = in.readInt();
@@ -38,6 +33,7 @@ public class User implements Parcelable {
         pass = in.readString();
         residence = in.readString();
         bornDate = in.readString();
+        url = in.readInt();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -51,21 +47,6 @@ public class User implements Parcelable {
             return new User[size];
         }
     };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(email);
-        parcel.writeString(name);
-        parcel.writeString(pass);
-        parcel.writeString(residence);
-        parcel.writeString(bornDate);
-    }
 
     public int getId() {
         return id;
@@ -115,4 +96,27 @@ public class User implements Parcelable {
         this.bornDate = bornDate;
     }
 
+    public int getUrl() {
+        return url;
+    }
+
+    public void setUrl(int url) {
+        this.url = url;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(email);
+        parcel.writeString(name);
+        parcel.writeString(pass);
+        parcel.writeString(residence);
+        parcel.writeString(bornDate);
+        parcel.writeInt(url);
+    }
 }

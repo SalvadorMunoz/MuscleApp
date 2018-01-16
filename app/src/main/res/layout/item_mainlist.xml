@@ -22,12 +22,14 @@
             android:padding="@dimen/list_padding"
             >
 
-            <com.pkmmte.view.CircularImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/civItemSessionImage"
                 android:layout_width="@dimen/img_recyler"
                 android:layout_height="@dimen/img_recyler"
                 android:scaleType="centerCrop"
                 android:src="@drawable/no_photo"
+                app:civ_border_color="@android:color/background_light"
+                app:civ_border_width="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

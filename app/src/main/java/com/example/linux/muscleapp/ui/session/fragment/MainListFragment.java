@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.adapters.MainAdapter;
@@ -29,6 +30,7 @@ import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.ui.session.contract.SessionContract;
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
+import com.pkmmte.view.CircularImageView;
 
 import java.util.ArrayList;
 
@@ -43,6 +45,7 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     private ArrayList<Session> sessions;
     private User current;
     private MainListListener callback;
+
 
     SessionContract.MainPresenter presenter;
     private RecyclerView recycler;
@@ -124,8 +127,8 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
         });
         // Inflate the layout for this fragment
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-
-
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_navigation);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recycler.setAdapter(adapter);
 
@@ -154,31 +157,8 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.main_menu,menu);
-        MenuItem item = menu.findItem(R.id.actionPerfil);
-        item.setTitle(current.getName());
-    }
 
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = null;
-        switch (item.getItemId()){
-            case R.id.actionAccountSettings:
-                //intent = new Intent(MainActivity.this,SettingsActivity.class);
-                break;
-            case R.id.actionAboutUs:
-                //intent = new Intent(MainActivity.this,AboutUsActivity.class);
-                break;
-        }
-        if(intent != null)
-            startActivity(intent);
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void fillSessions(ArrayList<Session> sessions) {

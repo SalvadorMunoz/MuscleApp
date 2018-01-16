@@ -16,12 +16,13 @@ import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
 import com.example.linux.muscleapp.ui.session.fragment.MainListFragment;
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
-import com.pkmmte.view.CircularImageView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -103,13 +104,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
 
     static class SessionHolder extends RecyclerView.ViewHolder{
         private TextView name,result,numComments;
-        private CircularImageView image;
+        private CircleImageView image;
 
         public SessionHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.txvSessionName);
             result = (TextView) itemView.findViewById(R.id.txvSessionRes);
-            image = (CircularImageView) itemView.findViewById(R.id.civItemSessionImage);
+            image = (CircleImageView) itemView.findViewById(R.id.civItemSessionImage);
             numComments = (TextView) itemView.findViewById(R.id.txvNumComments);
         }
     }

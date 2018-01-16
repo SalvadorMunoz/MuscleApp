@@ -1,5 +1,6 @@
 package com.example.linux.muscleapp.data.db.repositories;
 
+import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.User;
 
 import java.util.ArrayList;
@@ -36,9 +37,9 @@ public class UsersRepository {
     }
 
     private void initialize(){
-        add(new User(1,"yo@yo.com","yo","yo","Malaga","21-05-1994"));
-        add(new User(2,"cr7@cr7.com","Cristiano","cris","cr7","21-05-1994"));
-        add(new User(3,"indurain@cr7.com","Indurain","indurain","su","21-05-1994"));
+        add(new User( 1,"yo@yo.com","yo","yo","Malaga","21-05-1994", R.drawable.no_photo));
+        add(new User( 2,"cr7@cr7.com","Cristiano","cris","cr7","21-05-1994",R.drawable.bicho));
+        add(new User( 3,"indurain@cr7.com","Indurain","indurain","su","21-05-1994",R.drawable.indurain));
 
     }
     public boolean validateCredentials(String email,String pass){
