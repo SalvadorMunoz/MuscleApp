@@ -40,6 +40,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ui.about.AboutUsActivity" />
         <activity android:name=".ui.session.SessionActivity"
+            android:theme="@style/AppThemeCustom"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustResize" ></activity>
         <activity
