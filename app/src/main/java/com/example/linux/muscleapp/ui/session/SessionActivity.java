@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
+import com.example.linux.muscleapp.data.db.repositories.ExcersiceRepository;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.net.NetFunctions;
 import com.example.linux.muscleapp.net.RestClient;
@@ -48,6 +50,8 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     private static final int CAMERA_REQUEST =1;
 
     private NetFunctions netFunctions;
+    private File tmp;
+    private String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,8 +101,14 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
         finish();
     }
 
+
+
     @Override
-    public void goBack() {
+    public void goBack(int currentExcersice) {
+        if(tmp != null) {
+            netFunctions.uploadVideo(tmp);
+            ExcersiceRepository.getInstance().setUrlVideo(currentExcersice,path);
+        }
         getSupportFragmentManager().popBackStack();
     }
 
@@ -111,7 +121,7 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
                 .saveDir(saveFolder)
                 .qualityProfile(MaterialCamera.QUALITY_480P).
                 showPortraitWarning(false)
-                .countdownMinutes(0.16f)
+                .countdownMinutes(0.17f)
                 .start(CAMERA_REQUEST);
     }
 
@@ -172,15 +182,14 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
                 if (resultCode == Dialog.BUTTON_POSITIVE){
                     long numtmp = AppPreferencesHelper.newInstance().getNumVideo()+1;
                     AppPreferencesHelper.newInstance().setNumVideo(numtmp);
-                    String path = getFilesDir().getPath()+"/VID_"+String.valueOf(currentUser)+String.valueOf(numtmp)+".zip";
+                    path = getFilesDir().getPath()+"/VID_"+String.valueOf(currentUser)+String.valueOf(numtmp)+".zip";
 
                     Uri uri = data.getData();
 
                     ZipManager manager = new ZipManager();
                     manager.zip(UriConverter.getRealPathFromURI(this,uri),path);
 
-                    File tmp = new File(path);
-                    netFunctions.uploadVideo(tmp);
+                    tmp = new File(path);
                 }
                 break;
         }

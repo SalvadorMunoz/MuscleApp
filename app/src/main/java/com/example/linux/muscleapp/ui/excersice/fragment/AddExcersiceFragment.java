@@ -73,7 +73,7 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
 
     private User current;
     public interface AddExcersiceListener{
-        void goBack();
+        void goBack(int currentExcersice);
         void goRecordVideo(int  curretUser);
     }
 
@@ -186,9 +186,11 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
     }
 
     @Override
-    public void onSuccess() {
-        callback.goBack();
+    public void onSuccess(int id) {
+        callback.goBack(id);
     }
+
+
 
     @Override
     public void onDetach() {

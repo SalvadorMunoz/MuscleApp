@@ -10,6 +10,6 @@ public interface ExcersiceInteractor {
     interface OnExcersiceFinish{
         void onEmptyName();
         void onEmptyMuscle();
-        void onSuccess();
+        void onSuccess(int id);
     }
 }

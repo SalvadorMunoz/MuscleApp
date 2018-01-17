@@ -30,7 +30,6 @@ public class AddSessionInteractorImp implements AddSessionInteractor{
             for(int i = 0; i < SessionTmpDates.getExcersices().size();i++){
                 tmpEx = SessionTmpDates.getExcersices().get(i);
                 tmpEx.setSession(tmp.getId());
-                tmpEx.setId(SessionsRepository.getInstace().getLastId()+1);
                 ExcersiceRepository.getInstance().add(tmpEx);
             }
             for(int i = 0; i < SessionTmpDates.getDates().size();i++){

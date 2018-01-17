@@ -28,7 +28,6 @@ public class NetFunctions {
     }
 
     public void uploadVideo(File video) {
-        final ProgressDialog progreso = new ProgressDialog(context);
 
         Boolean existe =true;
         RequestParams params = new  RequestParams();
@@ -47,27 +46,12 @@ public class NetFunctions {
                 @Override
                 public void onStart() {
 
-                    progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                    progreso.setMessage("Conectando . . .");
-                    ;
-                    progreso.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                        @Override
-                        public void onCancel(DialogInterface dialog) {
-                            RestClient.cancelRequests(context.getApplicationContext(), true);
-
-                        }
-
-                    });
-                    progreso.show();
                 }
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, String response) {
-                    progreso.dismiss();
-                    Toast.makeText(context, context.getResources().getString(R.string.upload_ok), Toast.LENGTH_LONG).show();
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String response, Throwable t) {
-                    progreso.dismiss();
                     Toast.makeText(context, t.getMessage().toString(), Toast.LENGTH_LONG).show();
                 }
             });

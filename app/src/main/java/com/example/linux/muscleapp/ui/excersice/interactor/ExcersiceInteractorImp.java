@@ -1,6 +1,8 @@
 package com.example.linux.muscleapp.ui.excersice.interactor;
 
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
+import com.example.linux.muscleapp.data.db.repositories.ExcersiceRepository;
+import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
 import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 
 /**
@@ -16,8 +18,9 @@ public class ExcersiceInteractorImp implements ExcersiceInteractor {
         else if(muscle.isEmpty())
             onExcersiceFinish.onEmptyMuscle();
         else{
-            SessionTmpDates.addExcersice(new Excersice(id,session,name,muscle,url,type,series,repetitions,time));
-            onExcersiceFinish.onSuccess();
+            Excersice excersice = new Excersice(ExcersiceRepository.getInstance().getLastId()+1,session,name,muscle,url,type,series,repetitions,time);
+            SessionTmpDates.addExcersice(excersice);
+            onExcersiceFinish.onSuccess(excersice.getId());
         }
     }
 }

@@ -75,6 +75,10 @@ public class Excersice implements Parcelable {
         return url;
     }
 
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public String getTypeTime() {
         return typeTime;
     }

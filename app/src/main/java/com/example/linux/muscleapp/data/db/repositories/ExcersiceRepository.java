@@ -54,4 +54,10 @@ public class ExcersiceRepository {
         }
         return res;
     }
+    public void setUrlVideo(int id, String url){
+        for(int i = 0; i < excersices.size();i++){
+            if(excersices.get(i).getId() == id)
+                excersices.get(i).setUrl(url);
+        }
+    }
 }

@@ -32,13 +32,15 @@ public class ExcersicePresenter implements ExcersiceContract.AddExcersicePresent
     }
 
     @Override
+    public void onSuccess(int id) {
+        view.onSuccess(id);
+    }
+
+    @Override
     public void onDestroy() {
         view = null;
         interactor = null;
     }
 
-    @Override
-    public void onSuccess() {
-        view.onSuccess();
-    }
+
 }
