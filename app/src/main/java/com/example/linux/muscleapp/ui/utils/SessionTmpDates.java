@@ -44,6 +44,12 @@ public class SessionTmpDates {
         dates = null;
         excersices = null;
     }
+    public static void setUrlVideo(int id, String url){
+        for(int i = 0; i < excersices.size();i++){
+            if(excersices.get(i).getId() == id)
+                excersices.get(i).setUrl(url);
+        }
+    }
     public static void deleteDate (int position){
         dates.remove(position);
     }

@@ -12,10 +12,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.adapters.ExcersiceAdapter;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
+import com.example.linux.muscleapp.net.NetFunctions;
 
 import java.util.ArrayList;
 
@@ -27,9 +30,10 @@ public class SeeExcersiceFragment extends Fragment {
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private ArrayList<String> datas;
-
+    private Button btnSee;
     private Excersice tmp;
     private ExcersiceAdapter adapter;
+    private NetFunctions netFunctions;
 
     public SeeExcersiceFragment() {
         // Required empty public constructor
@@ -49,8 +53,10 @@ public class SeeExcersiceFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_see_excersice,container,false);
         toolbar = (Toolbar) root.findViewById(R.id.toolbar);
         recyclerView = (RecyclerView) root.findViewById(R.id.rcvExcersice);
+        btnSee = (Button) root.findViewById(R.id.btnSeeVideo);
 
         datas = new ArrayList<>();
+        netFunctions = new NetFunctions(getActivity());
         return root;
     }
 
@@ -78,5 +84,15 @@ public class SeeExcersiceFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        btnSee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(tmp.getUrl().isEmpty())
+                    Toast.makeText(getActivity(),"No tiene video", Toast.LENGTH_LONG).show();
+                else
+                    netFunctions.downloadVideo("https://muscleapp.club/videos/VID_19.zip");
+            }
+        });
     }
 }

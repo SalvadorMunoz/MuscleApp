@@ -28,6 +28,7 @@ import com.example.linux.muscleapp.ui.session.fragment.AddSessionFragment;
 import com.example.linux.muscleapp.ui.session.fragment.SeeSessionFragment;
 import com.example.linux.muscleapp.ui.session.fragment.SeedatesDialog;
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
+import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 import com.example.linux.muscleapp.ui.utils.UriConverter;
 import com.example.linux.muscleapp.ui.utils.ZipManager;
 import com.loopj.android.http.RequestParams;
@@ -107,7 +108,7 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     public void goBack(int currentExcersice) {
         if(tmp != null) {
             netFunctions.uploadVideo(tmp);
-            ExcersiceRepository.getInstance().setUrlVideo(currentExcersice,path);
+            SessionTmpDates.setUrlVideo(currentExcersice,path);
         }
         getSupportFragmentManager().popBackStack();
     }
