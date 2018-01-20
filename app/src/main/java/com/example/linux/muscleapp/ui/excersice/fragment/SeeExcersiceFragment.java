@@ -103,7 +103,6 @@ public class SeeExcersiceFragment extends Fragment {
                 if(tmp.getUrl().isEmpty())
                     Toast.makeText(getActivity(),"No tiene video", Toast.LENGTH_LONG).show();
                 else {
-                    netFunctions.downloadVideo("https://muscleapp.club/videos/VID_19.zip");
                     callback.goVideoPlayer();
                 }
             }

@@ -184,12 +184,9 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
                 if (resultCode == Dialog.BUTTON_POSITIVE){
                     long numtmp = AppPreferencesHelper.newInstance().getNumVideo()+1;
                     AppPreferencesHelper.newInstance().setNumVideo(numtmp);
-                    path = getFilesDir().getPath()+"/VID_"+String.valueOf(currentUser)+String.valueOf(numtmp)+".zip";
-
                     Uri uri = data.getData();
 
-                    ZipManager manager = new ZipManager();
-                    manager.zip(UriConverter.getRealPathFromURI(this,uri),path);
+                    path =UriConverter.getRealPathFromURI(this,uri);
 
                     tmp = new File(path);
                 }

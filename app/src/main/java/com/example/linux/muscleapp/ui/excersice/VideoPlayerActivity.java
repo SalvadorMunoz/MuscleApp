@@ -25,10 +25,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements EasyVideoC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
 ;
-        String real = UriConverter.getRealPathFromURI(this,Uri.fromFile(this.getExternalFilesDir(null)));
 
-
-        String path =real+"/prueba3.mp4";
 
         player = (EasyVideoPlayer) findViewById(R.id.player);
 
@@ -37,7 +34,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements EasyVideoC
 
         // Sets the source to the HTTP URL held in the TEST_URL variable.
         // To play files, you can use Uri.fromFile(new File("..."))
-        player.setSource(Uri.fromFile(new File(path)));
+        player.setSource(Uri.parse("https://muscleapp.club/videos/VID_20180120_122858.mp4"));
 
     }
 
