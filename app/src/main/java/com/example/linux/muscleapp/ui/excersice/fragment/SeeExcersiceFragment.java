@@ -1,6 +1,7 @@
 package com.example.linux.muscleapp.ui.excersice.fragment;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -34,6 +35,13 @@ public class SeeExcersiceFragment extends Fragment {
     private Excersice tmp;
     private ExcersiceAdapter adapter;
     private NetFunctions netFunctions;
+    private SeeExcersiceListener callback;
+
+
+
+    public interface SeeExcersiceListener{
+        void goVideoPlayer();
+    }
 
     public SeeExcersiceFragment() {
         // Required empty public constructor
@@ -45,7 +53,11 @@ public class SeeExcersiceFragment extends Fragment {
         return seeExcersiceFragment;
     }
 
-
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        callback = (SeeExcersiceListener) activity;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,8 +102,10 @@ public class SeeExcersiceFragment extends Fragment {
             public void onClick(View view) {
                 if(tmp.getUrl().isEmpty())
                     Toast.makeText(getActivity(),"No tiene video", Toast.LENGTH_LONG).show();
-                else
+                else {
                     netFunctions.downloadVideo("https://muscleapp.club/videos/VID_19.zip");
+                    callback.goVideoPlayer();
+                }
             }
         });
     }

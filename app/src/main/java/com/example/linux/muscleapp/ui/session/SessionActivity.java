@@ -22,6 +22,7 @@ import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.net.NetFunctions;
 import com.example.linux.muscleapp.net.RestClient;
 import com.example.linux.muscleapp.ui.dates.fragment.AddSessionDateFragment;
+import com.example.linux.muscleapp.ui.excersice.VideoPlayerActivity;
 import com.example.linux.muscleapp.ui.excersice.fragment.AddExcersiceFragment;
 import com.example.linux.muscleapp.ui.excersice.fragment.SeeExcersiceFragment;
 import com.example.linux.muscleapp.ui.session.fragment.AddSessionFragment;
@@ -39,7 +40,7 @@ import java.io.FileNotFoundException;
 
 import cz.msebera.android.httpclient.Header;
 
-public class SessionActivity extends AppCompatActivity implements AddSessionFragment.AddSessionListener, AddExcersiceFragment.AddExcersiceListener,SeeSessionFragment.SeeSessionListener{
+public class SessionActivity extends AppCompatActivity implements AddSessionFragment.AddSessionListener, AddExcersiceFragment.AddExcersiceListener,SeeSessionFragment.SeeSessionListener,SeeExcersiceFragment.SeeExcersiceListener{
     private AddSessionFragment addSessionFragment;
     private AddSessionDateFragment addSessionDateFragment;
     private AddExcersiceFragment addExcersiceFragment;
@@ -197,5 +198,8 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     }
 
 
-
+    @Override
+    public void goVideoPlayer() {
+        startActivity(new Intent(SessionActivity.this, VideoPlayerActivity.class));
+    }
 }

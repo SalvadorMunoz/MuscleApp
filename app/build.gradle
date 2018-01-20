@@ -40,6 +40,7 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.afollestad:material-camera:0.4.4'
     compile 'de.hdodenhof:circleimageview:2.2.0'
+    compile 'com.afollestad:easyvideoplayer:0.3.0'
 
 
 }

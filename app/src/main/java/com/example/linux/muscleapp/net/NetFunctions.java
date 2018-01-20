@@ -1,16 +1,19 @@
 package com.example.linux.muscleapp.net;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Path;
+import android.net.Uri;
 import android.os.Environment;
 import android.widget.Toast;
 
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.ui.session.SessionActivity;
+import com.example.linux.muscleapp.ui.utils.UriConverter;
 import com.example.linux.muscleapp.ui.utils.ZipManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -84,7 +87,8 @@ public class NetFunctions {
 
                 writeBytesToFileClassic(responseBody,context.getFilesDir()+"/prueba.zip");
                 ZipManager zipManager = new ZipManager();
-                zipManager.unzip(context.getFilesDir()+"/prueba.zip",context.getFilesDir()+"/prueba.mp4");
+                String real = UriConverter.getRealPathFromURI((Activity) context,Uri.fromFile(context.getExternalFilesDir(null)));
+                zipManager.unzip(context.getFilesDir()+"/prueba.zip", real+"/prueba4.mp4");
 
             }
 

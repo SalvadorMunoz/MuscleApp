@@ -47,6 +47,7 @@
     <string name="see_video">Ver vídeo</string>
     <string name="other">Otras opciones</string>
     <string name="downloading">Descargando ...</string>
+    <string name="video_player">videoPlayer</string>
 
 
 </resources>
