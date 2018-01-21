@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.MediaController;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.afollestad.easyvideoplayer.EasyVideoCallback;
@@ -19,22 +20,22 @@ import java.io.IOException;
 
 public class VideoPlayerActivity extends AppCompatActivity implements EasyVideoCallback {
      private EasyVideoPlayer player;
+     private String videoUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
-;
-
-
         player = (EasyVideoPlayer) findViewById(R.id.player);
+
+        videoUrl = getIntent().getStringExtra("video");
 
         // Sets the callback to this Activity, since it inherits EasyVideoCallback
         player.setCallback(this);
 
         // Sets the source to the HTTP URL held in the TEST_URL variable.
         // To play files, you can use Uri.fromFile(new File("..."))
-        player.setSource(Uri.parse("https://muscleapp.club/videos/VID_20180120_122858.mp4"));
+        player.setSource(Uri.parse(videoUrl));
 
     }
 
@@ -46,7 +47,7 @@ public class VideoPlayerActivity extends AppCompatActivity implements EasyVideoC
 
     @Override
     public void onPaused(EasyVideoPlayer player) {
-
+        player.pause();
     }
 
     @Override
@@ -56,7 +57,6 @@ public class VideoPlayerActivity extends AppCompatActivity implements EasyVideoC
 
     @Override
     public void onPrepared(EasyVideoPlayer player) {
-
     }
 
     @Override
@@ -66,7 +66,9 @@ public class VideoPlayerActivity extends AppCompatActivity implements EasyVideoC
 
     @Override
     public void onError(EasyVideoPlayer player, Exception e) {
-
+        player.pause();
+        Toast.makeText(VideoPlayerActivity.this,"No se pudo acceder al video",Toast.LENGTH_LONG).show();
+        finish();
     }
 
     @Override

@@ -4,6 +4,7 @@ package com.example.linux.muscleapp.ui.excersice.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -40,7 +41,7 @@ public class SeeExcersiceFragment extends Fragment {
 
 
     public interface SeeExcersiceListener{
-        void goVideoPlayer();
+        void goVideoPlayer(String url);
     }
 
     public SeeExcersiceFragment() {
@@ -101,9 +102,9 @@ public class SeeExcersiceFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(tmp.getUrl().isEmpty())
-                    Toast.makeText(getActivity(),"No tiene video", Toast.LENGTH_LONG).show();
+                    Snackbar.make(getActivity().findViewById(android.R.id.content),getActivity().getResources().getString(R.string.no_video), Snackbar.LENGTH_LONG).show();
                 else {
-                    callback.goVideoPlayer();
+                    callback.goVideoPlayer(tmp.getUrl());
                 }
             }
         });

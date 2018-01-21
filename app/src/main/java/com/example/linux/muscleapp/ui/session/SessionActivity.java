@@ -54,6 +54,7 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     private NetFunctions netFunctions;
     private File tmp;
     private String path;
+    private String webStorage = "https://muscleapp.club/videos/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +110,9 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     public void goBack(int currentExcersice) {
         if(tmp != null) {
             netFunctions.uploadVideo(tmp);
-            SessionTmpDates.setUrlVideo(currentExcersice,path);
+            String [] parts = path.split("/");
+            webStorage = webStorage+parts[parts.length-1];
+            SessionTmpDates.setUrlVideo(currentExcersice,webStorage);
         }
         getSupportFragmentManager().popBackStack();
     }
@@ -195,8 +198,11 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     }
 
 
+
     @Override
-    public void goVideoPlayer() {
-        startActivity(new Intent(SessionActivity.this, VideoPlayerActivity.class));
+    public void goVideoPlayer(String url) {
+        Intent intent = new Intent(SessionActivity.this, VideoPlayerActivity.class);
+        intent.putExtra("video",url);
+        startActivity(intent);
     }
 }
