@@ -1,6 +1,9 @@
 package com.example.linux.muscleapp.data.db.repositories;
 
+import android.database.Cursor;
+
 import com.example.linux.muscleapp.R;
+import com.example.linux.muscleapp.data.db.dao.UserDao;
 import com.example.linux.muscleapp.data.db.pojo.User;
 
 import java.util.ArrayList;
@@ -15,11 +18,12 @@ import java.util.ArrayList;
 public class UsersRepository {
     private ArrayList<User>users;
     private static UsersRepository instance;
+    private UserDao userDao;
 
     private User currentUser;
     private UsersRepository(){
         users = new ArrayList<>();
-        initialize();
+        userDao = new UserDao();
     }
 
     public static UsersRepository getInstance(){
@@ -36,19 +40,18 @@ public class UsersRepository {
         return users;
     }
 
-    private void initialize(){
-        add(new User( 1,"yo@yo.com","yo","yo","Malaga","21-05-1994", R.drawable.no_photo));
-        add(new User( 2,"cr7@cr7.com","Cristiano","cris","cr7","21-05-1994",R.drawable.bicho));
-        add(new User( 3,"indurain@cr7.com","Indurain","indurain","su","21-05-1994",R.drawable.indurain));
 
-    }
     public boolean validateCredentials(String email,String pass){
         boolean res = false;
-        for(int i = 0; i< users.size();i++){
-            if(users.get(i).getEmail().equals(email) && users.get(i).getPass().equals(pass))
-                res = true;
+        users.clear();
+        Cursor cursor = userDao.loadActual(email,pass);
+        if (cursor.moveToFirst()){
+            res = true;
+            do{
+                users.add(new User(cursor.getInt(0),cursor.getString(1),cursor.getString(2),
+                        cursor.getString(3),cursor.getString(4),cursor.getString(5),R.drawable.no_photo));
+            }while (cursor.moveToNext());
         }
-
         return res;
     }
     public boolean userExists(String email){

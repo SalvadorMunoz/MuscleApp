@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.linux.muscleapp.MuscleAppApplication;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.adapters.MainAdapter;
 import com.example.linux.muscleapp.data.db.pojo.Session;
@@ -100,12 +101,12 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
         sessions = new ArrayList<>();
 
 
-        if(AppPreferencesHelper.newInstance().getRemember())
+        if(MuscleAppApplication.getContex().getAppPreferencesHelper().getRemember())
             presenter.getCurrentUser(AppPreferencesHelper.newInstance().getCurrentUser());
         else{
             presenter.getCurrentUser();
-            AppPreferencesHelper.newInstance().setRemember(true);
-            AppPreferencesHelper.newInstance().setCurrentUser(current.getEmail());
+            MuscleAppApplication.getContex().getAppPreferencesHelper().setRemember(true);
+            MuscleAppApplication.getContex().getAppPreferencesHelper().setCurrentUser(current.getEmail());
         }
 
         return root;

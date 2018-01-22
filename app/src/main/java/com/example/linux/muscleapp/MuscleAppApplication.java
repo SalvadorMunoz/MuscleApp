@@ -2,6 +2,7 @@ package com.example.linux.muscleapp;
 
 import android.app.Application;
 
+import com.example.linux.muscleapp.data.db.MuscleappOpenHelper;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 
 /**
@@ -11,6 +12,7 @@ import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 public class MuscleAppApplication extends Application {
     private AppPreferencesHelper appPreferencesHelper;
     private static MuscleAppApplication contex;
+    private MuscleappOpenHelper muscleappOpenHelper;
 
     public MuscleAppApplication() {
         contex = this;
@@ -20,6 +22,8 @@ public class MuscleAppApplication extends Application {
     public void onCreate() {
         super.onCreate();
         appPreferencesHelper=AppPreferencesHelper.newInstance();
+        muscleappOpenHelper = MuscleappOpenHelper.getInstance();
+        muscleappOpenHelper.openDatabase();
     }
     public static MuscleAppApplication getContex(){
         return contex;

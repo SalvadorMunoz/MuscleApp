@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.linux.muscleapp.MuscleAppApplication;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.ui.login.contract.LoginContract;
@@ -62,7 +63,7 @@ public class SignInFragment extends Fragment implements LoginContract.LoginView 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if(AppPreferencesHelper.newInstance().getRemember() == true) {
+        if(MuscleAppApplication.getContex().getAppPreferencesHelper().getRemember() == true) {
             callback.goMain();
             getActivity().finish();
         }
