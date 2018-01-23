@@ -33,7 +33,7 @@ public class UsersRepository {
     }
 
     public void add(User user){
-        users.add(user);
+        userDao.insertUser(user);
     }
 
     public ArrayList<User> getUsers(){
@@ -56,9 +56,9 @@ public class UsersRepository {
     }
     public boolean userExists(String email){
         boolean res = false;
-        for (int i = 0; i< users.size();i++){
-            if (users.get(i).getEmail().equals(email))
-                res = true;
+        Cursor cursor = userDao.loadActual(email);
+        if (cursor.moveToFirst()){
+            res = true;
         }
         return res;
     }
@@ -78,23 +78,9 @@ public class UsersRepository {
     }
 
     public void setCurrentUser(String email) {
-        for(int i = 0; i< users.size();i++) {
-            if(users.get(i).getEmail().equals(email))
-                this.currentUser = users.get(i);
-        }
+        currentUser = users.get(0);
     }
-    public int getLastId(){
-        int res=-1;
-        if(users.size()==0)
-            res = 1;
-        else{
-            for(int i = 0;i < users.size();i++){
-                if(users.get(i).getId() > res)
-                    res = users.get(i).getId();
-            }
-        }
-        return res;
-    }
+
 
     public String getNameFronId(int id){
         String res="";
