@@ -43,23 +43,14 @@ public class UsersRepository {
 
     public boolean validateCredentials(String email,String pass){
         boolean res = false;
-        users.clear();
-        Cursor cursor = userDao.loadActual(email,pass);
-        if (cursor.moveToFirst()){
+        if(userDao.loadActual(email,pass).size()!=0)
             res = true;
-            do{
-                users.add(new User(cursor.getInt(0),cursor.getString(1),cursor.getString(2),
-                        cursor.getString(3),cursor.getString(4),cursor.getString(5),R.drawable.no_photo));
-            }while (cursor.moveToNext());
-        }
         return res;
     }
     public boolean userExists(String email){
         boolean res = false;
-        Cursor cursor = userDao.loadActual(email);
-        if (cursor.moveToFirst()){
+        if(userDao.loadActual(email).size()!=0)
             res = true;
-        }
         return res;
     }
 
@@ -67,18 +58,13 @@ public class UsersRepository {
         return currentUser;
     }
     public User getCurrentUser(String email){
-        User tmp = null;
+        currentUser =  userDao.loadActual(email).get(0);
 
-        for(int i = 0; i < users.size();i++){
-            if(users.get(i).getEmail().equals(email))
-                tmp=users.get(i);
-        }
-
-        return tmp;
+        return currentUser;
     }
 
     public void setCurrentUser(String email) {
-        currentUser = users.get(0);
+        currentUser = userDao.loadActual(email).get(0);
     }
 
 

@@ -1,5 +1,8 @@
 package com.example.linux.muscleapp.ui.login;
 
+import android.os.AsyncTask;
+
+import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.ui.login.contract.LoginContract;
 import com.example.linux.muscleapp.ui.login.interactor.SignupInteractor;
 import com.example.linux.muscleapp.ui.login.interactor.SignupInteractorImp;
@@ -17,7 +20,8 @@ class SignupPresenter implements LoginContract.SignupPresenter, SignupInteractor
     }
     @Override
     public void add(String email, String pass, String name, String residence, String date) {
-        interactor.add(email,pass,name,residence,date,this);
+        interactor.add(email,pass,name,residence,date, SignupPresenter.this);
+
     }
 
     @Override
@@ -69,5 +73,7 @@ class SignupPresenter implements LoginContract.SignupPresenter, SignupInteractor
     public void onErrorPass() {
         view.setErrorPass();
     }
+
+
 }
 

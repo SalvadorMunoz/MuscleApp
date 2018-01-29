@@ -1,6 +1,9 @@
 package com.example.linux.muscleapp.ui.login.presenter;
 
 
+import android.os.AsyncTask;
+
+import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.ui.login.contract.LoginContract;
 import com.example.linux.muscleapp.ui.login.interactor.LoginInteractor;
 import com.example.linux.muscleapp.ui.login.interactor.LoginInteractorImp;
@@ -24,7 +27,8 @@ public class LoginPresenter implements LoginContract.LoginPresenter,LoginInterac
 
     @Override
     public void validateCredentials(String email, String pass) {
-        loginInteractorImp.validateCredentials(email,pass,this);
+        loginInteractorImp.validateCredentials(email,pass,LoginPresenter.this);
+
     }
 
     @Override
@@ -54,4 +58,6 @@ public class LoginPresenter implements LoginContract.LoginPresenter,LoginInterac
     public void onSucces() {
         view.goMainActivity();
     }
+
+
 }

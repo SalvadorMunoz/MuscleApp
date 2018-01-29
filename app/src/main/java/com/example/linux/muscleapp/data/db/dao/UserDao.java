@@ -9,24 +9,46 @@ import com.example.linux.muscleapp.data.MuscleappContract;
 import com.example.linux.muscleapp.data.db.MuscleappOpenHelper;
 import com.example.linux.muscleapp.data.db.pojo.User;
 
+import java.util.ArrayList;
+
 /**
  * Created by linux on 22/01/18.
  */
 
 public class UserDao {
-    public Cursor loadActual(String email,String pass){
+    public ArrayList<User> loadActual(String email, String pass){
+        ArrayList<User> tmp = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase= MuscleappOpenHelper.getInstance().openDatabase();
+
         Cursor cursor = sqLiteDatabase.query(MuscleappContract.UserEntry.TABLE_NAME,MuscleappContract.UserEntry.ALL_COLUMNS,
                 "email=? and password=?",new String[]{email,pass},null,null,null,null);
+        if (cursor.moveToFirst()){
+            do{
+                tmp.add(new User(cursor.getInt(0),cursor.getString(1),cursor.getString(2),
+                        cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6)));
+            }while (cursor.moveToNext());
+        }
+
+
         MuscleappOpenHelper.getInstance().closeDatabase();
-        return cursor;
+        return tmp;
     }
-    public Cursor loadActual(String email){
+    public ArrayList<User> loadActual(String email){
+        ArrayList<User> tmp = new ArrayList<>();
         SQLiteDatabase sqLiteDatabase= MuscleappOpenHelper.getInstance().openDatabase();
+
         Cursor cursor = sqLiteDatabase.query(MuscleappContract.UserEntry.TABLE_NAME,MuscleappContract.UserEntry.ALL_COLUMNS,
                 "email=?",new String[]{email},null,null,null,null);
+
+        if (cursor.moveToFirst()){
+            do{
+                tmp.add(new User(cursor.getInt(0),cursor.getString(1),cursor.getString(2),
+                        cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6)));
+            }while (cursor.moveToNext());
+        }
+
         MuscleappOpenHelper.getInstance().closeDatabase();
-        return cursor;
+        return tmp;
     }
     public void insertUser(User user){
         SQLiteDatabase sqLiteDatabase = MuscleappOpenHelper.getInstance().openDatabase();
