@@ -50,6 +50,21 @@ public class UserDao {
         MuscleappOpenHelper.getInstance().closeDatabase();
         return tmp;
     }
+
+    public String LoadNameFromId( int id){
+        String tmp = "";
+        SQLiteDatabase sqLiteDatabase = MuscleappOpenHelper.getInstance().openDatabase();
+        Cursor cursor = sqLiteDatabase.query(MuscleappContract.UserEntry.TABLE_NAME, new String[]{MuscleappContract.UserEntry.COLUMN_NAME},"_id=?",new String[]{String.valueOf(id)},null,null,null,null);
+
+        if(cursor.moveToFirst()){
+            do{
+                tmp = cursor.getString(0);
+            }while (cursor.moveToNext());
+        }
+
+        MuscleappOpenHelper.getInstance().closeDatabase();
+        return tmp;
+    }
     public void insertUser(User user){
         SQLiteDatabase sqLiteDatabase = MuscleappOpenHelper.getInstance().openDatabase();
         ContentValues values = new ContentValues();

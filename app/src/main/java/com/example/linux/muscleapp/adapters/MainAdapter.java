@@ -78,7 +78,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
         int id = sessions.get(position).getId();
 
         holder.name.setText(sessions.get(position).getName());
-        holder.result.setText(UsersRepository.getInstance().getNameFronId(sessions.get(position).getUser())+", "+formatDate(sessions.get(position).getCreationDate()));
+        holder.result.setText(UsersRepository.getInstance().getNameFronId(sessions.get(position).getUser())+", "+format(sessions.get(position).getCreationDate()));
         holder.image.setImageResource(sessions.get(position).getUrlImage());
         holder.name.setOnClickListener(listener);
         holder.name.setTag(sessions.get(position));
@@ -88,10 +88,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
 
     }
 
-    private String  formatDate(Date date){
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        return dateFormat.format(date);
-    }
+
 
     /**
      * Make the same number of the item that array list
@@ -113,6 +110,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
             image = (CircleImageView) itemView.findViewById(R.id.civItemSessionImage);
             numComments = (TextView) itemView.findViewById(R.id.txvNumComments);
         }
+    }
+
+    private String format(String date){
+        String tmp = date.split(" ")[0];
+        String [] tmp1 = tmp.split("-");
+
+        return tmp1[2]+"-"+tmp1[1]+"-"+tmp1[0];
     }
 
     class clickItem implements View.OnClickListener{

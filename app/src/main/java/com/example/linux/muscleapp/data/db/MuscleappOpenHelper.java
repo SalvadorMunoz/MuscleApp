@@ -32,17 +32,28 @@ public class MuscleappOpenHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
         sqLiteDatabase.execSQL(MuscleappContract.UserEntry.SQL_CREATE_ENTRIES);
-        Log.e("crear tabla",MuscleappContract.UserEntry.SQL_CREATE_ENTRIES);
+        Log.e("crear usuarios",MuscleappContract.UserEntry.SQL_CREATE_ENTRIES);
+        sqLiteDatabase.execSQL(MuscleappContract.SessionEntry.SQL_CREATE_ENTRIES);
+        Log.e("crear sesiones",MuscleappContract.SessionEntry.SQL_CREATE_ENTRIES);
+
         sqLiteDatabase.execSQL(MuscleappContract.UserEntry.SQL_INSERT_ENTRY);
-        Log.e("llenar tabla",MuscleappContract.UserEntry.SQL_INSERT_ENTRY);
+        Log.e("llenar usuarios",MuscleappContract.UserEntry.SQL_INSERT_ENTRY);
+        sqLiteDatabase.execSQL(MuscleappContract.SessionEntry.SQL_INSERT_ENTRY);;
+        Log.e("llenar sesiones",MuscleappContract.SessionEntry.SQL_INSERT_ENTRY);
+
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        sqLiteDatabase.execSQL(MuscleappContract.SessionEntry.SQL_DELETE_ENTRIES);
+        Log.e("borrar sesiones",MuscleappContract.SessionEntry.SQL_DELETE_ENTRIES);
+
+
         sqLiteDatabase.execSQL(MuscleappContract.UserEntry.SQL_DELETE_ENTRIES);
-        Log.e("borrar tabla",MuscleappContract.UserEntry.SQL_DELETE_ENTRIES);
+        Log.e("borrar usuarios",MuscleappContract.UserEntry.SQL_DELETE_ENTRIES);
         onCreate(sqLiteDatabase);
 
     }

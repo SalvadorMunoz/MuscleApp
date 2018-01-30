@@ -17,6 +17,8 @@ public interface SessionContract {
          void fillSessions(ArrayList<Session> sessions);
          void setPresenter(SessionContract.MainPresenter presenter);
          void getCurrentUser(User user);
+         void openRefreshing();
+         void closeRefreshing();
 
 
          interface Comment {

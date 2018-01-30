@@ -1,5 +1,7 @@
 package com.example.linux.muscleapp.ui.session.presenter;
 
+import android.os.AsyncTask;
+
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.ui.session.contract.SessionContract;
@@ -13,8 +15,9 @@ import java.util.ArrayList;
  */
 
 public class MainPresenterImp implements SessionContract.MainPresenter,MainInteractor.onLoadFinish {
-    SessionContract.MainView view;
-    MainInteractorImp interactor;
+    private SessionContract.MainView view;
+    private MainInteractorImp interactor;
+    private LoadAsyncTask loadAsyncTask;
 
     public MainPresenterImp (SessionContract.MainView view){
         this.view = view;
@@ -25,7 +28,8 @@ public class MainPresenterImp implements SessionContract.MainPresenter,MainInter
 
     @Override
     public void getSessions() {
-        interactor.getSessions(this);
+        loadAsyncTask = new LoadAsyncTask();
+        loadAsyncTask.execute();
     }
 
     @Override
@@ -51,5 +55,30 @@ public class MainPresenterImp implements SessionContract.MainPresenter,MainInter
     @Override
     public void giveCurrentUser(User user) {
         view.getCurrentUser(user);
+    }
+
+    class LoadAsyncTask extends AsyncTask<Void,Void,Void>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            view.openRefreshing();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            interactor.getSessions(MainPresenterImp.this);
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            view.closeRefreshing();
+        }
     }
 }

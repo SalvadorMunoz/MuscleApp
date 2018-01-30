@@ -36,10 +36,6 @@ public class UsersRepository {
         userDao.insertUser(user);
     }
 
-    public ArrayList<User> getUsers(){
-        return users;
-    }
-
 
     public boolean validateCredentials(String email,String pass){
         boolean res = false;
@@ -69,11 +65,6 @@ public class UsersRepository {
 
 
     public String getNameFronId(int id){
-        String res="";
-        for(int i = 0; i < users.size();i++){
-            if(users.get(i).getId()== id)
-                res = users.get(i).getName();
-        }
-        return  res;
+        return userDao.LoadNameFromId(id);
     }
 }

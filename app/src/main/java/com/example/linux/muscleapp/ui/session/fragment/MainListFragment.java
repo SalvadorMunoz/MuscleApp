@@ -141,25 +141,18 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onResume() {
         super.onResume();
-        presenter.getSessions();
-        adapter = new MainAdapter(sessions,current,callback);
-        recycler.setAdapter(adapter);
+        getSessions();
     }
 
+    private void getSessions(){
+        presenter.getSessions();
+
+    }
     //Change tag when swipe activity refresh
     @Override
     public void onRefresh() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                swipeContainer.setRefreshing(false);
-            }
-        },2000);
-
+        getSessions();
     }
-
-
-
 
     @Override
     public void fillSessions(ArrayList<Session> sessions) {
@@ -169,6 +162,18 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void getCurrentUser(User user) {
         current = user;
+    }
+
+    @Override
+    public void openRefreshing() {
+        swipeContainer.setRefreshing(true);
+    }
+
+    @Override
+    public void closeRefreshing() {
+        swipeContainer.setRefreshing(false);
+        adapter = new MainAdapter(sessions,current,callback);
+        recycler.setAdapter(adapter);
     }
 
     @Override

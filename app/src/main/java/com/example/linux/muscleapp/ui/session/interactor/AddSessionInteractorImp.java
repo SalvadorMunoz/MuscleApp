@@ -9,6 +9,8 @@ import com.example.linux.muscleapp.data.db.repositories.SessionDatesRepository;
 import com.example.linux.muscleapp.data.db.repositories.SessionsRepository;
 import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -25,7 +27,7 @@ public class AddSessionInteractorImp implements AddSessionInteractor{
         if(name.isEmpty())
             onAddSessionFinish.onEmptyName();
         else {
-            Session tmp = new Session(SessionsRepository.getInstace().getLastId() + 1, user, R.drawable.no_photo, name, pass, new Date());
+            Session tmp = new Session(SessionsRepository.getInstace().getLastId() + 1, user, R.drawable.no_photo, name, pass, formatDate(new Date()));
             SessionsRepository.getInstace().add(tmp);
             for(int i = 0; i < SessionTmpDates.getExcersices().size();i++){
                 tmpEx = SessionTmpDates.getExcersices().get(i);
@@ -51,5 +53,9 @@ public class AddSessionInteractorImp implements AddSessionInteractor{
     public void deleteExcersice(int position, OnAddSessionFinish onAddSessionFinish) {
         SessionTmpDates.deleteExcersice(position);
         onAddSessionFinish.onLoadExcersices(SessionTmpDates.getExcersices());
+    }
+    private String  formatDate(Date date){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(date);
     }
 }

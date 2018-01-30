@@ -18,10 +18,9 @@ import java.util.Date;
 
 public class Session implements Parcelable,Comparable<Session>{
     int id,user,urlImage;
-    String name, pass;
-    Date creationDate;
+    String name, pass, creationDate;
 
-    public Session(int id, int user, int urlImage, String name, String pass, Date creationDate) {
+    public Session(int id, int user, int urlImage, String name, String pass, String creationDate) {
         this.id = id;
         this.user = user;
         this.urlImage = urlImage;
@@ -37,6 +36,7 @@ public class Session implements Parcelable,Comparable<Session>{
         urlImage = in.readInt();
         name = in.readString();
         pass = in.readString();
+        creationDate = in.readString();
     }
 
     public static final Creator<Session> CREATOR = new Creator<Session>() {
@@ -50,7 +50,6 @@ public class Session implements Parcelable,Comparable<Session>{
             return new Session[size];
         }
     };
-
 
     public int getId() {
         return id;
@@ -84,13 +83,6 @@ public class Session implements Parcelable,Comparable<Session>{
         this.pass = pass;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
 
     public int getUrlImage() {
         return urlImage;
@@ -100,6 +92,14 @@ public class Session implements Parcelable,Comparable<Session>{
         this.urlImage = urlImage;
     }
 
+    public String getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -107,17 +107,16 @@ public class Session implements Parcelable,Comparable<Session>{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-
         parcel.writeInt(id);
         parcel.writeInt(user);
         parcel.writeInt(urlImage);
         parcel.writeString(name);
         parcel.writeString(pass);
+        parcel.writeString(creationDate);
     }
-
 
     @Override
     public int compareTo(@NonNull Session session) {
-        return session.getCreationDate().compareTo(this.getCreationDate());
+        return 0;
     }
 }

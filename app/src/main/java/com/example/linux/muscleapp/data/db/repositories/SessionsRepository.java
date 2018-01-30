@@ -1,6 +1,7 @@
 package com.example.linux.muscleapp.data.db.repositories;
 
 import com.example.linux.muscleapp.R;
+import com.example.linux.muscleapp.data.db.dao.SessionDao;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 
 import java.util.ArrayList;
@@ -16,12 +17,13 @@ import java.util.Date;
 
 public class SessionsRepository {
     private ArrayList<Session> sessions;
+    private SessionDao sessionDao;
 
     private static SessionsRepository instace;
 
     private SessionsRepository() {
+        sessionDao = new SessionDao();
         sessions = new ArrayList<>();
-        initialize();
     }
 
     public static SessionsRepository getInstace(){
@@ -30,19 +32,13 @@ public class SessionsRepository {
         return  instace;
     }
 
-    private void initialize (){
-        add(new Session(1, 2,R.drawable.bicho,"Ejercicios para penaltis","",new Date()));
-        add(new Session(2, 3,R.drawable.indurain,"Ejercicios para bicicleta","",new Date()));
 
-
-    }
     public void add (Session session){
         sessions.add(session);
     }
 
     public ArrayList<Session> getSessions(){
-        Collections.sort(sessions);
-        return sessions;
+        return sessionDao.loadAll();
     }
     public int getLastId(){
         int res=-1;
