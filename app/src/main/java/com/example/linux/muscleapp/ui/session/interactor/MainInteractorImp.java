@@ -15,20 +15,46 @@ import java.util.ArrayList;
  */
 
 public class MainInteractorImp implements MainInteractor {
+    private  onLoadFinish onLoadFinish;
+    private LoadAsyncTask loadAsyncTask;
 
-    @Override
-    public void getSessions(onLoadFinish onLoadFinish) {
-        onLoadFinish.giveSessions(SessionsRepository.getInstace().getSessions());
+    public MainInteractorImp(MainInteractor.onLoadFinish onLoadFinish) {
+        this.onLoadFinish = onLoadFinish;
     }
 
     @Override
-    public void getCurrentUser(onLoadFinish onLoadFinish) {
+    public void getSessions() {
+        loadAsyncTask = new LoadAsyncTask();
+        loadAsyncTask.execute();
+    }
+
+    @Override
+    public void getCurrentUser() {
         onLoadFinish.giveCurrentUser(UsersRepository.getInstance().getCurrentUser());
     }
 
     @Override
-    public void getCurrentUser(String email, onLoadFinish onLoadFinish) {
+    public void getCurrentUser(String email) {
         onLoadFinish.giveCurrentUser(UsersRepository.getInstance().getCurrentUser(email));
     }
 
+    class LoadAsyncTask extends AsyncTask<Void,Void,ArrayList<Session>>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            onLoadFinish.openProgress();
+        }
+
+        @Override
+        protected ArrayList<Session> doInBackground(Void... voids) {
+            return SessionsRepository.getInstace().getSessions();
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Session> sessions) {
+            super.onPostExecute(sessions);
+            onLoadFinish.giveSessions(sessions);
+            onLoadFinish.closeProgress();
+        }
+    }
 }

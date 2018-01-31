@@ -12,7 +12,7 @@ public final class MuscleappContract {
     }
 
     public static final String DATABASE_NAME ="muscleapp.db";
-    public static final int DATABASE_VERSION=3;
+    public static final int DATABASE_VERSION=6;
 
     public  static class UserEntry implements BaseColumns{
         public static final String TABLE_NAME ="user";
@@ -70,5 +70,34 @@ public final class MuscleappContract {
         public static final String SQL_INSERT_ENTRY=String.format("INSERT INTO %s" +
                 "(%s,%s,%s,%s,%s) VALUES (%s,%s,'%s','%s','%s')", TABLE_NAME,COLUMN_USER_ID,COLUMN_URL,COLUMN_NAME,COLUMN_PASS,COLUMN_CREATION_DATE,
                 1,1,"Asdfghjk","","2018-01-01 03:03:23");
+    }
+    public  static class CommentaryEntry implements BaseColumns{
+        public static final String TABLE_NAME="commentary";
+        public static final String COLUMN_SESSION ="session";
+        public static final String COLUMN_USER="user";
+        public static final String COLUMN_CONTENT = "content";
+        public static final String COLUMN_DATE="date";
+
+        public static final String [] ALL_COLUMNS = new String[]{
+          BaseColumns._ID,COLUMN_SESSION,COLUMN_USER,COLUMN_CONTENT,COLUMN_DATE
+        };
+
+        public static final String SQL_CREATE_ENTRIES = String.format("CREATE TABLE %s" +
+                "(%s INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " %s INTEGER REFERENCES %s(%s) ON DELETE RESTRICT ON UPDATE CASCADE," +
+                " %s INTEGER REFERENCES %s(%s) ON DELETE RESTRICT ON UPDATE CASCADE," +
+                " %s TEXT NOT NULL," +
+                " %s TEXT NOT NULL)",
+                TABLE_NAME,BaseColumns._ID,
+                COLUMN_SESSION, SessionEntry.TABLE_NAME,SessionEntry._ID,
+                COLUMN_USER, UserEntry.TABLE_NAME,UserEntry._ID,
+                COLUMN_CONTENT,COLUMN_DATE);
+
+        public static final String SQL_DELETE_ENTRIES =String.format("DROP TABLE IF EXISTS %s",TABLE_NAME);
+
+        public static final String SQL_INSERT_ENTRY = String.format("INSERT INTO %s" +
+                "(%s,%s,%s,%s) VALUES (%s,%s,'%s','%s')",
+                TABLE_NAME, COLUMN_SESSION,COLUMN_USER,COLUMN_CONTENT,COLUMN_DATE,
+                1,1,"Hola","2018-01-01");
     }
 }

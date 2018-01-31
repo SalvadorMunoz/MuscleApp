@@ -17,29 +17,28 @@ import java.util.ArrayList;
 public class MainPresenterImp implements SessionContract.MainPresenter,MainInteractor.onLoadFinish {
     private SessionContract.MainView view;
     private MainInteractorImp interactor;
-    private LoadAsyncTask loadAsyncTask;
 
     public MainPresenterImp (SessionContract.MainView view){
         this.view = view;
-        interactor = new MainInteractorImp();
+        interactor = new MainInteractorImp(this);
     }
 
 
 
     @Override
     public void getSessions() {
-        loadAsyncTask = new LoadAsyncTask();
-        loadAsyncTask.execute();
+        interactor.getSessions();
+
     }
 
     @Override
     public void getCurrentUser(String email) {
-        interactor.getCurrentUser(email,this);
+        interactor.getCurrentUser(email);
     }
 
     @Override
     public void getCurrentUser() {
-        interactor.getCurrentUser(this);
+        interactor.getCurrentUser();
     }
 
     @Override
@@ -57,28 +56,15 @@ public class MainPresenterImp implements SessionContract.MainPresenter,MainInter
         view.getCurrentUser(user);
     }
 
-    class LoadAsyncTask extends AsyncTask<Void,Void,Void>{
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            view.openRefreshing();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            interactor.getSessions(MainPresenterImp.this);
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            view.closeRefreshing();
-        }
+    @Override
+    public void openProgress() {
+        view.openRefreshing();
     }
+
+    @Override
+    public void closeProgress() {
+        view.closeRefreshing();
+    }
+
+
 }

@@ -17,7 +17,7 @@ public interface CommentsContract{
 
     interface CommentsPresenter {
         void fillComments(int resource);
-        void addComment(int resource, String user, String message);
+        void addComment(int resource, int user, String message);
         void onDestroy();
     }
 }

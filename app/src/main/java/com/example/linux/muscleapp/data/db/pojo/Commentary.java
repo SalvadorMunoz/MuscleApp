@@ -17,10 +17,10 @@ import java.util.Date;
  */
 
 public class Commentary implements Parcelable, Comparable{
-    int id,idSession;
-    String user,content,date;
+    int id,idSession, user;
+    String content,date;
 
-    public Commentary(int id, int idSession, String user, String content, String date) {
+    public Commentary(int id, int idSession, int user, String content, String date) {
         this.id = id;
         this.idSession = idSession;
         this.user = user;
@@ -31,7 +31,7 @@ public class Commentary implements Parcelable, Comparable{
     protected Commentary(Parcel in) {
         id = in.readInt();
         idSession = in.readInt();
-        user = in.readString();
+        user = in.readInt();
         content = in.readString();
         date = in.readString();
     }
@@ -56,7 +56,7 @@ public class Commentary implements Parcelable, Comparable{
         return idSession;
     }
 
-    public String getUser() {
+    public int getUser() {
         return user;
     }
 
@@ -77,7 +77,7 @@ public class Commentary implements Parcelable, Comparable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
         parcel.writeInt(idSession);
-        parcel.writeString(user);
+        parcel.writeInt(user);
         parcel.writeString(content);
         parcel.writeString(date);
     }

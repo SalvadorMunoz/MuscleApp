@@ -17,19 +17,20 @@ public class CommentsPresenterImp implements CommentsContract.CommentsPresenter,
     CommentsInteractor interactor;
     public  CommentsPresenterImp(CommentsContract.CommentsView view){
         this.view = view;
-        interactor = new CommentsInteractorImp();
+        interactor = new CommentsInteractorImp(this);
     }
     @Override
     public void fillComments(int resource) {
-        interactor.fillComments(resource,this);
+        interactor.fillComments(resource);
 
     }
 
     @Override
-    public void addComment(int resource, String user, String message) {
-        interactor.addComment(resource,user,message,this);
+    public void addComment(int resource, int user, String message) {
+        interactor.addComment(resource,user,message);
 
     }
+
 
     @Override
     public void onDestroy() {
@@ -40,5 +41,6 @@ public class CommentsPresenterImp implements CommentsContract.CommentsPresenter,
     public void onLoadFinish(ArrayList<Commentary> comments) {
         view.fillComments(comments);
     }
+
 
 }

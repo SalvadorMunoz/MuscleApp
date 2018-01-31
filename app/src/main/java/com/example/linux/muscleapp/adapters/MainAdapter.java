@@ -37,8 +37,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     private ArrayList<Session>sessions;
     private User current;
     private MainListFragment.MainListListener callback;
-    private static final  int USER_KEY = 0;
-    private static final  int POS_KEY = 1;
+
 
 
     //Class listener
@@ -79,7 +78,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
 
         holder.name.setText(sessions.get(position).getName());
         holder.result.setText(UsersRepository.getInstance().getNameFronId(sessions.get(position).getUser())+", "+format(sessions.get(position).getCreationDate()));
-        holder.image.setImageResource(sessions.get(position).getUrlImage());
+        holder.image.setImageResource(R.drawable.no_photo);
         holder.name.setOnClickListener(listener);
         holder.name.setTag(sessions.get(position));
         holder.numComments.setOnClickListener(listener);
@@ -136,8 +135,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
                         callback.checkSessionPassword(tmp);
                     break;
             }
-            /*if(intent != null)
-                view.getContext().startActivity(intent);*/
         }
     }
 }

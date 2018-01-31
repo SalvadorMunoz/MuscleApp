@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
         }
         txvCurrentUserName.setText(current.getName());
         txvCurrentUserEmail.setText(current.getEmail());
-        civCurrentUser.setImageResource(current.getUrl());
+        civCurrentUser.setImageResource(R.drawable.no_photo);
 
     }
 

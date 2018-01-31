@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Commentary;
 import com.example.linux.muscleapp.data.db.repositories.CommentsRepository;
+import com.example.linux.muscleapp.ui.comment.contract.CommentsContract;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 
 public class CommentsAdapter extends ArrayAdapter<Commentary>{
 
-    public CommentsAdapter(@NonNull Context context, int resource) {
+    public CommentsAdapter(@NonNull Context context) {
         super(context, R.layout.item_comments, new ArrayList<Commentary>());
     }
 
@@ -45,14 +46,19 @@ public class CommentsAdapter extends ArrayAdapter<Commentary>{
         }else
             holder = (CommentaryHolder) view.getTag();
 
-        holder.user.setText(getItem(position).getUser());
+        holder.user.setText(CommentsRepository.getInstace().getNameFromId(getItem(position).getUser()));
         holder.content.setText(getItem(position).getContent());
-        holder.date.setText(getItem(position).getDate());
+        holder.date.setText(format(getItem(position).getDate()));
 
         return view;
     }
 
+    private String format(String date){
+        String tmp = date.split(" ")[0];
+        String [] tmp1 = tmp.split("-");
 
+        return tmp1[2]+"-"+tmp1[1]+"-"+tmp1[0];
+    }
 
     class CommentaryHolder{
         TextView user, content,date;

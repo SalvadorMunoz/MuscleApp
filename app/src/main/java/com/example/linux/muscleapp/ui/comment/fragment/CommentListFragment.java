@@ -41,7 +41,7 @@ public class CommentListFragment extends DialogFragment implements CommentsContr
     private CommentsAdapter adapter;
 
     private int session ;
-    private String username ;
+    private int username ;
 
 
     public static CommentListFragment newInstance(Bundle b){
@@ -75,10 +75,10 @@ public class CommentListFragment extends DialogFragment implements CommentsContr
 
 
         session = getArguments().getInt("session");
-        username = ((User)getArguments().getParcelable("current")).getName();
+        username = ((User)getArguments().getParcelable("current")).getId();
 
         if(getArguments()!=null){
-            adapter = new CommentsAdapter(getContext(),session);
+            adapter = new CommentsAdapter(getContext());
         }
         listView.setAdapter(adapter);
         fbtSend.setOnClickListener(new View.OnClickListener() {
