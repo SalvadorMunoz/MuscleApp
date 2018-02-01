@@ -17,22 +17,22 @@ public class AddSessionListExcersicesPresenter implements SessionContract.AddSes
     private AddSessionInteractorImp interactor;
     public AddSessionListExcersicesPresenter(SessionContract.AddSessionView view){
         this.view = view;
-        this.interactor = new AddSessionInteractorImp();
+        this.interactor = new AddSessionInteractorImp(this);
     }
 
     @Override
     public void addSession(String name, String pass, int user) {
-        interactor.addSession(name,pass,user,this);
+        interactor.addSession(name,pass,user);
     }
 
     @Override
     public void getExcersices() {
-        interactor.getExcersices(this);
+        interactor.getExcersices();
     }
 
     @Override
     public void deleteExcersice(int position) {
-        interactor.deleteExcersice(position, this);
+        interactor.deleteExcersice(position);
     }
 
     @Override

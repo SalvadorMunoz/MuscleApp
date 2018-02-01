@@ -16,14 +16,12 @@ import java.util.Date;
  */
 
 public class SessionsRepository {
-    private ArrayList<Session> sessions;
     private SessionDao sessionDao;
 
     private static SessionsRepository instace;
 
     private SessionsRepository() {
         sessionDao = new SessionDao();
-        sessions = new ArrayList<>();
     }
 
     public static SessionsRepository getInstace(){
@@ -34,22 +32,15 @@ public class SessionsRepository {
 
 
     public void add (Session session){
-        sessions.add(session);
+        sessionDao.insert(session);
     }
 
     public ArrayList<Session> getSessions(){
         return sessionDao.loadAll();
     }
-    public int getLastId(){
-        int res=-1;
-        if(sessions.size()==0)
-            res = 1;
-        else{
-            for(int i = 0;i < sessions.size();i++){
-                if(sessions.get(i).getId() > res)
-                    res = sessions.get(i).getId();
-            }
-        }
-        return res;
+
+    public int getIdFromSession(Session session){
+        return sessionDao.getIdFomSession(session);
     }
+
 }

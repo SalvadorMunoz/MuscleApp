@@ -17,7 +17,7 @@ public class SeeSessionPresenterImp implements SessionContract.SeeSessionsPresen
 
     public SeeSessionPresenterImp(SessionContract.SeeSessionView view) {
         this.view = view;
-        interactor = new SeeSessionInteractorImp();
+        interactor = new SeeSessionInteractorImp(this);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class SeeSessionPresenterImp implements SessionContract.SeeSessionsPresen
 
     @Override
     public void getExcersices(int sessionId) {
-        interactor.getExcersices(sessionId,this);
+        interactor.getExcersices(sessionId);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.linux.muscleapp.ui.excersice.presenter;
 
+import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.ui.excersice.contract.ExcersiceContract;
 import com.example.linux.muscleapp.ui.excersice.interactor.ExcersiceInteractor;
 import com.example.linux.muscleapp.ui.excersice.interactor.ExcersiceInteractorImp;
@@ -14,11 +15,11 @@ public class ExcersicePresenter implements ExcersiceContract.AddExcersicePresent
 
     public ExcersicePresenter (ExcersiceContract.AddExcersiceView view){
         this.view = view;
-        interactor = new ExcersiceInteractorImp();
+        interactor = new ExcersiceInteractorImp(this);
     }
     @Override
-    public void addExcersice(int id, int session, String name, String muscle, String url, String type, int series, int repetitions, int time) {
-        interactor.addExcersice(id,session,name,muscle,url,type,series,repetitions,time, this);
+    public void addExcersice(Excersice excersice) {
+        interactor.addExcersice(excersice);
     }
 
     @Override

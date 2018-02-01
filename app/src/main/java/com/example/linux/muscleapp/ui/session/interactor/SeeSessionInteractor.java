@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 
 public interface SeeSessionInteractor {
-    void getExcersices(int sessionId, OnSessionSeen onSessionSeen);
+    void getExcersices(int sessionId);
     interface OnSessionSeen{
         void onSuccess(ArrayList<Excersice>excersices);
     }

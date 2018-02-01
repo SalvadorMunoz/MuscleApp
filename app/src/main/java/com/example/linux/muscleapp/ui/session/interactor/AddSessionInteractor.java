@@ -9,11 +9,11 @@ import java.util.ArrayList;
  */
 
 public interface AddSessionInteractor {
-    void addSession(String name,String pass, int user,OnAddSessionFinish onAddSessionFinish);
+    void addSession(String name,String pass, int user);
 
 
-    void getExcersices(OnAddSessionFinish onAddSessionFinish);
-    void deleteExcersice(int position, OnAddSessionFinish onAddSessionFinish);
+    void getExcersices();
+    void deleteExcersice(int position);
     interface OnAddSessionFinish{
         void onLoadExcersices(ArrayList<Excersice> excersices);
         void onSuccess();

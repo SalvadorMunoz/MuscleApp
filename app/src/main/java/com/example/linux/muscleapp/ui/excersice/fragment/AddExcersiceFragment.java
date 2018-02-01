@@ -159,7 +159,7 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.addExcersice(0,0,edtName.getText().toString(),edtMuscle.getText().toString(),"",type.getSelectedItem().toString(),series.getValue(),repetitions.getValue(),time.getValue());
+                presenter.addExcersice(new Excersice(0,0,edtName.getText().toString(),edtMuscle.getText().toString(),"",type.getSelectedItem().toString(),series.getValue(),repetitions.getValue(),time.getValue()));
             }
         });
         fbtVideo.setOnClickListener(new View.OnClickListener() {

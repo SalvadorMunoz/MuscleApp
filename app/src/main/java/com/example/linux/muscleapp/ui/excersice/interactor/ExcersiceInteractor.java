@@ -1,11 +1,13 @@
 package com.example.linux.muscleapp.ui.excersice.interactor;
 
+import com.example.linux.muscleapp.data.db.pojo.Excersice;
+
 /**
  * Created by linux on 3/12/17.
  */
 
 public interface ExcersiceInteractor {
-    void addExcersice(int id, int session, String name, String muscle, String url, String type,int series, int repetitions, int time,OnExcersiceFinish onExcersiceFinish);
+    void addExcersice(Excersice excersice);
 
     interface OnExcersiceFinish{
         void onEmptyName();

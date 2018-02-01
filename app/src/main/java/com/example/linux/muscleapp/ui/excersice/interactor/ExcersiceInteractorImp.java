@@ -11,14 +11,19 @@ import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 
 public class ExcersiceInteractorImp implements ExcersiceInteractor {
 
+    private OnExcersiceFinish onExcersiceFinish;
+
+    public ExcersiceInteractorImp(OnExcersiceFinish onExcersiceFinish) {
+        this.onExcersiceFinish = onExcersiceFinish;
+    }
+
     @Override
-    public void addExcersice(int id, int session, String name, String muscle, String url, String type, int series, int repetitions, int time, OnExcersiceFinish onExcersiceFinish) {
-        if(name.isEmpty())
+    public void addExcersice(Excersice excersice) {
+        if(excersice.getName().isEmpty())
             onExcersiceFinish.onEmptyName();
-        else if(muscle.isEmpty())
+        else if(excersice.getMuscle().isEmpty())
             onExcersiceFinish.onEmptyMuscle();
         else{
-            Excersice excersice = new Excersice(ExcersiceRepository.getInstance().getLastId()+1,session,name,muscle,url,type,series,repetitions,time);
             SessionTmpDates.addExcersice(excersice);
             onExcersiceFinish.onSuccess(excersice.getId());
         }

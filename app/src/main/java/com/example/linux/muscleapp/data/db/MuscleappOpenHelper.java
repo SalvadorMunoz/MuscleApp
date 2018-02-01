@@ -39,20 +39,34 @@ public class MuscleappOpenHelper extends SQLiteOpenHelper{
         Log.e("crear sesiones",MuscleappContract.SessionEntry.SQL_CREATE_ENTRIES);
         sqLiteDatabase.execSQL(MuscleappContract.CommentaryEntry.SQL_CREATE_ENTRIES);
         Log.e("crear comentarios",MuscleappContract.CommentaryEntry.SQL_CREATE_ENTRIES);
+        sqLiteDatabase.execSQL(MuscleappContract.ExcersiceEntry.SQL_CREATE_ENTRIES);
+        Log.e("crear ejercicios",MuscleappContract.ExcersiceEntry.SQL_CREATE_ENTRIES);
+        sqLiteDatabase.execSQL(MuscleappContract.SessionDatesEntry.SQL_CREATE_ENTRIES);
+        Log.e("crear fechas",MuscleappContract.SessionDatesEntry.SQL_CREATE_ENTRIES);
 
         sqLiteDatabase.execSQL(MuscleappContract.UserEntry.SQL_INSERT_ENTRY);
         Log.e("llenar usuarios",MuscleappContract.UserEntry.SQL_INSERT_ENTRY);
         sqLiteDatabase.execSQL(MuscleappContract.SessionEntry.SQL_INSERT_ENTRY);;
         Log.e("llenar sesiones",MuscleappContract.SessionEntry.SQL_INSERT_ENTRY);
         sqLiteDatabase.execSQL(MuscleappContract.CommentaryEntry.SQL_INSERT_ENTRY);;
-        Log.e("llenar sesiones",MuscleappContract.CommentaryEntry.SQL_INSERT_ENTRY);
-
+        Log.e("llenar comentarios",MuscleappContract.CommentaryEntry.SQL_INSERT_ENTRY);
+        sqLiteDatabase.execSQL(MuscleappContract.ExcersiceEntry.SQL_INSERT_ENTRY);;
+        Log.e("llenar ejercicios",MuscleappContract.ExcersiceEntry.SQL_INSERT_ENTRY);
+        sqLiteDatabase.execSQL(MuscleappContract.SessionEntry.SQL_INSERT_ENTRY);;
+        Log.e("llenar fechas",MuscleappContract.SessionDatesEntry.SQL_INSERT_ENTRY);
 
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        sqLiteDatabase.execSQL(MuscleappContract.SessionDatesEntry.SQL_DELETE_ENTRIES);
+        Log.e("borrar fechas",MuscleappContract.SessionDatesEntry.SQL_DELETE_ENTRIES);
+
+
+        sqLiteDatabase.execSQL(MuscleappContract.ExcersiceEntry.SQL_DELETE_ENTRIES);
+        Log.e("borrar ejercicios",MuscleappContract.ExcersiceEntry.SQL_DELETE_ENTRIES);
+
         sqLiteDatabase.execSQL(MuscleappContract.CommentaryEntry.SQL_DELETE_ENTRIES);
         Log.e("borrar comentarios",MuscleappContract.CommentaryEntry.SQL_DELETE_ENTRIES);
 

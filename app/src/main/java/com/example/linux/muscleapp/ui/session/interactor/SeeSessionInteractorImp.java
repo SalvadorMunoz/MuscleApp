@@ -7,8 +7,14 @@ import com.example.linux.muscleapp.data.db.repositories.ExcersiceRepository;
  */
 
 public class SeeSessionInteractorImp implements SeeSessionInteractor {
+    private OnSessionSeen onSessionSeen;
+
+    public SeeSessionInteractorImp(OnSessionSeen onSessionSeen) {
+        this.onSessionSeen = onSessionSeen;
+    }
+
     @Override
-    public void getExcersices(int sessionId, OnSessionSeen onSessionSeen) {
+    public void getExcersices(int sessionId ) {
         onSessionSeen.onSuccess(ExcersiceRepository.getInstance().getExcersices(sessionId));
     }
 }
