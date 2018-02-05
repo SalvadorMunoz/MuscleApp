@@ -15,7 +15,6 @@ public class AddDateInteractorImp implements AddDateInteractor {
 
     @Override
     public void addDate(SessionDate sessionDate,OnLoadDatesFinished onLoadDatesFinished) {
-        SessionTmpDates.addDate(sessionDate);
         onLoadDatesFinished.onSuccess(SessionTmpDates.getDates());
     }
 

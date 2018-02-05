@@ -19,6 +19,19 @@ android {
     }
     productFlavors {
     }
+
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion '25.3.0'
+                }
+            }
+        }
+    }
+
+
 }
 
 dependencies {
@@ -41,6 +54,7 @@ dependencies {
     compile 'com.afollestad:material-camera:0.4.4'
     compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.afollestad:easyvideoplayer:0.3.0'
+    compile 'com.github.applikeysolutions:cosmocalendar:1.0.4'
 
 
 }

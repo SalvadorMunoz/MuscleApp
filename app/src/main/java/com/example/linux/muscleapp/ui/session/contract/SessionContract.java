@@ -6,6 +6,7 @@ import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 import com.example.linux.muscleapp.data.db.pojo.User;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by linux on 29/11/17.
@@ -48,6 +49,12 @@ public interface SessionContract {
 
          void deleteExcersice(int position);
          void onDestroy();
+    }
+
+    interface AddDatesPresenter{
+         void addDate(ArrayList<Calendar> dates);
+         void onDestroy();
+
     }
 
     interface SeeSessionView{

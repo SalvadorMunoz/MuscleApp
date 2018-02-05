@@ -7,4 +7,6 @@ package com.example.linux.muscleapp.ui.utils;
 public class GlobalVariables {
     public static final int OPEN_SEE = 0;
     public static final  int OPEN_ADD = 1;
+    public static final int OPEN_SETTINGS=2;
+    public static final int  OPEN_ABOUTUS= 3;
 }

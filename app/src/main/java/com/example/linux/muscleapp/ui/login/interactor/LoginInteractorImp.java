@@ -20,7 +20,7 @@ public class LoginInteractorImp implements LoginInteractor {
             loginFinished.onEmptyPass();
         else if(UsersRepository.getInstance().validateCredentials(email,pass)) {
             validateUserTask.execute(email);
-            loginFinished.onSucces();
+            loginFinished.onSucces(email);
         }
         else
             loginFinished.onSigninError();

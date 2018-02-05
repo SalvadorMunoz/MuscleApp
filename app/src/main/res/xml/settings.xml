@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="@string/set_titles">
 
         <SwitchPreference
             android:defaultValue="false"
             android:key="rememberUser"
-            android:title="@string/set_rememberuser"
-            android:summary="@string/set_description_rememberuser"/>
+            android:title="@string/set_remember"
+            android:summary="@string/set_description_remember"/>
     <EditTextPreference
         android:key="changeName"
         android:title="@string/set_name"
@@ -18,6 +17,5 @@
         android:singleLine="true"
         android:title="@string/set_pass"
         android:inputType="textPassword"/>
-    </PreferenceCategory>
 
 </PreferenceScreen>

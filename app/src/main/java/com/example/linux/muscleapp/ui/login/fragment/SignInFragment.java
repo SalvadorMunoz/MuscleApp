@@ -63,10 +63,6 @@ public class SignInFragment extends Fragment implements LoginContract.LoginView 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if(MuscleAppApplication.getContex().getAppPreferencesHelper().getRemember() == true) {
-            callback.goMain();
-            getActivity().finish();
-        }
 
         View root = inflater.inflate(R.layout.fragment_sign_in,container,false);
 
@@ -125,8 +121,22 @@ public class SignInFragment extends Fragment implements LoginContract.LoginView 
                 presenter.validateCredentials(edtEmail.getText().toString(),edtPass.getText().toString());
             }
         });
+        if(MuscleAppApplication.getContex().getAppPreferencesHelper().getRemember() == true) {
+            callback.goMain();
+
+        }
+
 
         return root;
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(MuscleAppApplication.getContex().getAppPreferencesHelper().getRemember() == true) {
+            getActivity().finish();
+        }
 
     }
 
@@ -136,7 +146,9 @@ public class SignInFragment extends Fragment implements LoginContract.LoginView 
     }
 
     @Override
-    public void goMainActivity() {
+    public void goMainActivity(String email) {
+        MuscleAppApplication.getContex().getAppPreferencesHelper().setCurrentUser(email);
+
         callback.goMain();
     }
 

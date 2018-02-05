@@ -50,6 +50,9 @@ public class SessionTmpDates {
                 excersices.get(i).setUrl(url);
         }
     }
+    public static void clearDates(){
+        dates.clear();
+    }
     public static void deleteDate (int position){
         dates.remove(position);
     }

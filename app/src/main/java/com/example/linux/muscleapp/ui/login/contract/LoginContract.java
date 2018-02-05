@@ -16,7 +16,7 @@ public interface LoginContract {
 
      interface LoginView {
         void setPresenter(LoginContract.LoginPresenter  presenter);
-        void goMainActivity();
+        void goMainActivity(String email);
         void setEmptyEmail();
         void setEmptyPass();
         void setSigninError();

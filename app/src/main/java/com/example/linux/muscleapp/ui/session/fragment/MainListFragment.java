@@ -102,11 +102,10 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
 
         if(MuscleAppApplication.getContex().getAppPreferencesHelper().getRemember())
-            presenter.getCurrentUser(AppPreferencesHelper.newInstance().getCurrentUser());
+            presenter.getCurrentUser(MuscleAppApplication.getContex().getAppPreferencesHelper().getCurrentUser());
         else{
             presenter.getCurrentUser();
-            MuscleAppApplication.getContex().getAppPreferencesHelper().setRemember(true);
-            MuscleAppApplication.getContex().getAppPreferencesHelper().setCurrentUser(current.getEmail());
+
         }
 
         return root;

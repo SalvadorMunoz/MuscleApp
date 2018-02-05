@@ -1,52 +1,49 @@
 package com.example.linux.muscleapp.ui.session;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.afollestad.materialcamera.MaterialCamera;
+import com.applikeysolutions.cosmocalendar.dialog.CalendarDialog;
+import com.applikeysolutions.cosmocalendar.dialog.OnDaysSelectionListener;
+import com.applikeysolutions.cosmocalendar.model.Day;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
-import com.example.linux.muscleapp.data.db.repositories.ExcersiceRepository;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.net.NetFunctions;
-import com.example.linux.muscleapp.net.RestClient;
 import com.example.linux.muscleapp.ui.dates.fragment.AddSessionDateFragment;
 import com.example.linux.muscleapp.ui.excersice.VideoPlayerActivity;
 import com.example.linux.muscleapp.ui.excersice.fragment.AddExcersiceFragment;
 import com.example.linux.muscleapp.ui.excersice.fragment.SeeExcersiceFragment;
+import com.example.linux.muscleapp.ui.session.contract.SessionContract;
 import com.example.linux.muscleapp.ui.session.fragment.AddSessionFragment;
 import com.example.linux.muscleapp.ui.session.fragment.SeeSessionFragment;
-import com.example.linux.muscleapp.ui.session.fragment.SeedatesDialog;
+import com.example.linux.muscleapp.ui.session.fragment.SeedatesFragment;
+import com.example.linux.muscleapp.ui.session.presenter.AddDatesPresenterImp;
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 import com.example.linux.muscleapp.ui.utils.UriConverter;
-import com.example.linux.muscleapp.ui.utils.ZipManager;
-import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.TextHttpResponseHandler;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-
-import cz.msebera.android.httpclient.Header;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class SessionActivity extends AppCompatActivity implements AddSessionFragment.AddSessionListener, AddExcersiceFragment.AddExcersiceListener,SeeSessionFragment.SeeSessionListener,SeeExcersiceFragment.SeeExcersiceListener{
     private AddSessionFragment addSessionFragment;
     private AddSessionDateFragment addSessionDateFragment;
     private AddExcersiceFragment addExcersiceFragment;
     private SeeSessionFragment seeSessionFragment;
-    private SeedatesDialog seedatesDialog;
+    private SeedatesFragment seedatesFragment;
     private SeeExcersiceFragment seeExcersiceFragment;
+    private SessionContract.AddDatesPresenter addDatesPresenter;
 
     private int currentUser;
     private static final int CAMERA_REQUEST =1;
@@ -76,13 +73,24 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
 
     @Override
     public void goAddDate() {
-        addSessionDateFragment = (AddSessionDateFragment) getSupportFragmentManager().findFragmentByTag(AddSessionDateFragment.TAG);
-        if(addSessionDateFragment == null){
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            addSessionDateFragment = AddSessionDateFragment.newInstance(null);
-            transaction.addToBackStack(null);
-            transaction.replace(android.R.id.content,addSessionDateFragment,AddSessionDateFragment.TAG).commit();
-        }
+        SessionTmpDates.clearDates();
+        CalendarDialog calendarDialog = new CalendarDialog(this, new OnDaysSelectionListener() {
+            @Override
+            public void onDaysSelected(List<Day> selectedDays) {
+                ArrayList<Calendar> dates = new ArrayList<>();
+                for (int i = 0; i< selectedDays.size();i++){
+                    dates.add(selectedDays.get(i).getCalendar());
+                }
+                addDatesPresenter  = new AddDatesPresenterImp();
+                addDatesPresenter.addDate(dates);
+
+
+            }
+
+        });
+
+//        calendarDialog.setSelectedDayBackgroundColor(getResources().getColor(R.color.colorAccent));
+        calendarDialog.show();
 
     }
 
@@ -154,12 +162,15 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
 
     @Override
     public void seeDates(int sessionId) {
-        seedatesDialog = (SeedatesDialog) getSupportFragmentManager().findFragmentByTag(SeedatesDialog.TAG);
-        if(seedatesDialog == null){
+        seedatesFragment = (SeedatesFragment) getSupportFragmentManager().findFragmentByTag(SeedatesFragment.TAG);
+        if(seedatesFragment == null){
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             Bundle bundle = new Bundle();
             bundle.putInt("current",sessionId);
-            seedatesDialog = SeedatesDialog.getInstance(bundle);
-            seedatesDialog.show(getSupportFragmentManager(),SeedatesDialog.TAG);
+            seedatesFragment = SeedatesFragment.getInstance(bundle);
+            transaction.addToBackStack(null);
+
+            transaction.replace(android.R.id.content,seedatesFragment, SeedatesFragment.TAG).commit();
 
         }
     }

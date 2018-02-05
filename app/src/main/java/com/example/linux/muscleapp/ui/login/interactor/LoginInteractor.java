@@ -10,6 +10,6 @@ public interface LoginInteractor {
         void onEmptyEmail();
         void onSigninError();
         void onEmptyPass();
-        void onSucces();
+        void onSucces(String email);
     }
 }

@@ -2,6 +2,7 @@ package com.example.linux.muscleapp.ui.session;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.linux.muscleapp.MuscleAppApplication;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
@@ -20,10 +22,13 @@ import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.ui.comment.contract.CommentsContract;
 import com.example.linux.muscleapp.ui.comment.fragment.CommentListFragment;
 import com.example.linux.muscleapp.ui.comment.presenter.CommentsPresenterImp;
+import com.example.linux.muscleapp.ui.login.LogInActivity;
 import com.example.linux.muscleapp.ui.session.contract.SessionContract;
 import com.example.linux.muscleapp.ui.session.fragment.CheckPassDialog;
 import com.example.linux.muscleapp.ui.session.fragment.MainListFragment;
 import com.example.linux.muscleapp.ui.session.presenter.MainPresenterImp;
+import com.example.linux.muscleapp.ui.user.UserActivity;
+import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -73,7 +78,7 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
         txvCurrentUserName.setText(current.getName());
         txvCurrentUserEmail.setText(current.getEmail());
         civCurrentUser.setImageResource(R.drawable.no_photo);
-
+        setUpNavigationDrawer();
     }
 
     @Override
@@ -149,8 +154,34 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
-        else
-            super.onBackPressed();
+        else {
+            if(MuscleAppApplication.getContex().getAppPreferencesHelper().getRemember() == false)
+                startActivity(new Intent(MainActivity.this, LogInActivity.class));
+            else {
+                finish();
+                super.onBackPressed();
+            }
+        }
+    }
+
+    private  void setUpNavigationDrawer(){
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                switch (item.getItemId()){
+                    case R.id.actionAccountSettings:
+                        intent.putExtra("mode", GlobalVariables.OPEN_SETTINGS);
+                        break;
+                    case R.id.actionAboutUs:
+                        intent.putExtra("mode",GlobalVariables.OPEN_ABOUTUS);
+                }
+
+                intent.putExtra("current",current);
+                startActivity(intent);
+                return true;
+            }
+        });
     }
 
 

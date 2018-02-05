@@ -55,8 +55,8 @@ public class LoginPresenter implements LoginContract.LoginPresenter,LoginInterac
 
 
     @Override
-    public void onSucces() {
-        view.goMainActivity();
+    public void onSucces(String email) {
+        view.goMainActivity(email);
     }
 
 
