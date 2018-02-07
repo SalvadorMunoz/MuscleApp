@@ -31,6 +31,6 @@ public class AboutUsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        GlobalVariables.setFromAboutUs();
+        GlobalVariables.fromAboutUs=true;
     }
 }

@@ -168,7 +168,13 @@ public class SignUpFragment extends Fragment implements LoginContract.SignUpView
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.add(edtEmail.getText().toString(),edtPass.getText().toString(),edtName.getText().toString(),edtResidence.getText().toString(),res.getText().toString());
+                String [] tmp = edtEmail.getText().toString().split(" ");
+                String email="";
+                for(int i = 0; i< tmp.length;i++){
+                    if(!tmp[i].equals(""))
+                        email = tmp[i];
+                }
+                presenter.add(email,edtPass.getText().toString(),edtName.getText().toString(),edtResidence.getText().toString(),res.getText().toString());
             }
         });
 

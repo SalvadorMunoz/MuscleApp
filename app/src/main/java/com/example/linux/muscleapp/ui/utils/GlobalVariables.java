@@ -13,7 +13,7 @@ public class GlobalVariables {
 
 
 
-    public static void setFromAboutUs() {
-        fromAboutUs = true;
+    public static void setFromAboutUs(boolean value) {
+        fromAboutUs = value;
     }
 }

@@ -54,7 +54,9 @@ public class UserActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(GlobalVariables.fromAboutUs)
+        if(GlobalVariables.fromAboutUs) {
             finish();
+            GlobalVariables.fromAboutUs=false;
+        }
     }
 }
