@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.linux.muscleapp.R;
+import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 
 import mehdi.sakout.aboutpage.AboutPage;
 import mehdi.sakout.aboutpage.Element;
@@ -25,5 +26,11 @@ public class AboutUsActivity extends AppCompatActivity {
                 .create();
 
         setContentView(about);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        GlobalVariables.setFromAboutUs();
     }
 }
