@@ -25,7 +25,7 @@
     <string name="creation">Creación:</string>
     <string name="write_comment">Escribe un comentario</string>
     <string name="add_date">Añadir fecha</string>
-    <string name="action_perfil" translatable="false">Perfil</string>
+    <string name="action_perfil">Perfil</string>
     <string name="action_favourites">Sesiones favoritas</string>
     <string name="action_today">Sesiones de hoy</string>
     <string name="action_search_user">Buscar usuarios</string>
@@ -47,10 +47,10 @@
     <string name="see_video">Ver vídeo</string>
     <string name="other">Otras opciones</string>
     <string name="downloading">Descargando ...</string>
-    <string name="video_player">videoPlayer</string>
+    <string name="video_player" translatable="false">videoPlayer</string>
     <string name="no_video">No tiene video </string>
     <string name="set_remember">Recordar usuario</string>
     <string name="set_description_remember">Mantiene la sesion abierta</string>
-
+    <string name="access">¡Has accedido a MuscleApp!</string>
 
 </resources>

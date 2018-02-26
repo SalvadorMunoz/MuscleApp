@@ -53,4 +53,12 @@
     <string name="accept">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="upload_ok">Upload succesfully</string>
+    <string name="action_perfil">User</string>
+    <string name="see_video">See video</string>
+    <string name="other">Other option</string>
+    <string name="downloading">Loading ...</string>
+    <string name="no_video">Hasn\'t got video</string>
+    <string name="set_remember">Remember user</string>
+    <string name="set_description_remember">Keep the session open</string>
+    <string name="access">You have accessed MuscleApp!</string>
 </resources>
