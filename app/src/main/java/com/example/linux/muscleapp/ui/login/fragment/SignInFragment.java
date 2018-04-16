@@ -13,12 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.linux.muscleapp.MuscleAppApplication;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.ui.login.contract.LoginContract;
+import com.example.linux.muscleapp.ui.utils.ProgressBarUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -126,7 +128,7 @@ public class SignInFragment extends Fragment implements LoginContract.LoginView 
 
         }
 
-
+        ProgressBarUtil.context = getContext();
         return root;
 
     }

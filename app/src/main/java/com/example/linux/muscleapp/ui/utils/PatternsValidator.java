@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class PatternsValidator {
     public static boolean isPasswordValid(String password) {
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[-/ @#$%^&+=_.:?])(?=\\S+$).{6,}$";
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{6,}$";
         Pattern pattern;
         Matcher matcher;
 

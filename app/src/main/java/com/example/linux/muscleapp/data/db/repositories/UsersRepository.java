@@ -67,4 +67,8 @@ public class UsersRepository {
     public String getNameFronId(int id){
         return userDao.LoadNameFromId(id);
     }
+
+    public void sendConfirmEmail(String email){
+        userDao.sendConfirmEmail(email);
+    }
 }

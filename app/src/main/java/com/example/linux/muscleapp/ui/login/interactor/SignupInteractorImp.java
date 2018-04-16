@@ -13,9 +13,15 @@ import com.example.linux.muscleapp.ui.utils.PatternsValidator;
  */
 
 public class SignupInteractorImp implements SignupInteractor {
+    private OnSignupFinish onSignupFinish;
     private  AddUserTask addUserTask;
+
+    public SignupInteractorImp(OnSignupFinish onSignupFinish) {
+        this.onSignupFinish = onSignupFinish;
+    }
+
     @Override
-    public void add(String email, String pass, String name, String residence, String bornDate, OnSignupFinish onSignupFinish) {
+    public void add(String email, String pass, String name, String residence, String bornDate) {
         addUserTask = new AddUserTask();
         if(email.isEmpty())
             onSignupFinish.onEmptyEmail();
@@ -31,21 +37,42 @@ public class SignupInteractorImp implements SignupInteractor {
             onSignupFinish.onErrorEmail();
         else if(!PatternsValidator.isPasswordValid(pass))
             onSignupFinish.onErrorPass();
-        else if(UsersRepository.getInstance().userExists(email))
-            onSignupFinish.onEmailExists();
-        else {
-
-            onSignupFinish.onSuccess();
-            addUserTask.execute(new User(0,email, name, pass, residence, bornDate, R.drawable.no_photo));
+        else{
+            addUserTask.execute(new User(0,email, pass, name,  bornDate,residence, 0,"caca"));
         }
     }
 
-    class AddUserTask extends AsyncTask<User,Void,Void> {
+    class AddUserTask extends AsyncTask<User,Boolean,Boolean> {
 
         @Override
-        protected Void doInBackground(User... users) {
-            UsersRepository.getInstance().add(users[0]);
-            return null;
+        protected void onPreExecute() {
+            super.onPreExecute();
+            onSignupFinish.openDialog();
+        }
+
+        @Override
+        protected Boolean doInBackground(User... users) {
+            boolean res = true;
+
+            if(UsersRepository.getInstance().userExists(users[0].getEmail()))
+                res = false;
+            else {
+                UsersRepository.getInstance().add(users[0]);
+                UsersRepository.getInstance().sendConfirmEmail(users[0].getEmail());
+            }
+            return res;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            if(aBoolean)
+                onSignupFinish.onSuccess();
+            else
+                onSignupFinish.onEmailExists();
+
+            onSignupFinish.closeDialog(aBoolean);
+
         }
     }
 }

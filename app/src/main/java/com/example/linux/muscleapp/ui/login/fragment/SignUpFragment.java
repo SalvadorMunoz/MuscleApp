@@ -2,6 +2,7 @@ package com.example.linux.muscleapp.ui.login.fragment;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.linux.muscleapp.R;
+import com.example.linux.muscleapp.net.Connection;
 import com.example.linux.muscleapp.ui.login.contract.LoginContract;
 
 import java.util.Calendar;
@@ -40,6 +43,7 @@ public class SignUpFragment extends Fragment implements LoginContract.SignUpView
     private TextInputLayout tilEmail, tilPass, tilName,tilResidence;
     private LoginContract.SignupPresenter presenter ;
     private SignupListener callback;
+    private ProgressDialog progressDialog;
 
     public interface SignupListener{
         void goLogin();
@@ -66,6 +70,9 @@ public class SignUpFragment extends Fragment implements LoginContract.SignUpView
         tilPass = (TextInputLayout) root.findViewById(R.id.tilSignupPass);
         tilName = (TextInputLayout) root.findViewById(R.id.tilSignupName);
         tilResidence = (TextInputLayout) root.findViewById(R.id.tilSignupResidence);
+
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage(getResources().getString(R.string.conecting));
 
         edtEmail = (EditText) root.findViewById(R.id.edtSingupEmail);
         edtEmail.addTextChangedListener(new TextWatcher() {
@@ -174,7 +181,11 @@ public class SignUpFragment extends Fragment implements LoginContract.SignUpView
                     if(!tmp[i].equals(""))
                         email = tmp[i];
                 }
-                presenter.add(email,edtPass.getText().toString(),edtName.getText().toString(),edtResidence.getText().toString(),res.getText().toString());
+                if(Connection.check(getActivity()))
+                    presenter.add(email,edtPass.getText().toString(),edtName.getText().toString(),edtResidence.getText().toString(),res.getText().toString());
+                else
+                    Snackbar.make(getActivity().findViewById(android.R.id.content),getResources().getString(R.string.err_no_conection),Snackbar.LENGTH_LONG).show();
+
             }
         });
 
@@ -237,6 +248,21 @@ public class SignUpFragment extends Fragment implements LoginContract.SignUpView
     @Override
     public void goLogin() {
         callback.goLogin();
+    }
+
+    @Override
+    public void openDialog() {
+        progressDialog.show();
+
+
+    }
+
+    @Override
+    public void closeDialog(boolean res) {
+        progressDialog.dismiss();
+
+        if(res)
+            Snackbar.make(getActivity().findViewById(android.R.id.content),getResources().getString(R.string.activate),Snackbar.LENGTH_LONG).show();
     }
 
     @Override

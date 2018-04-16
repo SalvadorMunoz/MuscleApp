@@ -3,6 +3,8 @@ package com.example.linux.muscleapp.data.db.pojo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 /**
  * @author Salvador Muñoz
  * @version 1.0
@@ -12,16 +14,23 @@ import android.os.Parcelable;
 
 public class User implements Parcelable {
     int id;
-    String email,name,pass,residence,bornDate;
-    int url;
+    String email;
+    String pass;
+    String name;
+    String borndate;
+    String residence;
+    int verify;
+    String url;
 
-    public User(int i, String email, String name, String pass, String residence, String bornDate, int url) {
-         this.id = i;
+
+    public User(int id, String email, String pass, String name, String borndate, String residence,int verify,String url) {
+         this.id = id;
         this.email = email;
         this.name = name;
         this.pass = pass;
         this.residence = residence;
-        this.bornDate = bornDate;
+        this.borndate = borndate;
+        this.verify = verify;
         this.url = url;
     }
 
@@ -32,8 +41,26 @@ public class User implements Parcelable {
         name = in.readString();
         pass = in.readString();
         residence = in.readString();
-        bornDate = in.readString();
-        url = in.readInt();
+        borndate = in.readString();
+        url = in.readString();
+        verify = in.readInt() ;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(email);
+        dest.writeString(name);
+        dest.writeString(pass);
+        dest.writeString(residence);
+        dest.writeString(borndate);
+        dest.writeString(url);
+        dest.writeInt(verify);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -89,34 +116,34 @@ public class User implements Parcelable {
     }
 
     public String getBornDate() {
-        return bornDate;
+        return borndate;
     }
 
     public void setBornDate(String bornDate) {
-        this.bornDate = bornDate;
+        this.borndate = bornDate;
     }
 
-    public int getUrl() {
+    public String getUrl() {
         return url;
     }
 
-    public void setUrl(int url) {
+    public void setUrl(String url) {
         this.url = url;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getBorndate() {
+        return borndate;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(email);
-        parcel.writeString(name);
-        parcel.writeString(pass);
-        parcel.writeString(residence);
-        parcel.writeString(bornDate);
-        parcel.writeInt(url);
+    public void setBorndate(String borndate) {
+        this.borndate = borndate;
+    }
+
+    public int getVerify() {
+        return verify;
+    }
+
+    public void setVerify(int verify) {
+        this.verify = verify;
     }
 }

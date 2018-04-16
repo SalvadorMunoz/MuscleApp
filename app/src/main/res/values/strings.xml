@@ -52,5 +52,7 @@
     <string name="set_remember">Recordar usuario</string>
     <string name="set_description_remember">Mantiene la sesion abierta</string>
     <string name="access">¡Has accedido a MuscleApp!</string>
+    <string name="conecting">Contectando...</string>
+    <string name="activate">Activa tu usuario</string>
 
 </resources>

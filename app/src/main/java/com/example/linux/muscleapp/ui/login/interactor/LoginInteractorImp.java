@@ -10,30 +10,47 @@ import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
  */
 
 public class LoginInteractorImp implements LoginInteractor {
-    private ValidateUserTask validateUserTask ;
-    @Override
-    public void validateCredentials(String email, String pass, OnLoginFinished loginFinished) {
-        validateUserTask = new ValidateUserTask();
-        if(email.isEmpty())
-            loginFinished.onEmptyEmail();
-        else if(pass.isEmpty())
-            loginFinished.onEmptyPass();
-        else if(UsersRepository.getInstance().validateCredentials(email,pass)) {
-            validateUserTask.execute(email);
-            loginFinished.onSucces(email);
-        }
-        else
-            loginFinished.onSigninError();
+    private OnLoginFinished onLoginFinished;
+
+    public LoginInteractorImp(OnLoginFinished onLoginFinished) {
+        this.onLoginFinished = onLoginFinished;
     }
 
-    class ValidateUserTask extends AsyncTask<String,Void,Void> {
+    private ValidateUserTask validateUserTask;
 
+    @Override
+    public void validateCredentials(String email, String pass) {
+        validateUserTask = new ValidateUserTask();
+        if (email.isEmpty())
+            onLoginFinished.onEmptyEmail();
+        else if (pass.isEmpty())
+            onLoginFinished.onEmptyPass();
+        else
+            validateUserTask.execute(email,pass);
+    }
+
+
+    class ValidateUserTask extends AsyncTask<String,Boolean,Boolean> {
+        String email;
 
         @Override
-        protected Void doInBackground(String... strings) {
-            UsersRepository.getInstance().setCurrentUser(strings[0]);
+        protected Boolean doInBackground(String... strings) {
+            boolean res = false;
+            if(UsersRepository.getInstance().validateCredentials(strings[0],strings[1])) {
+                UsersRepository.getInstance().setCurrentUser(strings[0]);
+                email = strings[0];
+                res = true;
+            }
 
-            return null;
+            return res;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            if(aBoolean)
+                onLoginFinished.onSucces(email);
+            else
+                onLoginFinished.onSigninError();
         }
     }
 }

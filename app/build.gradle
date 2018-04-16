@@ -55,6 +55,10 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.afollestad:easyvideoplayer:0.3.0'
     compile 'com.github.applikeysolutions:cosmocalendar:1.0.4'
-
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.google.code.gson:gson:2.8.2'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 
 }

@@ -1,54 +1,55 @@
 package com.example.linux.muscleapp.data.db.dao;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.linux.muscleapp.MuscleAppApplication;
 import com.example.linux.muscleapp.data.MuscleappContract;
 import com.example.linux.muscleapp.data.db.MuscleappOpenHelper;
 import com.example.linux.muscleapp.data.db.pojo.User;
+import com.example.linux.muscleapp.net.ApiAdapter;
+import com.example.linux.muscleapp.net.Result;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import retrofit2.Call;
 
 /**
  * Created by linux on 22/01/18.
  */
 
 public class UserDao {
-    public ArrayList<User> loadActual(String email, String pass){
-        ArrayList<User> tmp = new ArrayList<>();
-        SQLiteDatabase sqLiteDatabase= MuscleappOpenHelper.getInstance().openDatabase();
+    ArrayList<User> tmp ;
 
-        Cursor cursor = sqLiteDatabase.query(MuscleappContract.UserEntry.TABLE_NAME,MuscleappContract.UserEntry.ALL_COLUMNS,
-                "email=? and password=?",new String[]{email,pass},null,null,null,null);
-        if (cursor.moveToFirst()){
-            do{
-                tmp.add(new User(cursor.getInt(0),cursor.getString(1),cursor.getString(2),
-                        cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6)));
-            }while (cursor.moveToNext());
+
+
+
+    public ArrayList<User> loadActual(String email, String password){
+        tmp = new ArrayList<>();
+        User current = new User(0,email,password,"","","",0,"");
+        Call<Result> call = ApiAdapter.getInstance().getUsers(current,email);
+
+        try {
+            Result result = call.execute().body();
+            tmp = result.getUsers();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-
-        MuscleappOpenHelper.getInstance().closeDatabase();
         return tmp;
+
     }
     public ArrayList<User> loadActual(String email){
-        ArrayList<User> tmp = new ArrayList<>();
-        SQLiteDatabase sqLiteDatabase= MuscleappOpenHelper.getInstance().openDatabase();
+        tmp = new ArrayList<>();
+        Call<Result> call = ApiAdapter.getInstance().getCurrentUser(email);
 
-        Cursor cursor = sqLiteDatabase.query(MuscleappContract.UserEntry.TABLE_NAME,MuscleappContract.UserEntry.ALL_COLUMNS,
-                "email=?",new String[]{email},null,null,null,null);
-
-        if (cursor.moveToFirst()){
-            do{
-                tmp.add(new User(cursor.getInt(0),cursor.getString(1),cursor.getString(2),
-                        cursor.getString(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6)));
-            }while (cursor.moveToNext());
+        try {
+            Result result = call.execute().body();
+            tmp = result.getUsers();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        MuscleappOpenHelper.getInstance().closeDatabase();
         return tmp;
+
     }
 
     public String LoadNameFromId( int id){
@@ -66,18 +67,33 @@ public class UserDao {
         return tmp;
     }
     public void insertUser(User user){
-        SQLiteDatabase sqLiteDatabase = MuscleappOpenHelper.getInstance().openDatabase();
-        ContentValues values = new ContentValues();
+        Call<Result> call = ApiAdapter.getInstance().insertUser(user);
+        String message = "";
+        try {
+            Result result = call.execute().body();
+            message = result.getMessage();
 
-        values.put(MuscleappContract.UserEntry.COLUMN_EMAIL,user.getEmail());
-        values.put(MuscleappContract.UserEntry.COLUMN_PASS,user.getPass());
-        values.put(MuscleappContract.UserEntry.COLUMN_NAME, user.getName());
-        values.put(MuscleappContract.UserEntry.COLUMN_RESIDENCE,user.getBornDate());
-        values.put(MuscleappContract.UserEntry.COLUMN_BORN_DATE,user.getBornDate());
-        values.put(MuscleappContract.UserEntry.COLUMN_URL,user.getUrl());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        sqLiteDatabase.insert(MuscleappContract.UserEntry.TABLE_NAME,null,values);
+        String fin = message;
 
-        MuscleappOpenHelper.getInstance().closeDatabase();
     }
+
+    public void sendConfirmEmail(String email){
+        Call<Result> call = ApiAdapter.getInstance().sendConfirm(email);
+        String message = "";
+        try {
+            Result result = call.execute().body();
+            message = result.getMessage();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String fin = message;
+
+    }
+
 }

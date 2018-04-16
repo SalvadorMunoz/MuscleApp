@@ -5,7 +5,7 @@ package com.example.linux.muscleapp.ui.login.interactor;
  */
 
 public interface LoginInteractor {
-    void validateCredentials(String email, String pass, OnLoginFinished loginFinished);
+    void validateCredentials(String email, String pass);
     interface  OnLoginFinished{
         void onEmptyEmail();
         void onSigninError();

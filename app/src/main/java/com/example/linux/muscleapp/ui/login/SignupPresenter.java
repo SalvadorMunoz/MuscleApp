@@ -16,11 +16,11 @@ class SignupPresenter implements LoginContract.SignupPresenter, SignupInteractor
     SignupInteractorImp interactor;
     public SignupPresenter(LoginContract.SignUpView view){
         this.view = view;
-        this.interactor = new SignupInteractorImp();
+        this.interactor = new SignupInteractorImp(this);
     }
     @Override
     public void add(String email, String pass, String name, String residence, String date) {
-        interactor.add(email,pass,name,residence,date, SignupPresenter.this);
+        interactor.add(email,pass,name,residence,date);
 
     }
 
@@ -72,6 +72,16 @@ class SignupPresenter implements LoginContract.SignupPresenter, SignupInteractor
     @Override
     public void onErrorPass() {
         view.setErrorPass();
+    }
+
+    @Override
+    public void openDialog() {
+        view.openDialog();
+    }
+
+    @Override
+    public void closeDialog(boolean res) {
+        view.closeDialog(res);
     }
 
 

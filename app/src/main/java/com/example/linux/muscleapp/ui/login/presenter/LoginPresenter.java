@@ -21,13 +21,13 @@ public class LoginPresenter implements LoginContract.LoginPresenter,LoginInterac
 
     public LoginPresenter(LoginContract.LoginView view){
         this.view = view;
-        this.loginInteractorImp = new LoginInteractorImp();
+        this.loginInteractorImp = new LoginInteractorImp(this);
     }
 
 
     @Override
     public void validateCredentials(String email, String pass) {
-        loginInteractorImp.validateCredentials(email,pass,LoginPresenter.this);
+        loginInteractorImp.validateCredentials(email,pass);
 
     }
 

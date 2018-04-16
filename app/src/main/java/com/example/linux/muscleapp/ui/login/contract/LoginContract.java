@@ -33,6 +33,8 @@ public interface LoginContract {
         void setErrorEmail();
         void setErrorPass();
         void goLogin();
+        void openDialog();
+        void closeDialog(boolean res);
     }
 
 

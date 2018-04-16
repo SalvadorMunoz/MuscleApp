@@ -5,7 +5,7 @@ package com.example.linux.muscleapp.ui.login.interactor;
  */
 
 public interface SignupInteractor {
-    void add(String email, String pass, String name,String residence,String bornDate,OnSignupFinish onSignupFinish);
+    void add(String email, String pass, String name,String residence,String bornDate);
     interface OnSignupFinish{
         void onSuccess();
         void onEmptyEmail();
@@ -16,5 +16,7 @@ public interface SignupInteractor {
         void onEmailExists();
         void onErrorEmail();
         void onErrorPass();
+        void openDialog();
+        void closeDialog(boolean res);
     }
 }
