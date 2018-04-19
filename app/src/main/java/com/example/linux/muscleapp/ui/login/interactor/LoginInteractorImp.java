@@ -29,9 +29,20 @@ public class LoginInteractorImp implements LoginInteractor {
             validateUserTask.execute(email,pass);
     }
 
+    @Override
+    public void sendEmail(String email) {
+        new SendEmailTask().execute(email);
+    }
+
 
     class ValidateUserTask extends AsyncTask<String,Boolean,Boolean> {
         String email;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            onLoginFinished.openDialogLogin();
+        }
 
         @Override
         protected Boolean doInBackground(String... strings) {
@@ -51,6 +62,30 @@ public class LoginInteractorImp implements LoginInteractor {
                 onLoginFinished.onSucces(email);
             else
                 onLoginFinished.onSigninError();
+            onLoginFinished.closeDialogLogin();
+        }
+    }
+    class  SendEmailTask extends AsyncTask<String,Boolean,Boolean>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            onLoginFinished.openDialog();
+        }
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            boolean res = false;
+            if(UsersRepository.getInstance().userExists(strings[0])){
+                res = true;
+                UsersRepository.getInstance().sendRecoveryEmail(strings[0]);
+            }
+            return res;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            onLoginFinished.closeDialog(aBoolean);
         }
     }
 }

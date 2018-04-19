@@ -2,6 +2,7 @@ package com.example.linux.muscleapp.ui.login.fragment;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.example.linux.muscleapp.MuscleAppApplication;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
+import com.example.linux.muscleapp.net.Connection;
 import com.example.linux.muscleapp.ui.login.contract.LoginContract;
 import com.example.linux.muscleapp.ui.utils.ProgressBarUtil;
 
@@ -32,13 +34,16 @@ public class SignInFragment extends Fragment implements LoginContract.LoginView 
     private TextInputLayout tilEmail,tilPass;
 
     private Button btnSignin;
-    private TextView txvSignUp;
+    private TextView txvSignUp,txvRecovey;
 
     private LoginListener callback;
+
+    private ProgressDialog progressDialog;
 
     public interface LoginListener{
         void goSignUp();
         void goMain();
+        void openDialog();
     }
 
     @Override
@@ -72,10 +77,13 @@ public class SignInFragment extends Fragment implements LoginContract.LoginView 
         edtPass = (EditText) root.findViewById(R.id.edtLoginPass);
         btnSignin = (Button) root.findViewById(R.id.btnLoginSignIn);
         txvSignUp = (TextView) root.findViewById(R.id.txvLoginSignUp);
+        txvRecovey = (TextView) root.findViewById(R.id.txvLoginForget);
 
         tilEmail = (TextInputLayout) root.findViewById(R.id.tilLoginEmail);
         tilPass = (TextInputLayout) root.findViewById(R.id.tilLoginPass);
 
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage(getResources().getString(R.string.autentication));
 
         edtEmail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -120,13 +128,27 @@ public class SignInFragment extends Fragment implements LoginContract.LoginView 
         btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.validateCredentials(edtEmail.getText().toString(),edtPass.getText().toString());
+                if(Connection.check(getActivity()))
+                    presenter.validateCredentials(edtEmail.getText().toString(),edtPass.getText().toString());
+                else
+                    Snackbar.make(getActivity().findViewById(android.R.id.content),getResources().getString(R.string.err_no_conection),Snackbar.LENGTH_LONG).show();
+
             }
         });
         if(MuscleAppApplication.getContex().getAppPreferencesHelper().getRemember() == true) {
             callback.goMain();
 
         }
+        txvRecovey.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Connection.check(getActivity()))
+                    callback.openDialog();
+                else
+                    Snackbar.make(getActivity().findViewById(android.R.id.content),getResources().getString(R.string.err_no_conection),Snackbar.LENGTH_LONG).show();
+
+            }
+        });
 
         ProgressBarUtil.context = getContext();
         return root;
@@ -169,6 +191,17 @@ public class SignInFragment extends Fragment implements LoginContract.LoginView 
         Snackbar.make(getActivity().findViewById(android.R.id.content),getResources().getString(R.string.err_signin),Snackbar.LENGTH_SHORT).show();
 
     }
+
+    @Override
+    public void openDialog() {
+       progressDialog.show();
+    }
+
+    @Override
+    public void closeDialog() {
+        progressDialog.dismiss();
+    }
+
 
     @Override
     public void onDetach() {

@@ -54,5 +54,7 @@
     <string name="access">¡Has accedido a MuscleApp!</string>
     <string name="conecting">Contectando...</string>
     <string name="activate">Activa tu usuario</string>
-
+    <string name="recovery_pass_title">Recuperar contraseña</string>
+    <string name="recovery_pass_message">Introduce tu correo electrónico</string>
+    <string name="autentication">Autenticando...</string>
 </resources>

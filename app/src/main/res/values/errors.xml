@@ -12,5 +12,5 @@
     <string name="err_invalid_pass_format">Debe tener (A,a,1) y al menos 6 caracteres</string>
     <string name="err_invalid_pass">Contraseña incorrecta</string>
     <string name="err_no_conection">No hay conexión.</string>
-
+    <string name="err_user_not_exists">El usuario no existe</string>
 </resources>

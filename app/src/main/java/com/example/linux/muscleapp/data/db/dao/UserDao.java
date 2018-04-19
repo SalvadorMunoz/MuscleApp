@@ -96,4 +96,19 @@ public class UserDao {
 
     }
 
+    public void sendRecoveryEmail(String email){
+        Call<Result> call = ApiAdapter.getInstance().sendRecovery(email);
+        String message = "";
+        try {
+            Result result = call.execute().body();
+            message = result.getMessage();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String fin = message;
+
+    }
+
 }

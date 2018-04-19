@@ -7,7 +7,13 @@ package com.example.linux.muscleapp.ui.login.contract;
 public interface LoginContract {
     interface LoginPresenter {
         void validateCredentials(String email, String pass);
+        void sendEmail(String email);
         void onDestroy();
+    }
+
+    interface RecoveryView{
+        void openDialog();
+        void closeDialog(boolean res);
     }
     interface SignupPresenter {
         void add(String email,String pass,String name, String residence,String date);
@@ -20,6 +26,9 @@ public interface LoginContract {
         void setEmptyEmail();
         void setEmptyPass();
         void setSigninError();
+        void openDialog();
+        void closeDialog();
+
     }
 
     interface SignUpView {

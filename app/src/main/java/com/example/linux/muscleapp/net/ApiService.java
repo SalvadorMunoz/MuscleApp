@@ -32,5 +32,9 @@ public interface ApiService {
     @SerializedName("sendConfirm")
     @POST("ass/{email}")
     Call<Result> sendConfirm(@Path("email") String email);
+
+    @SerializedName("sendRecovery")
+    @POST("recovery/{email}")
+    Call<Result> sendRecovery(@Path("email") String email);
 }
 

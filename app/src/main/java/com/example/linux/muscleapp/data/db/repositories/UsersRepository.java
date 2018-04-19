@@ -71,4 +71,8 @@ public class UsersRepository {
     public void sendConfirmEmail(String email){
         userDao.sendConfirmEmail(email);
     }
+
+    public void sendRecoveryEmail(String email){
+        userDao.sendRecoveryEmail(email);
+    }
 }

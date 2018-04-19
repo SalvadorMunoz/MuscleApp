@@ -18,17 +18,28 @@ import com.example.linux.muscleapp.ui.login.interactor.LoginInteractorImp;
 public class LoginPresenter implements LoginContract.LoginPresenter,LoginInteractor.OnLoginFinished {
     LoginContract.LoginView view;
     private LoginInteractorImp loginInteractorImp;
+    private LoginContract.RecoveryView recView;
 
     public LoginPresenter(LoginContract.LoginView view){
         this.view = view;
         this.loginInteractorImp = new LoginInteractorImp(this);
     }
 
+    public LoginPresenter(LoginContract.RecoveryView recView) {
+        this.recView = recView;
+        this.loginInteractorImp = new LoginInteractorImp(this);
+
+    }
 
     @Override
     public void validateCredentials(String email, String pass) {
         loginInteractorImp.validateCredentials(email,pass);
 
+    }
+
+    @Override
+    public void sendEmail(String email) {
+        loginInteractorImp.sendEmail(email);
     }
 
     @Override
@@ -57,6 +68,28 @@ public class LoginPresenter implements LoginContract.LoginPresenter,LoginInterac
     @Override
     public void onSucces(String email) {
         view.goMainActivity(email);
+    }
+
+
+
+    @Override
+    public void openDialog() {
+        recView.openDialog();
+    }
+
+    @Override
+    public void closeDialog(boolean res) {
+        recView.closeDialog(res);
+    }
+
+    @Override
+    public void openDialogLogin() {
+        view.openDialog();
+    }
+
+    @Override
+    public void closeDialogLogin() {
+        view.closeDialog();
     }
 
 
