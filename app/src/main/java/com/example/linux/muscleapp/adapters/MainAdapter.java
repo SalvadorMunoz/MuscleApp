@@ -14,6 +14,7 @@ import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.db.repositories.CommentsRepository;
 import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
 import com.example.linux.muscleapp.ui.session.fragment.MainListFragment;
+
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 
@@ -35,9 +36,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>{
     //Sessions repository
     private ArrayList<Session>sessions;
+    private ArrayList<String> usernames;
     private User current;
     private MainListFragment.MainListListener callback;
-
 
 
     //Class listener
@@ -46,11 +47,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     /**
      * Empty constructor add a session from the repository
      */
-    public MainAdapter(ArrayList<Session> sessions, User current, MainListFragment.MainListListener callback){
+    public MainAdapter(ArrayList<Session> sessions,ArrayList<String>usernames, User current, MainListFragment.MainListListener callback){
         this.sessions = sessions;
         this.current = current;
         listener = new clickItem();
         this.callback = callback;
+        this.usernames = usernames;
     }
 
     /**
@@ -74,10 +76,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
      */
     @Override
     public void onBindViewHolder(SessionHolder holder, int position) {
-        int id = sessions.get(position).getId();
 
         holder.name.setText(sessions.get(position).getName());
-        holder.result.setText(UsersRepository.getInstance().getNameFronId(sessions.get(position).getUser())+", "+format(sessions.get(position).getCreationDate()));
+        holder.result.setText(usernames.get(position)+", "+format(sessions.get(position).getCreationDate()));
         holder.image.setImageResource(R.drawable.no_photo);
         holder.name.setOnClickListener(listener);
         holder.name.setTag(sessions.get(position));
@@ -88,7 +89,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     }
 
 
-
     /**
      * Make the same number of the item that array list
      * @return
@@ -97,6 +97,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     public int getItemCount() {
         return sessions.size();
     }
+
+
 
     static class SessionHolder extends RecyclerView.ViewHolder{
         private TextView name,result,numComments;

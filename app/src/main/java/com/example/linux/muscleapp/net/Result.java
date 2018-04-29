@@ -1,5 +1,6 @@
 package com.example.linux.muscleapp.net;
 
+import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
 
 import java.io.Serializable;
@@ -14,6 +15,7 @@ public class Result implements Serializable {
     int status;
     String message;
     ArrayList<User> users;
+    ArrayList<Session> sessions;
     int last;
 
     public boolean getCode() {
@@ -49,7 +51,9 @@ public class Result implements Serializable {
     }
 
 
+    public ArrayList<Session> getSessions(){return  sessions;}
 
+    public void setSessions(ArrayList<Session> sessions){this.sessions = sessions;}
 
     public int getLast() {
         return last;

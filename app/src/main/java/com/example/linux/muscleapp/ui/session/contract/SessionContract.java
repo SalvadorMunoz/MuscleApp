@@ -15,7 +15,7 @@ import java.util.Calendar;
 public interface SessionContract {
 
      interface MainView {
-         void fillSessions(ArrayList<Session> sessions);
+         void fillSessions(ArrayList<Session> sessions,ArrayList<String> usernames);
          void setPresenter(SessionContract.MainPresenter presenter);
          void getCurrentUser(User user);
          void openRefreshing();

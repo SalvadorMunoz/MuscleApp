@@ -58,11 +58,6 @@
         <activity android:name=".ui.user.UserActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeCustom"/>
-        <receiver android:name=".MuscleAppReceiver">
-            <intent-filter>
-                <action android:name="com.example.linux.muscleapp.ui.login.intent"/>
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

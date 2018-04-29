@@ -64,8 +64,8 @@ public class UsersRepository {
     }
 
 
-    public String getNameFronId(int id){
-        return userDao.LoadNameFromId(id);
+    public ArrayList<String> getNameFronId(){
+        return userDao.LoadNameFromId();
     }
 
     public void sendConfirmEmail(String email){

@@ -1,5 +1,6 @@
 package com.example.linux.muscleapp.net;
 
+import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.google.gson.annotations.SerializedName;
 
@@ -36,5 +37,18 @@ public interface ApiService {
     @SerializedName("sendRecovery")
     @POST("recovery/{email}")
     Call<Result> sendRecovery(@Path("email") String email);
+
+    @SerializedName("userName")
+    @GET("users/name/{id}")
+    Call<Result> getUserName(@Path("id") int id);
+
+    @SerializedName("sessions")
+    @GET("sessions")
+    Call<Result> getSessions();
+
+    @SerializedName("insertSession")
+    @POST("session")
+    Call<Result> insertSession(@Body Session current);
+
 }
 

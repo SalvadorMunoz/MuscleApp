@@ -34,12 +34,8 @@ public class AddSessionInteractorImp implements AddSessionInteractor{
             onAddSessionFinish.onEmptyName();
         else {
             excersicesAsyncTask = new ExcersicesAsyncTask();
-            tmp = new Session(-1, user, R.drawable.no_photo, name, pass, formatDate(new Date()));
-            SessionsRepository.getInstace().add(tmp);
-            excersicesAsyncTask.execute();
-
-
-            onAddSessionFinish.onSuccess();
+            tmp = new Session(-1, user, name, pass, formatDate(new Date()));
+            excersicesAsyncTask.execute(tmp);
         }
     }
 
@@ -58,12 +54,17 @@ public class AddSessionInteractorImp implements AddSessionInteractor{
         return dateFormat.format(date);
     }
 
-    class ExcersicesAsyncTask extends AsyncTask<Void,Void,Void>{
+    class ExcersicesAsyncTask extends AsyncTask<Session,Void,Void>{
+
+
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected Void doInBackground(Session... sessions) {
             Excersice tmpEx = null;
             SessionDate tmpDat = null;
+
+            SessionsRepository.getInstace().add(sessions[0]);
+
 
             int tmpId = SessionsRepository.getInstace().getIdFromSession(tmp);
 
@@ -78,7 +79,15 @@ public class AddSessionInteractorImp implements AddSessionInteractor{
                 tmpDat.setSessionId(tmpId);
                 SessionDatesRepository.getInstance().add(tmpDat);
             }
+
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            onAddSessionFinish.onSuccess();
+
         }
     }
 }

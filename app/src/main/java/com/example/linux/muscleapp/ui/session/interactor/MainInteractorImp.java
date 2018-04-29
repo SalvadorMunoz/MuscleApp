@@ -39,6 +39,7 @@ public class MainInteractorImp implements MainInteractor {
     }
 
     class LoadAsyncTask extends AsyncTask<Void,Void,ArrayList<Session>>{
+        private  ArrayList<String> usernames;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -47,13 +48,14 @@ public class MainInteractorImp implements MainInteractor {
 
         @Override
         protected ArrayList<Session> doInBackground(Void... voids) {
+            usernames = UsersRepository.getInstance().getNameFronId();
             return SessionsRepository.getInstace().getSessions();
         }
 
         @Override
         protected void onPostExecute(ArrayList<Session> sessions) {
             super.onPostExecute(sessions);
-            onLoadFinish.giveSessions(sessions);
+            onLoadFinish.giveSessions(sessions,usernames);
             onLoadFinish.closeProgress();
         }
     }

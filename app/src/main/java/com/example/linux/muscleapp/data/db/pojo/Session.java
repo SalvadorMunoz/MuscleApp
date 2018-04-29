@@ -17,13 +17,12 @@ import java.util.Date;
  */
 
 public class Session implements Parcelable,Comparable<Session>{
-    int id,user,urlImage;
+    int id,user;
     String name, pass, creationDate;
 
-    public Session(int id, int user, int urlImage, String name, String pass, String creationDate) {
+    public Session(int id, int user, String name, String pass, String creationDate) {
         this.id = id;
         this.user = user;
-        this.urlImage = urlImage;
         this.name = name;
         this.pass = pass;
         this.creationDate = creationDate;
@@ -33,7 +32,6 @@ public class Session implements Parcelable,Comparable<Session>{
     protected Session(Parcel in) {
         id = in.readInt();
         user = in.readInt();
-        urlImage = in.readInt();
         name = in.readString();
         pass = in.readString();
         creationDate = in.readString();
@@ -83,15 +81,6 @@ public class Session implements Parcelable,Comparable<Session>{
         this.pass = pass;
     }
 
-
-    public int getUrlImage() {
-        return urlImage;
-    }
-
-    public void setUrlImage(int urlImage) {
-        this.urlImage = urlImage;
-    }
-
     public String getCreationDate() {
         return creationDate;
     }
@@ -109,7 +98,6 @@ public class Session implements Parcelable,Comparable<Session>{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
         parcel.writeInt(user);
-        parcel.writeInt(urlImage);
         parcel.writeString(name);
         parcel.writeString(pass);
         parcel.writeString(creationDate);

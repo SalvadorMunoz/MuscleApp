@@ -33,6 +33,7 @@ import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 import com.pkmmte.view.CircularImageView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -46,6 +47,7 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     private ArrayList<Session> sessions;
     private User current;
     private MainListListener callback;
+    private ArrayList<String> usernames;
 
 
     SessionContract.MainPresenter presenter;
@@ -154,8 +156,9 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     @Override
-    public void fillSessions(ArrayList<Session> sessions) {
+    public void fillSessions(ArrayList<Session> sessions, ArrayList<String> usernames) {
         this.sessions = sessions;
+        this.usernames = usernames;
     }
 
     @Override
@@ -171,7 +174,7 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void closeRefreshing() {
         swipeContainer.setRefreshing(false);
-        adapter = new MainAdapter(sessions,current,callback);
+        adapter = new MainAdapter(sessions,usernames,current,callback);
         recycler.setAdapter(adapter);
     }
 

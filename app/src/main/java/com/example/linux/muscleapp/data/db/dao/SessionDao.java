@@ -7,42 +7,47 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.linux.muscleapp.data.MuscleappContract;
 import com.example.linux.muscleapp.data.db.MuscleappOpenHelper;
 import com.example.linux.muscleapp.data.db.pojo.Session;
+import com.example.linux.muscleapp.net.ApiAdapter;
+import com.example.linux.muscleapp.net.Result;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import retrofit2.Call;
 
 /**
  * Created by linux on 30/01/18.
  */
 
 public class SessionDao {
-    public ArrayList<Session> loadAll(){
-        ArrayList<Session> tmp = new ArrayList<>();
-        SQLiteDatabase sqLiteDatabase = MuscleappOpenHelper.getInstance().openDatabase();
-        Cursor cursor = sqLiteDatabase.query(MuscleappContract.SessionEntry.TABLE_NAME,MuscleappContract.SessionEntry.ALL_COLUMNS,null,null,null,null,MuscleappContract.SessionEntry.COLUMN_CREATION_DATE+" DESC",null);
+    ArrayList<Session> tmp ;
 
-        if(cursor.moveToFirst()){
-            do {
-                tmp.add(new Session(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),cursor.getString(3),cursor.getString(4),cursor.getString(5)));
-            }while (cursor.moveToNext());
+    public ArrayList<Session> loadAll(){
+        tmp = new ArrayList<>();
+        Call<Result> call = ApiAdapter.getInstance().getSessions();
+        try {
+            Result result = call.execute().body();
+            tmp = result.getSessions();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        MuscleappOpenHelper.getInstance().closeDatabase();
         return tmp;
+
     }
 
     public void insert(Session session){
-        SQLiteDatabase sqLiteDatabase = MuscleappOpenHelper.getInstance().openDatabase();
-        ContentValues values = new ContentValues();
+        Call<Result> call = ApiAdapter.getInstance().insertSession(session);
+        String message = "";
+        try {
+            Result result = call.execute().body();
+            message = result.getMessage();
 
-        values.put(MuscleappContract.SessionEntry.COLUMN_USER_ID,session.getUser());
-        values.put(MuscleappContract.SessionEntry.COLUMN_URL,session.getUrlImage());
-        values.put(MuscleappContract.SessionEntry.COLUMN_NAME,session.getName());
-        values.put(MuscleappContract.SessionEntry.COLUMN_PASS,session.getPass());
-        values.put(MuscleappContract.SessionEntry.COLUMN_CREATION_DATE,session.getCreationDate());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        sqLiteDatabase.insert(MuscleappContract.SessionEntry.TABLE_NAME,null,values);
-
-        MuscleappOpenHelper.getInstance().closeDatabase();
+        String fin = message;
     }
 
     public int getIdFomSession(Session session){

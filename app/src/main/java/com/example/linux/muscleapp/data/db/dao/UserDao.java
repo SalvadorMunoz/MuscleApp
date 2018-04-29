@@ -20,9 +20,7 @@ import retrofit2.Call;
 
 public class UserDao {
     ArrayList<User> tmp ;
-
-
-
+    ArrayList<String> usernames;
 
     public ArrayList<User> loadActual(String email, String password){
         tmp = new ArrayList<>();
@@ -52,19 +50,23 @@ public class UserDao {
 
     }
 
-    public String LoadNameFromId( int id){
-        String tmp = "";
-        SQLiteDatabase sqLiteDatabase = MuscleappOpenHelper.getInstance().openDatabase();
-        Cursor cursor = sqLiteDatabase.query(MuscleappContract.UserEntry.TABLE_NAME, new String[]{MuscleappContract.UserEntry.COLUMN_NAME},"_id=?",new String[]{String.valueOf(id)},null,null,null,null);
+    public ArrayList<String> LoadNameFromId(){
+        int id = 0;
+        usernames = new ArrayList<>();
+        Call<Result> call = ApiAdapter.getInstance().getUserName(id);
 
-        if(cursor.moveToFirst()){
-            do{
-                tmp = cursor.getString(0);
-            }while (cursor.moveToNext());
+        try {
+            Result result = call.execute().body();
+            tmp = result.getUsers();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        MuscleappOpenHelper.getInstance().closeDatabase();
-        return tmp;
+        for(int i = 0;i< tmp.size();i++){
+            usernames.add(tmp.get(i).getName());
+        }
+
+        return usernames;
     }
     public void insertUser(User user){
         Call<Result> call = ApiAdapter.getInstance().insertUser(user);
