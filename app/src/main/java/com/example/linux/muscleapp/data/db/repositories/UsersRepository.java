@@ -64,7 +64,7 @@ public class UsersRepository {
     }
 
 
-    public ArrayList<String> getNameFronId(){
+    public ArrayList<User> getNameFronId(){
         return userDao.LoadNameFromId();
     }
 

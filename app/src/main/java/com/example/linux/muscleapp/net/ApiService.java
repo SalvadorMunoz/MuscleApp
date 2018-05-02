@@ -1,6 +1,8 @@
 package com.example.linux.muscleapp.net;
 
+import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.Session;
+import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.google.gson.annotations.SerializedName;
 
@@ -50,5 +52,16 @@ public interface ApiService {
     @POST("session")
     Call<Result> insertSession(@Body Session current);
 
+    @SerializedName("sessionId")
+    @POST("sessions/creation/id")
+    Call<Result> getSessionId(@Body Session current);
+
+    @SerializedName("addSessionDates")
+    @POST("sessionDates/add")
+    Call<Result> insertSessionDates(@Body SessionDate current);
+
+    @SerializedName("addExcersice")
+    @POST("excersices/add")
+    Call<Result> insertExcersices(@Body Excersice current);
 }
 

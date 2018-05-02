@@ -14,7 +14,7 @@ public interface MainInteractor{
     void getCurrentUser();
     void getCurrentUser(String email);
     interface onLoadFinish{
-        void giveSessions(ArrayList<Session> sessions,ArrayList<String>usernames);
+        void giveSessions(ArrayList<Session> sessions,ArrayList<User>usernames);
         void giveCurrentUser(User user);
         void openProgress();
         void closeProgress();

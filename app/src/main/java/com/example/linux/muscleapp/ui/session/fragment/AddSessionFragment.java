@@ -2,6 +2,7 @@ package com.example.linux.muscleapp.ui.session.fragment;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -46,6 +47,7 @@ public class AddSessionFragment extends ListFragment implements SessionContract.
     private User current;
     private AddSessionListener callback;
     private SessionContract.AddSessionPresenter presenter;
+    private ProgressDialog progressDialog;
 
 
     private ExcersicesAdapter adapter;
@@ -65,6 +67,16 @@ public class AddSessionFragment extends ListFragment implements SessionContract.
     @Override
     public void goBack() {
         callback.goMain();
+    }
+
+    @Override
+    public void openDialog() {
+        progressDialog.show();
+    }
+
+    @Override
+    public void closeDialog() {
+        progressDialog.dismiss();
     }
 
     public interface AddSessionListener{
@@ -104,6 +116,8 @@ public class AddSessionFragment extends ListFragment implements SessionContract.
         txvAddDate = (TextView) root.findViewById(R.id.txvAddSessionDate);
         fbtExcersice = (FloatingActionButton) root.findViewById(R.id.fbtAddExcersice);
         txvNumExcersices = (TextView) root.findViewById(R.id.txvNumExcersices);
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage(getResources().getString(R.string.creating));
 
         edtName.addTextChangedListener(new TextWatcher() {
             @Override

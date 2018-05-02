@@ -18,5 +18,7 @@ public interface AddSessionInteractor {
         void onLoadExcersices(ArrayList<Excersice> excersices);
         void onSuccess();
         void onEmptyName();
+        void openDialog();
+        void closeDialog();
     }
 }

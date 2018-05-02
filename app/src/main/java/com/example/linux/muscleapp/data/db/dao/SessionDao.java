@@ -51,21 +51,17 @@ public class SessionDao {
     }
 
     public int getIdFomSession(Session session){
-        int res=0;
-        SQLiteDatabase sqLiteDatabase = MuscleappOpenHelper.getInstance().openDatabase();
-
-        Cursor cursor = sqLiteDatabase.query(MuscleappContract.SessionEntry.TABLE_NAME,new String[]{MuscleappContract.SessionEntry._ID},
-                MuscleappContract.SessionEntry.COLUMN_NAME+"=? and "+MuscleappContract.SessionEntry.COLUMN_USER_ID+"=? and "+MuscleappContract.SessionEntry.COLUMN_CREATION_DATE+
-                        "=?",new String []{session.getName(),String.valueOf(session.getUser()),session.getCreationDate()},null,null,null);
-
-        if(cursor.moveToFirst()){
-            do{
-                res = cursor.getInt(0);
-            }while (cursor.moveToNext());
+        tmp = new ArrayList<>();
+        Call<Result> call = ApiAdapter.getInstance().getSessionId(session);
+        try {
+            Result result = call.execute().body();
+            tmp = result.getSessions();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        MuscleappOpenHelper.getInstance().closeDatabase();
-        return res;
+        return tmp.get(0).getId();
+
     }
 
 }

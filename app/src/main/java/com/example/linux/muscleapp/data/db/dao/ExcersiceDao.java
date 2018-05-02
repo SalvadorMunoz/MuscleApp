@@ -8,8 +8,13 @@ import com.example.linux.muscleapp.data.MuscleappContract;
 import com.example.linux.muscleapp.data.db.MuscleappOpenHelper;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.Session;
+import com.example.linux.muscleapp.net.ApiAdapter;
+import com.example.linux.muscleapp.net.Result;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import retrofit2.Call;
 
 /**
  * Created by linux on 1/02/18.
@@ -35,20 +40,16 @@ public class ExcersiceDao {
     }
 
     public void insert(Excersice excersice){
-        SQLiteDatabase sqLiteDatabase = MuscleappOpenHelper.getInstance().openDatabase();
-        ContentValues values = new ContentValues();
+        Call<Result> call = ApiAdapter.getInstance().insertExcersices(excersice);
+        String message = "";
+        try {
+            Result result = call.execute().body();
+            message = result.getMessage();
 
-        values.put(MuscleappContract.ExcersiceEntry.COLUMN_SESSION,excersice.getSession());
-        values.put(MuscleappContract.ExcersiceEntry.COLUMN_NAME,excersice.getName());
-        values.put(MuscleappContract.ExcersiceEntry.COLUMN_MUSCLE,excersice.getMuscle());
-        values.put(MuscleappContract.ExcersiceEntry.COLUMN_URL,excersice.getUrl());
-        values.put(MuscleappContract.ExcersiceEntry.COLUMN_TYPETIME,excersice.getTypeTime());
-        values.put(MuscleappContract.ExcersiceEntry.COLUMN_SERIES,excersice.getSeries());
-        values.put(MuscleappContract.ExcersiceEntry.COLUMN_REPETITIONS,excersice.getRepetitions());
-        values.put(MuscleappContract.ExcersiceEntry.COLUMN_TIME,excersice.getTime());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        sqLiteDatabase.insert(MuscleappContract.ExcersiceEntry.TABLE_NAME,null,values);
-
-        MuscleappOpenHelper.getInstance().closeDatabase();
+        String fin = message;
     }
 }

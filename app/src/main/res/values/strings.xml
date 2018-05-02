@@ -57,4 +57,5 @@
     <string name="recovery_pass_title">Recuperar contraseña</string>
     <string name="recovery_pass_message">Introduce tu correo electrónico</string>
     <string name="autentication">Autenticando...</string>
+    <string name="creating">Creando session de entrenamiento...</string>
 </resources>

@@ -47,7 +47,7 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     private ArrayList<Session> sessions;
     private User current;
     private MainListListener callback;
-    private ArrayList<String> usernames;
+    private ArrayList<User> usernames;
 
 
     SessionContract.MainPresenter presenter;
@@ -156,7 +156,7 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     @Override
-    public void fillSessions(ArrayList<Session> sessions, ArrayList<String> usernames) {
+    public void fillSessions(ArrayList<Session> sessions, ArrayList<User> usernames) {
         this.sessions = sessions;
         this.usernames = usernames;
     }

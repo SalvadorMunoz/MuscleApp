@@ -15,13 +15,13 @@ public class SessionDate implements Parcelable{
     private  int day;
     private  int month;
     private  int year;
-    private int sessionId;
+    private int session;
 
     public SessionDate(int id,int day, int month, int year,int sessionId) {
         this.day = day;
         this.month = month;
         this.year = year;
-        this.sessionId = sessionId;
+        this.session = sessionId;
     }
 
 
@@ -30,7 +30,7 @@ public class SessionDate implements Parcelable{
         day = in.readInt();
         month = in.readInt();
         year = in.readInt();
-        sessionId = in.readInt();
+        session = in.readInt();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class SessionDate implements Parcelable{
         dest.writeInt(day);
         dest.writeInt(month);
         dest.writeInt(year);
-        dest.writeInt(sessionId);
+        dest.writeInt(session);
     }
 
     @Override
@@ -59,8 +59,8 @@ public class SessionDate implements Parcelable{
         }
     };
 
-    public int getSessionId() {
-        return sessionId;
+    public int getSession() {
+        return session;
     }
 
     public int getDay() {
@@ -75,8 +75,8 @@ public class SessionDate implements Parcelable{
         return year;
     }
 
-    public void setSessionId(int sessionId) {
-        this.sessionId = sessionId;
+    public void setSession(int session) {
+        this.session = session;
     }
 
     public int getId() {

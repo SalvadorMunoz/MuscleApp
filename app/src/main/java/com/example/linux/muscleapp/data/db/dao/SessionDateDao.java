@@ -6,10 +6,14 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.linux.muscleapp.data.MuscleappContract;
 import com.example.linux.muscleapp.data.db.MuscleappOpenHelper;
-import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.SessionDate;
+import com.example.linux.muscleapp.net.ApiAdapter;
+import com.example.linux.muscleapp.net.Result;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import retrofit2.Call;
 
 /**
  * Created by linux on 1/02/18.
@@ -36,17 +40,16 @@ public class SessionDateDao {
     }
 
     public void insert(SessionDate sessionDate){
-        SQLiteDatabase sqLiteDatabase = MuscleappOpenHelper.getInstance().openDatabase();
-        ContentValues values = new ContentValues();
+        Call<Result> call = ApiAdapter.getInstance().insertSessionDates(sessionDate);
+        String message = "";
+        try {
+            Result result = call.execute().body();
+            message = result.getMessage();
 
-        values.put(MuscleappContract.SessionDatesEntry.COLUMN_DAY,sessionDate.getDay());
-        values.put(MuscleappContract.SessionDatesEntry.COLUMN_MONTH,sessionDate.getMonth());
-        values.put(MuscleappContract.SessionDatesEntry.COLUMN_YEAR,sessionDate.getYear());
-        values.put(MuscleappContract.SessionDatesEntry.COLUMN_SESSION,sessionDate.getSessionId());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-
-        sqLiteDatabase.insert(MuscleappContract.SessionDatesEntry.TABLE_NAME,null,values);
-
-        MuscleappOpenHelper.getInstance().closeDatabase();
+        String fin = message;
     }
 }

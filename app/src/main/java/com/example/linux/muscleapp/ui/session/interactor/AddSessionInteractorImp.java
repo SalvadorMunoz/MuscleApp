@@ -2,7 +2,6 @@ package com.example.linux.muscleapp.ui.session.interactor;
 
 import android.os.AsyncTask;
 
-import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.SessionDate;
@@ -57,6 +56,11 @@ public class AddSessionInteractorImp implements AddSessionInteractor{
     class ExcersicesAsyncTask extends AsyncTask<Session,Void,Void>{
 
 
+        @Override
+        protected void onPreExecute() {
+            onAddSessionFinish.openDialog();
+
+        }
 
         @Override
         protected Void doInBackground(Session... sessions) {
@@ -64,6 +68,8 @@ public class AddSessionInteractorImp implements AddSessionInteractor{
             SessionDate tmpDat = null;
 
             SessionsRepository.getInstace().add(sessions[0]);
+
+
 
 
             int tmpId = SessionsRepository.getInstace().getIdFromSession(tmp);
@@ -76,7 +82,7 @@ public class AddSessionInteractorImp implements AddSessionInteractor{
 
             for(int i = 0; i < SessionTmpDates.getDates().size();i++){
                 tmpDat = SessionTmpDates.getDates().get(i);
-                tmpDat.setSessionId(tmpId);
+                tmpDat.setSession(tmpId);
                 SessionDatesRepository.getInstance().add(tmpDat);
             }
 
@@ -86,6 +92,7 @@ public class AddSessionInteractorImp implements AddSessionInteractor{
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            onAddSessionFinish.closeDialog();
             onAddSessionFinish.onSuccess();
 
         }

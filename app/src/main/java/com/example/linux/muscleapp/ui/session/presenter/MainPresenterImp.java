@@ -47,7 +47,7 @@ public class MainPresenterImp implements SessionContract.MainPresenter,MainInter
     }
 
     @Override
-    public void giveSessions(ArrayList<Session> sessions,ArrayList<String> usernames) {
+    public void giveSessions(ArrayList<Session> sessions,ArrayList<User> usernames) {
         view.fillSessions(sessions,usernames);
     }
 

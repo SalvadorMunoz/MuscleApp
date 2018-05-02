@@ -36,7 +36,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>{
     //Sessions repository
     private ArrayList<Session>sessions;
-    private ArrayList<String> usernames;
+    private ArrayList<User> usernames;
     private User current;
     private MainListFragment.MainListListener callback;
 
@@ -47,7 +47,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     /**
      * Empty constructor add a session from the repository
      */
-    public MainAdapter(ArrayList<Session> sessions,ArrayList<String>usernames, User current, MainListFragment.MainListListener callback){
+    public MainAdapter(ArrayList<Session> sessions,ArrayList<User>usernames, User current, MainListFragment.MainListListener callback){
         this.sessions = sessions;
         this.current = current;
         listener = new clickItem();
@@ -78,7 +78,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     public void onBindViewHolder(SessionHolder holder, int position) {
 
         holder.name.setText(sessions.get(position).getName());
-        holder.result.setText(usernames.get(position)+", "+format(sessions.get(position).getCreationDate()));
+        holder.result.setText(getName(sessions.get(position).getUser())+", "+format(sessions.get(position).getCreationDate()));
         holder.image.setImageResource(R.drawable.no_photo);
         holder.name.setOnClickListener(listener);
         holder.name.setTag(sessions.get(position));
@@ -86,6 +86,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
         holder.numComments.setTag(sessions.get(position));
 
 
+    }
+
+    private  String getName(int id){
+        String res= "";
+
+        for (int i = 0; i< usernames.size();i++){
+            if(usernames.get(i).getId() == id)
+                res = usernames.get(i).getName();
+
+        }
+        return  res;
     }
 
 

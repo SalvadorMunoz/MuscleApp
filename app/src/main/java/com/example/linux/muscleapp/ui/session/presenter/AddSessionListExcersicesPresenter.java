@@ -55,4 +55,14 @@ public class AddSessionListExcersicesPresenter implements SessionContract.AddSes
     public void onEmptyName() {
         view.setEmptyName();
     }
+
+    @Override
+    public void openDialog() {
+        view.openDialog();
+    }
+
+    @Override
+    public void closeDialog() {
+        view.closeDialog();
+    }
 }

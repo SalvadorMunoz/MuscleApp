@@ -50,9 +50,9 @@ public class UserDao {
 
     }
 
-    public ArrayList<String> LoadNameFromId(){
+    public ArrayList<User> LoadNameFromId(){
         int id = 0;
-        usernames = new ArrayList<>();
+        tmp = new ArrayList<>();
         Call<Result> call = ApiAdapter.getInstance().getUserName(id);
 
         try {
@@ -62,11 +62,9 @@ public class UserDao {
             e.printStackTrace();
         }
 
-        for(int i = 0;i< tmp.size();i++){
-            usernames.add(tmp.get(i).getName());
-        }
 
-        return usernames;
+
+        return tmp;
     }
     public void insertUser(User user){
         Call<Result> call = ApiAdapter.getInstance().insertUser(user);

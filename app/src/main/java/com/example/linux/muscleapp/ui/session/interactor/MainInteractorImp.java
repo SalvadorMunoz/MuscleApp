@@ -39,7 +39,7 @@ public class MainInteractorImp implements MainInteractor {
     }
 
     class LoadAsyncTask extends AsyncTask<Void,Void,ArrayList<Session>>{
-        private  ArrayList<String> usernames;
+        private  ArrayList<User> usernames;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
