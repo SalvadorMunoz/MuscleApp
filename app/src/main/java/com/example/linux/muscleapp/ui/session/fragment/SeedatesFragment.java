@@ -17,7 +17,6 @@ import com.applikeysolutions.cosmocalendar.view.CalendarView;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 import com.example.linux.muscleapp.ui.session.contract.SessionContract;
-import com.example.linux.muscleapp.ui.session.presenter.SeeDatesPresenterImp;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,14 +28,13 @@ import java.util.TreeSet;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SeedatesFragment extends Fragment implements SessionContract.SeeDatesView{
+public class SeedatesFragment extends Fragment  {
     public static final String TAG = "seedates";
-    private int session ;
+    private ArrayList<SessionDate> sessionDates ;
     private CalendarView cldDates;
     private ConnectedDays connectedDays;
     private Set<Long> days;
 
-    private SessionContract.SeeDatesPresenter presenter;
 
 
     @Override
@@ -58,10 +56,9 @@ public class SeedatesFragment extends Fragment implements SessionContract.SeeDat
         View root = inflater.inflate(R.layout.fragment_seedates, null);
         cldDates = (CalendarView) root.findViewById(R.id.cldDates);
 
-        presenter = new SeeDatesPresenterImp(this);
 
         if (getArguments() != null) {
-            session = getArguments().getInt("current");
+            sessionDates = getArguments().getParcelableArrayList("current");
         }
 
         return root;
@@ -73,16 +70,15 @@ public class SeedatesFragment extends Fragment implements SessionContract.SeeDat
         super.onViewCreated(view, savedInstanceState);
         cldDates.setDayTextColor(getResources().getColor(android.R.color.primary_text_light));
         cldDates.setWeekendDayTextColor(getResources().getColor(android.R.color.primary_text_light));
-        presenter.getDates(session);
+        fillDates();
 
     }
 
-    @Override
-    public void fillDates(ArrayList<SessionDate> dates) {
+    public void fillDates() {
 
         days = new TreeSet<>();
-        for (int i= 0; i < dates.size();i++){
-            days.add(currentTime(dates.get(i)));
+        for (int i= 0; i < sessionDates.size();i++){
+            days.add(currentTime(sessionDates.get(i)));
         }
 
 
@@ -105,7 +101,6 @@ public class SeedatesFragment extends Fragment implements SessionContract.SeeDat
     @Override
     public void onDetach() {
         super.onDetach();
-        presenter.onDestroy();
         connectedDays = new ConnectedDays(days,getResources().getColor(android.R.color.primary_text_light));
         cldDates.addConnectedDays(connectedDays);
     }

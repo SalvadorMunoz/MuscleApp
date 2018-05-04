@@ -15,6 +15,7 @@ import com.applikeysolutions.cosmocalendar.model.Day;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.Session;
+import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.net.NetFunctions;
@@ -161,12 +162,12 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     }
 
     @Override
-    public void seeDates(int sessionId) {
+    public void seeDates(ArrayList<SessionDate> sessionDates) {
         seedatesFragment = (SeedatesFragment) getSupportFragmentManager().findFragmentByTag(SeedatesFragment.TAG);
         if(seedatesFragment == null){
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             Bundle bundle = new Bundle();
-            bundle.putInt("current",sessionId);
+            bundle.putParcelableArrayList("current",sessionDates);
             seedatesFragment = SeedatesFragment.getInstance(bundle);
             transaction.addToBackStack(null);
 

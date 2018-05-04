@@ -1,6 +1,7 @@
 package com.example.linux.muscleapp.ui.session.presenter;
 
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
+import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 import com.example.linux.muscleapp.ui.session.contract.SessionContract;
 import com.example.linux.muscleapp.ui.session.interactor.SeeSessionInteractor;
 import com.example.linux.muscleapp.ui.session.interactor.SeeSessionInteractorImp;
@@ -21,9 +22,19 @@ public class SeeSessionPresenterImp implements SessionContract.SeeSessionsPresen
     }
 
     @Override
-    public void onSuccess(ArrayList<Excersice> excersices) {
-        view.fillExcersices(excersices);
+    public void onSuccess(ArrayList<Excersice> excersices, ArrayList<SessionDate> sessionDates) {
+        view.fillExcersices(excersices,sessionDates);
 
+    }
+
+    @Override
+    public void openDialog() {
+        view.openDialog();
+    }
+
+    @Override
+    public void closeDialog() {
+        view.closeDialog();
     }
 
     @Override

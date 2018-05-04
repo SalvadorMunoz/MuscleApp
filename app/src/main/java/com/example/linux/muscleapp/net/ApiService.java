@@ -59,9 +59,16 @@ public interface ApiService {
     @SerializedName("addSessionDates")
     @POST("sessionDates/add")
     Call<Result> insertSessionDates(@Body SessionDate current);
+    @SerializedName("seeSessionDates")
+    @GET("sessionDates/{session}")
+    Call<Result> getSessionDates(@Path("session") int session);
 
     @SerializedName("addExcersice")
     @POST("excersices/add")
     Call<Result> insertExcersices(@Body Excersice current);
+
+    @SerializedName("seeExcersice")
+    @GET("excersices/{session}")
+    Call<Result> getExcersices(@Path("session") int session);
 }
 

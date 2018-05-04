@@ -20,23 +20,18 @@ import retrofit2.Call;
  */
 
 public class SessionDateDao {
+    private ArrayList<SessionDate> tmp;
     public ArrayList<SessionDate> loadSessionDates(int session){
-        ArrayList<SessionDate> sessionDates = new ArrayList<>();
-        SQLiteDatabase sqLiteDatabase = MuscleappOpenHelper.getInstance().openDatabase();
+        tmp = new ArrayList<>();
+        Call<Result> call = ApiAdapter.getInstance().getSessionDates(session);
 
-
-        Cursor cursor = sqLiteDatabase.query(MuscleappContract.SessionDatesEntry.TABLE_NAME,MuscleappContract.SessionDatesEntry.ALL_COLUMNS,MuscleappContract.SessionDatesEntry.COLUMN_SESSION+"=?",
-                new String[]{String.valueOf(session)},null,null,null,null);
-
-        if(cursor.moveToFirst()){
-            do{
-                sessionDates.add(new SessionDate(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),cursor.getInt(3),cursor.getInt(4)));
-            }while (cursor.moveToNext());
+        try {
+            Result result = call.execute().body();
+            tmp = result.getSessionDates();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        MuscleappOpenHelper.getInstance().closeDatabase();
-
-
-        return sessionDates;
+        return tmp;
     }
 
     public void insert(SessionDate sessionDate){

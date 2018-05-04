@@ -1,6 +1,7 @@
 package com.example.linux.muscleapp.ui.session.interactor;
 
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
+import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 public interface SeeSessionInteractor {
     void getExcersices(int sessionId);
     interface OnSessionSeen{
-        void onSuccess(ArrayList<Excersice>excersices);
+        void onSuccess(ArrayList<Excersice>excersices, ArrayList<SessionDate> sessionDates);
+        void openDialog();
+        void closeDialog();
     }
 }

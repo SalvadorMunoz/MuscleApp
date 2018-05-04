@@ -60,7 +60,9 @@ public interface SessionContract {
     }
 
     interface SeeSessionView{
-         void fillExcersices(ArrayList<Excersice> excersices);
+         void fillExcersices(ArrayList<Excersice> excersices, ArrayList<SessionDate> sessionDates);
+         void openDialog();
+         void closeDialog();
     }
     interface SeeSessionsPresenter{
         void getExcersices(int sessionId);
@@ -68,12 +70,5 @@ public interface SessionContract {
 
     }
 
-    interface SeeDatesView{
-        void fillDates(ArrayList<SessionDate> dates);
-    }
-    interface SeeDatesPresenter{
-        void getDates(int sessionId);
-        void onDestroy();
 
-    }
 }

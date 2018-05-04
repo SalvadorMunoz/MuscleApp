@@ -21,22 +21,19 @@ import retrofit2.Call;
  */
 
 public class ExcersiceDao {
+    private ArrayList<Excersice> tmp;
 
     public ArrayList<Excersice> loadExcersices(int session){
-        ArrayList<Excersice>excersices = new ArrayList<>();
-        SQLiteDatabase sqLiteDatabase = MuscleappOpenHelper.getInstance().openDatabase();
+        tmp = new ArrayList<>();
+        Call<Result> call = ApiAdapter.getInstance().getExcersices(session);
 
-        Cursor cursor = sqLiteDatabase.query(MuscleappContract.ExcersiceEntry.TABLE_NAME,MuscleappContract.ExcersiceEntry.ALL_COLUMNS,MuscleappContract.ExcersiceEntry.COLUMN_SESSION+"=?",
-                new String[]{String.valueOf(session)},null,null,null,null);
-
-        if(cursor.moveToFirst()){
-            do{
-                excersices.add(new Excersice(cursor.getInt(0),cursor.getInt(1),cursor.getString(2),cursor.getString(3),cursor.getString(4),
-                        cursor.getString(5),cursor.getInt(6),cursor.getInt(7),cursor.getInt(8)));
-            }while (cursor.moveToNext());
+        try {
+            Result result = call.execute().body();
+            tmp = result.getExcersices();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        MuscleappOpenHelper.getInstance().closeDatabase();
-        return excersices;
+        return tmp;
     }
 
     public void insert(Excersice excersice){

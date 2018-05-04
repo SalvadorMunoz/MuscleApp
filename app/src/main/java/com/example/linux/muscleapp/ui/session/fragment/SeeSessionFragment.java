@@ -2,6 +2,7 @@ package com.example.linux.muscleapp.ui.session.fragment;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,7 @@ import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.adapters.SeeSessionAdapter;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.Session;
+import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 import com.example.linux.muscleapp.ui.session.contract.SessionContract;
 import com.example.linux.muscleapp.ui.session.presenter.SeeSessionPresenterImp;
 
@@ -35,6 +37,8 @@ public class SeeSessionFragment extends ListFragment implements SessionContract.
     private SessionContract.SeeSessionsPresenter presenter;
     private SeeSessionListener calllback;
     private Session tmp = null;
+    private ArrayList<SessionDate> sessionDates;
+    private ProgressDialog progressDialog;
 
 
     public SeeSessionFragment() {
@@ -43,7 +47,7 @@ public class SeeSessionFragment extends ListFragment implements SessionContract.
 
 
     public interface SeeSessionListener{
-        void seeDates(int sessionId);
+        void seeDates(ArrayList<SessionDate> sessionDate);
         void seeExcersice(Excersice excersice);
     }
 
@@ -65,6 +69,9 @@ public class SeeSessionFragment extends ListFragment implements SessionContract.
         View view = inflater.inflate(R.layout.fragment_see_session,container,false);
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         fbtDates = (FloatingActionButton) view.findViewById(R.id.fbtDates);
+        sessionDates = new ArrayList<>();
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage(getResources().getString(R.string.loading_session));
 
         adapter = new SeeSessionAdapter(getActivity());
         presenter = new SeeSessionPresenterImp(this);
@@ -88,7 +95,7 @@ public class SeeSessionFragment extends ListFragment implements SessionContract.
         fbtDates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calllback.seeDates(tmp.getId());
+                calllback.seeDates(sessionDates);
             }
         });
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -103,9 +110,20 @@ public class SeeSessionFragment extends ListFragment implements SessionContract.
 
 
     @Override
-    public void fillExcersices(ArrayList<Excersice> excersices) {
+    public void fillExcersices(ArrayList<Excersice> excersices, ArrayList<SessionDate> sessionDates) {
         adapter.clear();
         adapter.addAll(excersices);
+        this.sessionDates =sessionDates;
+    }
+
+    @Override
+    public void openDialog() {
+        progressDialog.show();
+    }
+
+    @Override
+    public void closeDialog() {
+        progressDialog.dismiss();
     }
 
     @Override
