@@ -70,5 +70,9 @@ public interface ApiService {
     @SerializedName("seeExcersice")
     @GET("excersices/{session}")
     Call<Result> getExcersices(@Path("session") int session);
+
+    @SerializedName("checkPass")
+    @GET("sessions/checkPass")
+    Call<Result> getPass();
 }
 

@@ -17,6 +17,7 @@ import com.example.linux.muscleapp.ui.session.fragment.MainListFragment;
 
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
+import com.example.linux.muscleapp.ui.utils.Sha256Generator;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -134,7 +135,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     class clickItem implements View.OnClickListener{
         @Override
         public void onClick(View view) {
-
+            String shaRes = Sha256Generator.bin2hex(Sha256Generator.getHash(""));
 
             switch (view.getId()){
                 case R.id.txvNumComments:
@@ -142,7 +143,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
                     break;
                 case R.id.txvSessionName:
                     Session tmp = (Session)view.getTag();
-                    if(tmp.getPass().equals(""))
+                    if(tmp.getPass().equalsIgnoreCase(shaRes))
                         callback.seeSession(tmp, GlobalVariables.OPEN_SEE);
                     else
                         callback.checkSessionPassword(tmp);

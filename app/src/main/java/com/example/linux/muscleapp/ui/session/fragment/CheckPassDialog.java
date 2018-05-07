@@ -19,6 +19,7 @@ import android.widget.EditText;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
+import com.example.linux.muscleapp.ui.utils.Sha256Generator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,7 +67,8 @@ public class CheckPassDialog extends DialogFragment {
                 .setPositiveButton(getResources().getString(R.string.accept), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(tmp.getPass().equals(edtPass.getText().toString())){
+                String pass = Sha256Generator.bin2hex(Sha256Generator.getHash(edtPass.getText().toString()));
+                if(tmp.getPass().equalsIgnoreCase(pass)){
                     callback.seeSession(tmp, GlobalVariables.OPEN_SEE);
                     dismiss();
                 }else{

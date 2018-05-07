@@ -64,4 +64,18 @@ public class SessionDao {
 
     }
 
+    /*public ArrayList<Session> getEmptiesPass(){
+        tmp = new ArrayList<>();
+        Call<Result> call = ApiAdapter.getInstance().getEmptiesPass();
+        try {
+            Result result = call.execute().body();
+            tmp = result.getSessions();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return tmp;
+
+    }*/
+
 }
