@@ -19,6 +19,7 @@ import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.net.NetFunctions;
+import com.example.linux.muscleapp.net.UploadService;
 import com.example.linux.muscleapp.ui.dates.fragment.AddSessionDateFragment;
 import com.example.linux.muscleapp.ui.excersice.VideoPlayerActivity;
 import com.example.linux.muscleapp.ui.excersice.fragment.AddExcersiceFragment;
@@ -118,10 +119,13 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     @Override
     public void goBack(int currentExcersice) {
         if(tmp != null) {
-            netFunctions.uploadVideo(tmp);
+            String currrentStorage;
+            Intent service = new Intent(SessionActivity.this,UploadService.class);
+            service.putExtra("currentVideo",tmp);
             String [] parts = path.split("/");
-            webStorage = webStorage+parts[parts.length-1];
-            SessionTmpDates.setUrlVideo(currentExcersice,webStorage);
+            currrentStorage = webStorage+parts[parts.length-1];
+            SessionTmpDates.setUrlVideo(currentExcersice,currrentStorage);
+            startService(service);
         }
         getSupportFragmentManager().popBackStack();
     }
