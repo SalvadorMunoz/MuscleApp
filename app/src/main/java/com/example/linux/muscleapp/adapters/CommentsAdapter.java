@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Commentary;
+import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.db.repositories.CommentsRepository;
-import com.example.linux.muscleapp.ui.comment.contract.CommentsContract;
 
 import java.util.ArrayList;
 
@@ -24,9 +24,11 @@ import java.util.ArrayList;
  */
 
 public class CommentsAdapter extends ArrayAdapter<Commentary>{
+    private ArrayList<User>usernames;
 
-    public CommentsAdapter(@NonNull Context context) {
+    public CommentsAdapter(@NonNull Context context,ArrayList<User>usernames) {
         super(context, R.layout.item_comments, new ArrayList<Commentary>());
+        this.usernames = usernames;
     }
 
     @NonNull
@@ -46,11 +48,22 @@ public class CommentsAdapter extends ArrayAdapter<Commentary>{
         }else
             holder = (CommentaryHolder) view.getTag();
 
-        holder.user.setText(CommentsRepository.getInstace().getNameFromId(getItem(position).getUser()));
+        holder.user.setText(getName(getItem(position).getUser()));
         holder.content.setText(getItem(position).getContent());
-        holder.date.setText(format(getItem(position).getDate()));
+        holder.date.setText(format(getItem(position).getCommentDate()));
 
         return view;
+    }
+
+    private String getName(int user){
+        String res="";
+        for(int i = 0;i< usernames.size();i++){
+            if(usernames.get(i).getId() == user)
+                res=usernames.get(i).getName();
+        }
+
+
+        return  res;
     }
 
     private String format(String date){

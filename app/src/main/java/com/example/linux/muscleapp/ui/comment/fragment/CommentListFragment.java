@@ -3,6 +3,7 @@ package com.example.linux.muscleapp.ui.comment.fragment;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
@@ -42,6 +43,7 @@ public class CommentListFragment extends DialogFragment implements CommentsContr
 
     private int session ;
     private int username ;
+    private ArrayList<User> userNames;
 
 
     public static CommentListFragment newInstance(Bundle b){
@@ -76,9 +78,10 @@ public class CommentListFragment extends DialogFragment implements CommentsContr
 
         session = getArguments().getInt("session");
         username = ((User)getArguments().getParcelable("current")).getId();
+        userNames = getArguments().getParcelableArrayList("usernames");
 
         if(getArguments()!=null){
-            adapter = new CommentsAdapter(getContext());
+            adapter = new CommentsAdapter(getContext(),userNames);
         }
         listView.setAdapter(adapter);
         fbtSend.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +93,6 @@ public class CommentListFragment extends DialogFragment implements CommentsContr
             }
         });
         presenter.fillComments(session);
-       checkEmpty();
 
         return builder.create();
 
@@ -111,6 +113,8 @@ public class CommentListFragment extends DialogFragment implements CommentsContr
         adapter.clear();
         adapter.addAll(comments);
         listView.setSelection(listView.getAdapter().getCount()-1);
+        checkEmpty();
+
 
     }
 
@@ -120,6 +124,8 @@ public class CommentListFragment extends DialogFragment implements CommentsContr
     public void setPresenter(CommentsContract.CommentsPresenter presenter) {
         this.presenter = presenter;
     }
+
+
 
     @Override
     public void onDestroy() {

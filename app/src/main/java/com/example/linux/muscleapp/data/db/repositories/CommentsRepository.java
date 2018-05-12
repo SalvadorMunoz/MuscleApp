@@ -37,8 +37,6 @@ public class CommentsRepository {
 
         return  commentaryDao.loadAllComentaries(idSession);
     }
-    public String getNameFromId(int user){
-        return commentaryDao.getNameFromId(user);
-    }
+
 
 }

@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * @author Salvador Muñoz
  * @version 1.0
  *
- * This class has got mehotds to extract current date
+ * This class has got mehotds to extract current commentDate
  */
 
 public class SessionDate implements Parcelable{

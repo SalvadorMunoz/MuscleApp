@@ -1,5 +1,6 @@
 package com.example.linux.muscleapp.net;
 
+import com.example.linux.muscleapp.data.db.pojo.Commentary;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.SessionDate;
@@ -20,6 +21,7 @@ public class Result implements Serializable {
     ArrayList<Session> sessions;
     ArrayList<Excersice> excersices;
     ArrayList<SessionDate> sessionDates;
+    ArrayList<Commentary> commentaries;
     int last;
 
     public boolean getCode() {
@@ -65,7 +67,15 @@ public class Result implements Serializable {
 
     public ArrayList<SessionDate> getSessionDates(){return  sessionDates;}
 
-    public void setSessionDatess(ArrayList<SessionDate> sessionDates){this.sessionDates = sessionDates;}
+    public void setSessionDates(ArrayList<SessionDate> sessionDates){this.sessionDates = sessionDates;}
+
+    public ArrayList<Commentary> getCommentaries() {
+        return commentaries;
+    }
+
+    public void setCommentaries(ArrayList<Commentary> commentaries) {
+        this.commentaries = commentaries;
+    }
 
     public int getLast() {
         return last;

@@ -30,6 +30,8 @@ import com.example.linux.muscleapp.ui.session.presenter.MainPresenterImp;
 import com.example.linux.muscleapp.ui.user.UserActivity;
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -95,12 +97,13 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
         mainListFragment.setPresenter(mainPresenter);    }
 
     @Override
-    public void goComments(User current, int idSession) {
+    public void goComments(User current, int idSession, ArrayList<User> usernames) {
         commentListFragment = (CommentListFragment) getSupportFragmentManager().findFragmentByTag(CommentListFragment.TAG);
         if(commentListFragment == null){
             Bundle bundle = new Bundle();
             bundle.putParcelable("current",current);
             bundle.putInt("session",idSession);
+            bundle.putParcelableArrayList("usernames",usernames);
             commentListFragment = CommentListFragment.newInstance(bundle);
             commentListFragment.show(getSupportFragmentManager(),CommentListFragment.TAG);
 

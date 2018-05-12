@@ -139,7 +139,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
 
             switch (view.getId()){
                 case R.id.txvNumComments:
-                   callback.goComments(current,((Session)view.getTag()).getId());
+                   callback.goComments(current,((Session)view.getTag()).getId(),usernames);
                     break;
                 case R.id.txvSessionName:
                     Session tmp = (Session)view.getTag();

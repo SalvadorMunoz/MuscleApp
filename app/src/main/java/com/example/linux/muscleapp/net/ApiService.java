@@ -1,5 +1,6 @@
 package com.example.linux.muscleapp.net;
 
+import com.example.linux.muscleapp.data.db.pojo.Commentary;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.SessionDate;
@@ -71,8 +72,13 @@ public interface ApiService {
     @GET("excersices/{session}")
     Call<Result> getExcersices(@Path("session") int session);
 
-    @SerializedName("checkPass")
-    @GET("sessions/checkPass")
-    Call<Result> getPass();
+    @SerializedName("seeCommentary")
+    @GET("commentaries/{session}")
+    Call<Result> getCommentaries(@Path("session") int session);
+
+    @SerializedName("addCommentary")
+    @POST("commentaries/add")
+    Call<Result> insertCommentary(@Body Commentary current);
+
 }
 

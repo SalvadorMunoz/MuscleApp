@@ -56,7 +56,7 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     MainAdapter adapter;
 
     public interface MainListListener{
-        void goComments(User current, int idSession);
+        void goComments(User current, int idSession,ArrayList<User> usernames);
         void addSession(User current, int mode);
         void checkSessionPassword(Session session);
         void seeSession(Session session,int mode);
