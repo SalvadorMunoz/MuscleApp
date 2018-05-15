@@ -174,8 +174,13 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void closeRefreshing() {
         swipeContainer.setRefreshing(false);
-        adapter = new MainAdapter(sessions,usernames,current,callback);
+        adapter = new MainAdapter(sessions,usernames,current,callback,this);
         recycler.setAdapter(adapter);
+    }
+
+    @Override
+    public void updateFavourite() {
+
     }
 
     @Override

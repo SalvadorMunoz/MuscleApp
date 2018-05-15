@@ -20,7 +20,7 @@ public interface SessionContract {
          void getCurrentUser(User user);
          void openRefreshing();
          void closeRefreshing();
-
+         void updateFavourite();
 
          interface Comment {
              void getCommentNumbers(int idSession);
@@ -34,6 +34,7 @@ public interface SessionContract {
          void getCurrentUser(String email);
          void getCurrentUser();
          void onDestroy();
+         void setFavourite(int session, int current);
 
          }
 

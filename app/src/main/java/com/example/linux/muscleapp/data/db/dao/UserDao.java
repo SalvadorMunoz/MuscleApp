@@ -1,10 +1,5 @@
 package com.example.linux.muscleapp.data.db.dao;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-
-import com.example.linux.muscleapp.data.MuscleappContract;
-import com.example.linux.muscleapp.data.db.MuscleappOpenHelper;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.net.ApiAdapter;
 import com.example.linux.muscleapp.net.Result;

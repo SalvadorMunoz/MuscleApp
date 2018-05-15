@@ -22,7 +22,6 @@ import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.net.Connection;
 import com.example.linux.muscleapp.ui.login.contract.LoginContract;
-import com.example.linux.muscleapp.ui.utils.ProgressBarUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -150,7 +149,6 @@ public class SignInFragment extends Fragment implements LoginContract.LoginView 
             }
         });
 
-        ProgressBarUtil.context = getContext();
         return root;
 
     }

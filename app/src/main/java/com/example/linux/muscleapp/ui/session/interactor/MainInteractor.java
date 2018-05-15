@@ -13,11 +13,12 @@ public interface MainInteractor{
     void getSessions();
     void getCurrentUser();
     void getCurrentUser(String email);
+    void setFavourite(int session, int current);
     interface onLoadFinish{
         void giveSessions(ArrayList<Session> sessions,ArrayList<User>usernames);
         void giveCurrentUser(User user);
         void openProgress();
         void closeProgress();
-
+        void updateFavourites();
     }
 }

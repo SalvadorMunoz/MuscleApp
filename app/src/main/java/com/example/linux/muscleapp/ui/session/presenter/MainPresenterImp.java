@@ -47,6 +47,12 @@ public class MainPresenterImp implements SessionContract.MainPresenter,MainInter
     }
 
     @Override
+    public void setFavourite(int session, int current) {
+        interactor.setFavourite(session, current);
+    }
+
+
+    @Override
     public void giveSessions(ArrayList<Session> sessions,ArrayList<User> usernames) {
         view.fillSessions(sessions,usernames);
     }
@@ -64,6 +70,11 @@ public class MainPresenterImp implements SessionContract.MainPresenter,MainInter
     @Override
     public void closeProgress() {
         view.closeRefreshing();
+    }
+
+    @Override
+    public void updateFavourites() {
+        view.updateFavourite();
     }
 
 

@@ -63,6 +63,7 @@
                 android:id="@+id/imgFollow"
                 android:layout_width="24dp"
                 android:layout_height="@dimen/icon"
+                android:clickable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_follow" />
@@ -73,7 +74,6 @@
                 android:layout_height="@dimen/icon"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
-                android:clickable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/civItemSessionImage"
                 app:layout_constraintTop_toBottomOf="@+id/txvSessionRes"

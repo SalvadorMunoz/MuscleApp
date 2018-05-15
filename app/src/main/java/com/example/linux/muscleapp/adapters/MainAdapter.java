@@ -2,6 +2,7 @@ package com.example.linux.muscleapp.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,10 @@ import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.db.repositories.CommentsRepository;
 import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
+import com.example.linux.muscleapp.ui.session.contract.SessionContract;
 import com.example.linux.muscleapp.ui.session.fragment.MainListFragment;
 
+import com.example.linux.muscleapp.ui.session.presenter.MainPresenterImp;
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 import com.example.linux.muscleapp.ui.utils.Sha256Generator;
@@ -40,6 +43,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     private ArrayList<User> usernames;
     private User current;
     private MainListFragment.MainListListener callback;
+    private MainPresenterImp presenter;
 
 
     //Class listener
@@ -48,12 +52,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     /**
      * Empty constructor add a session from the repository
      */
-    public MainAdapter(ArrayList<Session> sessions,ArrayList<User>usernames, User current, MainListFragment.MainListListener callback){
+    public MainAdapter(ArrayList<Session> sessions, ArrayList<User>usernames, User current, MainListFragment.MainListListener callback, SessionContract.MainView view){
         this.sessions = sessions;
         this.current = current;
         listener = new clickItem();
         this.callback = callback;
         this.usernames = usernames;
+        presenter = new MainPresenterImp(view);
     }
 
     /**
@@ -85,7 +90,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
         holder.name.setTag(sessions.get(position));
         holder.numComments.setOnClickListener(listener);
         holder.numComments.setTag(sessions.get(position));
-
+        holder.favourite.setTag(sessions.get(position));
+        holder.favourite.setOnClickListener(listener);
 
     }
 
@@ -114,6 +120,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
 
     static class SessionHolder extends RecyclerView.ViewHolder{
         private TextView name,result,numComments;
+        private ImageView favourite;
         private CircleImageView image;
 
         public SessionHolder(View itemView) {
@@ -122,6 +129,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
             result = (TextView) itemView.findViewById(R.id.txvSessionRes);
             image = (CircleImageView) itemView.findViewById(R.id.civItemSessionImage);
             numComments = (TextView) itemView.findViewById(R.id.txvNumComments);
+            favourite = (ImageView) itemView.findViewById(R.id.imgFollow);
         }
     }
 
@@ -147,6 +155,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
                         callback.seeSession(tmp, GlobalVariables.OPEN_SEE);
                     else
                         callback.checkSessionPassword(tmp);
+                    break;
+                case R.id.imgFollow:
+                        Session temp = (Session) view.getTag();
+                        presenter.setFavourite(temp.getId(),current.getId());
                     break;
             }
         }

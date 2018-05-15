@@ -18,7 +18,6 @@ import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
-import com.example.linux.muscleapp.net.NetFunctions;
 import com.example.linux.muscleapp.net.UploadService;
 import com.example.linux.muscleapp.ui.dates.fragment.AddSessionDateFragment;
 import com.example.linux.muscleapp.ui.excersice.VideoPlayerActivity;
@@ -50,7 +49,6 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     private int currentUser;
     private static final int CAMERA_REQUEST =1;
 
-    private NetFunctions netFunctions;
     private File tmp;
     private String path;
     private String webStorage = "https://muscleapp.club/videos/";
@@ -58,7 +56,6 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        netFunctions = new NetFunctions(this);
         switch (getIntent().getIntExtra("mode",-1)){
             case GlobalVariables.OPEN_ADD:
                 User user = getIntent().getParcelableExtra("user");

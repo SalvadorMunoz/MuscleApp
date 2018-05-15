@@ -1,21 +1,9 @@
 package com.example.linux.muscleapp.ui.excersice.fragment;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.ContentUris;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -28,31 +16,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.afollestad.materialcamera.MaterialCamera;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.User;
-import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
-import com.example.linux.muscleapp.net.RestClient;
 import com.example.linux.muscleapp.ui.excersice.contract.ExcersiceContract;
 import com.example.linux.muscleapp.ui.excersice.presenter.ExcersicePresenter;
-import com.example.linux.muscleapp.ui.session.fragment.AddSessionFragment;
-import com.example.linux.muscleapp.ui.utils.CameraConfig;
-import com.example.linux.muscleapp.ui.utils.UriConverter;
-import com.example.linux.muscleapp.ui.utils.ZipManager;
-import com.loopj.android.http.RequestParams;
-import com.loopj.android.http.TextHttpResponseHandler;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-
-import butterknife.BindView;
-import butterknife.internal.Utils;
-import cz.msebera.android.httpclient.Header;
-
-import static android.app.Activity.RESULT_OK;
 
 
 public class AddExcersiceFragment extends Fragment implements ExcersiceContract.AddExcersiceView{

@@ -2,6 +2,7 @@ package com.example.linux.muscleapp.net;
 
 import com.example.linux.muscleapp.data.db.pojo.Commentary;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
+import com.example.linux.muscleapp.data.db.pojo.Favourite;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 import com.example.linux.muscleapp.data.db.pojo.User;
@@ -79,6 +80,10 @@ public interface ApiService {
     @SerializedName("addCommentary")
     @POST("commentaries/add")
     Call<Result> insertCommentary(@Body Commentary current);
+
+    @SerializedName("addFavourite")
+    @POST("favourites/add")
+    Call<Result> insertFavourite(@Body Favourite current);
 
 }
 

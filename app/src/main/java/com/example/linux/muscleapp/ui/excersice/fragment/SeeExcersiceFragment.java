@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,12 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.adapters.ExcersiceAdapter;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
-import com.example.linux.muscleapp.net.NetFunctions;
 
 import java.util.ArrayList;
 
@@ -35,7 +32,6 @@ public class SeeExcersiceFragment extends Fragment {
     private Button btnSee;
     private Excersice tmp;
     private ExcersiceAdapter adapter;
-    private NetFunctions netFunctions;
     private SeeExcersiceListener callback;
 
 
@@ -69,7 +65,6 @@ public class SeeExcersiceFragment extends Fragment {
         btnSee = (Button) root.findViewById(R.id.btnSeeVideo);
 
         datas = new ArrayList<>();
-        netFunctions = new NetFunctions(getActivity());
         return root;
     }
 

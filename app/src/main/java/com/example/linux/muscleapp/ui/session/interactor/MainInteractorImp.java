@@ -2,8 +2,10 @@ package com.example.linux.muscleapp.ui.session.interactor;
 
 import android.os.AsyncTask;
 
+import com.example.linux.muscleapp.data.db.pojo.Favourite;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
+import com.example.linux.muscleapp.data.db.repositories.FavouriteRepository;
 import com.example.linux.muscleapp.data.db.repositories.SessionsRepository;
 import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
 import com.example.linux.muscleapp.ui.session.interactor.MainInteractor;
@@ -38,6 +40,12 @@ public class MainInteractorImp implements MainInteractor {
         onLoadFinish.giveCurrentUser(UsersRepository.getInstance().getCurrentUser(email));
     }
 
+    @Override
+    public void setFavourite(int session, int current) {
+        Favourite tmp = new Favourite(session,current);
+        new FavouriteAsyncTask().execute(tmp);
+    }
+
     class LoadAsyncTask extends AsyncTask<Void,Void,ArrayList<Session>>{
         private  ArrayList<User> usernames;
         @Override
@@ -57,6 +65,14 @@ public class MainInteractorImp implements MainInteractor {
             super.onPostExecute(sessions);
             onLoadFinish.giveSessions(sessions,usernames);
             onLoadFinish.closeProgress();
+        }
+    }
+    class FavouriteAsyncTask extends  AsyncTask<Favourite,Void,Favourite>{
+
+        @Override
+        protected Favourite doInBackground(Favourite... favourites) {
+            FavouriteRepository.getInstace().add(favourites[0]);
+            return favourites[0];
         }
     }
 }
