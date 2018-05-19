@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.linux.muscleapp.R;
+import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
 import com.example.linux.muscleapp.ui.login.contract.LoginContract;
 import com.example.linux.muscleapp.ui.login.fragment.RecoveryPassDialogFragment;
 import com.example.linux.muscleapp.ui.login.fragment.SignInFragment;

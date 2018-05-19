@@ -1,12 +1,10 @@
 package com.example.linux.muscleapp.ui.session.presenter;
 
-import android.os.AsyncTask;
-
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.ui.session.contract.SessionContract;
-import com.example.linux.muscleapp.ui.session.interactor.MainInteractor;
-import com.example.linux.muscleapp.ui.session.interactor.MainInteractorImp;
+import com.example.linux.muscleapp.ui.session.interactor.MainListInteractor;
+import com.example.linux.muscleapp.ui.session.interactor.MainListInteractorImp;
 
 import java.util.ArrayList;
 
@@ -14,13 +12,13 @@ import java.util.ArrayList;
  * Created by linux on 16/11/17.
  */
 
-public class MainPresenterImp implements SessionContract.MainPresenter,MainInteractor.onLoadFinish {
+public class MainListPresenterImp implements SessionContract.MainPresenter,MainListInteractor.onLoadFinish {
     private SessionContract.MainView view;
-    private MainInteractorImp interactor;
+    private MainListInteractorImp interactor;
 
-    public MainPresenterImp (SessionContract.MainView view){
+    public MainListPresenterImp(SessionContract.MainView view){
         this.view = view;
-        interactor = new MainInteractorImp(this);
+        interactor = new MainListInteractorImp(this);
     }
 
 
@@ -38,8 +36,9 @@ public class MainPresenterImp implements SessionContract.MainPresenter,MainInter
 
     @Override
     public void getCurrentUser() {
-        interactor.getCurrentUser();
+
     }
+
 
     @Override
     public void onDestroy() {

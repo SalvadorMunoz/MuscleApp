@@ -8,6 +8,7 @@ import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 import com.example.linux.muscleapp.data.db.repositories.ExcersiceRepository;
 import com.example.linux.muscleapp.data.db.repositories.SessionDatesRepository;
 import com.example.linux.muscleapp.data.db.repositories.SessionsRepository;
+import com.example.linux.muscleapp.net.SessionService;
 import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 
 import java.text.DateFormat;
@@ -21,7 +22,6 @@ import java.util.Date;
 public class AddSessionInteractorImp implements AddSessionInteractor{
      private OnAddSessionFinish onAddSessionFinish;
      private Session tmp;
-     private ExcersicesAsyncTask excersicesAsyncTask;
 
     public AddSessionInteractorImp(OnAddSessionFinish onAddSessionFinish) {
         this.onAddSessionFinish = onAddSessionFinish;
@@ -32,9 +32,10 @@ public class AddSessionInteractorImp implements AddSessionInteractor{
         if(name.isEmpty())
             onAddSessionFinish.onEmptyName();
         else {
-            excersicesAsyncTask = new ExcersicesAsyncTask();
-            tmp = new Session(-1, user, name, pass, formatDate(new Date()));
-            excersicesAsyncTask.execute(tmp);
+
+
+            onAddSessionFinish.onSuccess(tmp = new Session(-1, user, name, pass, formatDate(new Date())));
+
         }
     }
 
@@ -53,48 +54,5 @@ public class AddSessionInteractorImp implements AddSessionInteractor{
         return dateFormat.format(date);
     }
 
-    class ExcersicesAsyncTask extends AsyncTask<Session,Void,Void>{
 
-
-        @Override
-        protected void onPreExecute() {
-            onAddSessionFinish.openDialog();
-
-        }
-
-        @Override
-        protected Void doInBackground(Session... sessions) {
-            Excersice tmpEx = null;
-            SessionDate tmpDat = null;
-
-            SessionsRepository.getInstace().add(sessions[0]);
-
-
-
-
-            int tmpId = SessionsRepository.getInstace().getIdFromSession(tmp);
-
-            for(int i = 0; i < SessionTmpDates.getExcersices().size();i++){
-                tmpEx = SessionTmpDates.getExcersices().get(i);
-                tmpEx.setSession(tmpId);
-                ExcersiceRepository.getInstance().add(tmpEx);
-            }
-
-            for(int i = 0; i < SessionTmpDates.getDates().size();i++){
-                tmpDat = SessionTmpDates.getDates().get(i);
-                tmpDat.setSession(tmpId);
-                SessionDatesRepository.getInstance().add(tmpDat);
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            onAddSessionFinish.closeDialog();
-            onAddSessionFinish.onSuccess();
-
-        }
-    }
 }

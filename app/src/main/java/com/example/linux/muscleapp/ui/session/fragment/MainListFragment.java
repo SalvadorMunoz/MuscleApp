@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,6 +30,7 @@ import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.prefs.AppPreferences;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.ui.session.contract.SessionContract;
+import com.example.linux.muscleapp.ui.session.presenter.MainListPresenterImp;
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 import com.pkmmte.view.CircularImageView;
@@ -101,14 +103,11 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
         setRetainInstance(true);
 
         sessions = new ArrayList<>();
+        presenter = new MainListPresenterImp(this);
 
-
-        if(MuscleAppApplication.getContex().getAppPreferencesHelper().getRemember())
+        Log.d("ASS", MuscleAppApplication.getContex().getAppPreferencesHelper().getCurrentUser());
             presenter.getCurrentUser(MuscleAppApplication.getContex().getAppPreferencesHelper().getCurrentUser());
-        else{
-            presenter.getCurrentUser();
 
-        }
 
         return root;
     }

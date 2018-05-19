@@ -17,16 +17,17 @@ import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
-import com.example.linux.muscleapp.data.prefs.AppPreferences;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.ui.comment.contract.CommentsContract;
 import com.example.linux.muscleapp.ui.comment.fragment.CommentListFragment;
 import com.example.linux.muscleapp.ui.comment.presenter.CommentsPresenterImp;
 import com.example.linux.muscleapp.ui.login.LogInActivity;
+import com.example.linux.muscleapp.ui.session.contract.MainContract;
 import com.example.linux.muscleapp.ui.session.contract.SessionContract;
 import com.example.linux.muscleapp.ui.session.fragment.CheckPassDialog;
 import com.example.linux.muscleapp.ui.session.fragment.MainListFragment;
-import com.example.linux.muscleapp.ui.session.presenter.MainPresenterImp;
+import com.example.linux.muscleapp.ui.session.presenter.MainListPresenterImp;
+import com.example.linux.muscleapp.ui.session.presenter.MainPresenter;
 import com.example.linux.muscleapp.ui.user.UserActivity;
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 
@@ -40,7 +41,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  *
  * This class is the main activity has got the sessions list, navigation drawer, add session button...
  */
-public class MainActivity extends AppCompatActivity  implements MainListFragment.MainListListener,CheckPassDialog.CheckDialogListener {
+public class MainActivity extends AppCompatActivity  implements MainContract.View,MainListFragment.MainListListener,CheckPassDialog.CheckDialogListener {
     MainListFragment mainListFragment;
     CommentListFragment commentListFragment;
     CheckPassDialog checkPassDialog;
@@ -54,10 +55,12 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
 
     private User current;
 
+    private  MainContract.Presenter presenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        presenter = new MainPresenter(this);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.navDraw);
         navigationView = (NavigationView) findViewById(R.id.navView);
@@ -71,16 +74,10 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
             AppPreferencesHelper.newInstance().setNumVideo(0);
         }
 
-        if(AppPreferencesHelper.newInstance().getRemember())
-            current=UsersRepository.getInstance().getCurrentUser(AppPreferencesHelper.newInstance().getCurrentUser());
-        else{
-            current=UsersRepository.getInstance().getCurrentUser();
 
-        }
-        txvCurrentUserName.setText(current.getName());
-        txvCurrentUserEmail.setText(current.getEmail());
-        civCurrentUser.setImageResource(R.drawable.no_photo);
-        setUpNavigationDrawer();
+        presenter.getCurrentUser(AppPreferencesHelper.newInstance().getCurrentUser());
+
+
     }
 
     @Override
@@ -93,7 +90,7 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
             mainListFragment = MainListFragment.newInstance(null);
             transaction.add(R.id.mainContent,mainListFragment,MainListFragment.TAG).commit();
         }
-        mainPresenter = new MainPresenterImp(mainListFragment);
+        mainPresenter = new MainListPresenterImp(mainListFragment);
         mainListFragment.setPresenter(mainPresenter);    }
 
     @Override
@@ -188,4 +185,12 @@ public class MainActivity extends AppCompatActivity  implements MainListFragment
     }
 
 
+    @Override
+    public void setCurrentUser(User currentUser) {
+        current = currentUser;
+        txvCurrentUserName.setText(current.getName());
+        txvCurrentUserEmail.setText(current.getEmail());
+        civCurrentUser.setImageResource(R.drawable.no_photo);
+        setUpNavigationDrawer();
+    }
 }

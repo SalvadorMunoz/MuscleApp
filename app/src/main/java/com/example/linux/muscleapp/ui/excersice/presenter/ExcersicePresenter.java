@@ -1,6 +1,7 @@
 package com.example.linux.muscleapp.ui.excersice.presenter;
 
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
+import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.ui.excersice.contract.ExcersiceContract;
 import com.example.linux.muscleapp.ui.excersice.interactor.ExcersiceInteractor;
 import com.example.linux.muscleapp.ui.excersice.interactor.ExcersiceInteractorImp;
@@ -23,6 +24,11 @@ public class ExcersicePresenter implements ExcersiceContract.AddExcersicePresent
     }
 
     @Override
+    public void getCurrentUser(String email) {
+        interactor.getCurrentUser(email);
+    }
+
+    @Override
     public void onEmptyName() {
         view.setOnEmptyName();
     }
@@ -35,6 +41,11 @@ public class ExcersicePresenter implements ExcersiceContract.AddExcersicePresent
     @Override
     public void onSuccess(int id) {
         view.onSuccess(id);
+    }
+
+    @Override
+    public void setCurrenUser(User user) {
+        view.setCurrentUser(user);
     }
 
     @Override

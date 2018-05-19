@@ -27,6 +27,7 @@ public class LoginInteractorImp implements LoginInteractor {
             onLoginFinished.onEmptyPass();
         else
             validateUserTask.execute(email,pass);
+
     }
 
     @Override

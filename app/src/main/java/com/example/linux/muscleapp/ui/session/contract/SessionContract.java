@@ -4,6 +4,7 @@ import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 import com.example.linux.muscleapp.data.db.pojo.User;
+import com.example.linux.muscleapp.net.SessionService;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,7 +42,7 @@ public interface SessionContract {
     interface AddSessionView{
          void fillExcersices(ArrayList<Excersice> excersices);
          void setEmptyName();
-         void goBack();
+         void goBack(Session session);
          void openDialog();
          void closeDialog();
     }

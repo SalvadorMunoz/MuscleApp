@@ -3,6 +3,7 @@ package com.example.linux.muscleapp.data.db.repositories;
 import android.database.Cursor;
 
 import com.example.linux.muscleapp.R;
+import com.example.linux.muscleapp.data.db.dao.LocalUserDao;
 import com.example.linux.muscleapp.data.db.dao.UserDao;
 import com.example.linux.muscleapp.data.db.pojo.User;
 
@@ -19,11 +20,13 @@ public class UsersRepository {
     private ArrayList<User>users;
     private static UsersRepository instance;
     private UserDao userDao;
+    private LocalUserDao localUserDao;
 
     private User currentUser;
     private UsersRepository(){
         users = new ArrayList<>();
         userDao = new UserDao();
+        localUserDao = new LocalUserDao();
     }
 
     public static UsersRepository getInstance(){
@@ -50,8 +53,8 @@ public class UsersRepository {
         return res;
     }
 
-    public User getCurrentUser() {
-        return currentUser;
+    public User getLocalCurrentUser(String email) {
+        return localUserDao.loadCurrent(email).get(0);
     }
     public User getCurrentUser(String email){
         currentUser =  userDao.loadActual(email).get(0);

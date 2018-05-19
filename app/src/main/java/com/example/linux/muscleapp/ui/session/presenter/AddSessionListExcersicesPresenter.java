@@ -1,6 +1,8 @@
 package com.example.linux.muscleapp.ui.session.presenter;
 
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
+import com.example.linux.muscleapp.data.db.pojo.Session;
+import com.example.linux.muscleapp.net.SessionService;
 import com.example.linux.muscleapp.ui.session.contract.SessionContract;
 import com.example.linux.muscleapp.ui.session.interactor.AddSessionInteractor;
 import com.example.linux.muscleapp.ui.session.interactor.AddSessionInteractorImp;
@@ -47,9 +49,11 @@ public class AddSessionListExcersicesPresenter implements SessionContract.AddSes
     }
 
     @Override
-    public void onSuccess() {
-        view.goBack();
+    public void onSuccess(Session session) {
+        view.goBack(session);
     }
+
+
 
     @Override
     public void onEmptyName() {

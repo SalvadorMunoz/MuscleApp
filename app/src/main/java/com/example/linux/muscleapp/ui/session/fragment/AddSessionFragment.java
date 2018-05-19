@@ -4,6 +4,7 @@ package com.example.linux.muscleapp.ui.session.fragment;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
@@ -22,7 +23,11 @@ import android.widget.TextView;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.adapters.ExcersicesAdapter;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
+import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
+import com.example.linux.muscleapp.net.SessionService;
+import com.example.linux.muscleapp.net.UploadService;
+import com.example.linux.muscleapp.ui.session.SessionActivity;
 import com.example.linux.muscleapp.ui.session.contract.SessionContract;
 import com.example.linux.muscleapp.ui.session.presenter.AddSessionListExcersicesPresenter;
 import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
@@ -65,9 +70,13 @@ public class AddSessionFragment extends ListFragment implements SessionContract.
     }
 
     @Override
-    public void goBack() {
-        callback.goMain();
+    public void goBack(Session session) {
+
+
+        callback.goMain(session);
     }
+
+
 
     @Override
     public void openDialog() {
@@ -82,7 +91,7 @@ public class AddSessionFragment extends ListFragment implements SessionContract.
     public interface AddSessionListener{
         void goAddDate();
         void goAddExcersice(User current);
-        void goMain();
+        void goMain(Session session);
     }
 
     public AddSessionFragment() {

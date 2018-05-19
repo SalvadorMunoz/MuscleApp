@@ -2,7 +2,6 @@ package com.example.linux.muscleapp.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,20 +11,14 @@ import android.widget.TextView;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
-import com.example.linux.muscleapp.data.db.repositories.CommentsRepository;
-import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
 import com.example.linux.muscleapp.ui.session.contract.SessionContract;
 import com.example.linux.muscleapp.ui.session.fragment.MainListFragment;
 
-import com.example.linux.muscleapp.ui.session.presenter.MainPresenterImp;
+import com.example.linux.muscleapp.ui.session.presenter.MainListPresenterImp;
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
-import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 import com.example.linux.muscleapp.ui.utils.Sha256Generator;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -43,7 +36,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     private ArrayList<User> usernames;
     private User current;
     private MainListFragment.MainListListener callback;
-    private MainPresenterImp presenter;
+    private MainListPresenterImp presenter;
 
 
     //Class listener
@@ -58,7 +51,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
         listener = new clickItem();
         this.callback = callback;
         this.usernames = usernames;
-        presenter = new MainPresenterImp(view);
+        presenter = new MainListPresenterImp(view);
     }
 
     /**

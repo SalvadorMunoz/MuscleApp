@@ -18,6 +18,7 @@ import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
+import com.example.linux.muscleapp.net.SessionService;
 import com.example.linux.muscleapp.net.UploadService;
 import com.example.linux.muscleapp.ui.dates.fragment.AddSessionDateFragment;
 import com.example.linux.muscleapp.ui.excersice.VideoPlayerActivity;
@@ -107,7 +108,11 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     }
 
     @Override
-    public void goMain() {
+    public void goMain(Session session)
+    {
+        Intent service = new Intent(SessionActivity.this,SessionService.class);
+        service.putExtra("current",session);
+        startService(service);
         finish();
     }
 

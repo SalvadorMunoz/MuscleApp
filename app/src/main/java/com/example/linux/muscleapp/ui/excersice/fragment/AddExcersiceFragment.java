@@ -1,11 +1,16 @@
 package com.example.linux.muscleapp.ui.excersice.fragment;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.Application;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +22,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 
+import com.example.linux.muscleapp.MuscleAppApplication;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.User;
@@ -79,8 +85,8 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
 
 
         presenter = new ExcersicePresenter(this);
-        current = getArguments().getParcelable("currentUser");
 
+        presenter.getCurrentUser(MuscleAppApplication.getContex().getAppPreferencesHelper().getCurrentUser());
 
         return root;
     }
@@ -134,7 +140,7 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
         fbtVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                callback.goRecordVideo(current.getId());
+                checkPermissions();
             }
         });
     }
@@ -159,6 +165,10 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
         callback.goBack(id);
     }
 
+    @Override
+    public void setCurrentUser(User user) {
+         current = user;
+    }
 
 
     @Override
@@ -172,5 +182,30 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
         super.onDestroy();
         presenter.onDestroy();
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private  void checkPermissions(){
+        int permission = 20;
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions( new String[]{Manifest.permission.CAMERA}, permission);
+        }else if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
+            requestPermissions( new String[]{Manifest.permission.RECORD_AUDIO}, permission);
+
+        }
+        else if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            requestPermissions( new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, permission);
+
+        }else if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            requestPermissions( new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, permission);
+
+        } else{
+             callback.goRecordVideo(current.getId());
+
+        }
     }
 }
