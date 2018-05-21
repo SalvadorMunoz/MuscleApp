@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class MainListInteractorImp implements MainListInteractor {
     private  onLoadFinish onLoadFinish;
     private LoadAsyncTask loadAsyncTask;
+    private boolean isAdding = true;
 
     public MainListInteractorImp(MainListInteractor.onLoadFinish onLoadFinish) {
         this.onLoadFinish = onLoadFinish;
@@ -38,11 +39,20 @@ public class MainListInteractorImp implements MainListInteractor {
     @Override
     public void setFavourite(int session, int current) {
         Favourite tmp = new Favourite(session,current);
+        isAdding = true;
+        new FavouriteAsyncTask().execute(tmp);
+    }
+
+    @Override
+    public void deleteFavourite(int sessionn, int current) {
+        Favourite tmp =  new Favourite(sessionn,current);
+        isAdding = false;
         new FavouriteAsyncTask().execute(tmp);
     }
 
     class LoadAsyncTask extends AsyncTask<Void,Void,ArrayList<Session>>{
         private  ArrayList<User> usernames;
+        private ArrayList<Session> tmp;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -52,22 +62,33 @@ public class MainListInteractorImp implements MainListInteractor {
         @Override
         protected ArrayList<Session> doInBackground(Void... voids) {
             usernames = UsersRepository.getInstance().getNameFronId();
+              tmp= FavouriteRepository.getInstace().getFavourites(21);
             return SessionsRepository.getInstace().getSessions();
         }
 
         @Override
         protected void onPostExecute(ArrayList<Session> sessions) {
             super.onPostExecute(sessions);
-            onLoadFinish.giveSessions(sessions,usernames);
+            ArrayList<Boolean> favourites = new ArrayList<>();
+            for(int i = 0; i < sessions.size();i++){
+                if(tmp.contains(sessions.get(i)))
+                    favourites.add(true);
+                else
+                    favourites.add(false);
+            }
+            onLoadFinish.giveSessions(sessions,usernames,favourites,tmp);
             onLoadFinish.closeProgress();
         }
     }
-    class FavouriteAsyncTask extends  AsyncTask<Favourite,Void,Favourite>{
+    class FavouriteAsyncTask extends  AsyncTask<Favourite,Void,Void>{
 
         @Override
-        protected Favourite doInBackground(Favourite... favourites) {
-            FavouriteRepository.getInstace().add(favourites[0]);
-            return favourites[0];
+        protected Void doInBackground(Favourite... favourites) {
+            if(isAdding)
+                FavouriteRepository.getInstace().add(favourites[0]);
+            else
+                FavouriteRepository.getInstace().delete(favourites[0]);
+            return null;
         }
     }
 

@@ -15,6 +15,7 @@ public class SessionTmpDates {
     public static final int EXCERSICES_LIMIT = 10;
     private static ArrayList<SessionDate> dates;
     private static ArrayList<Excersice>  excersices;
+    private static Session toDeleteOfFavourites;
     private static int pos;
 
     public static void initialize(){
@@ -58,6 +59,14 @@ public class SessionTmpDates {
     }
     public static void deleteExcersice (int position){
         excersices.remove(position);
+    }
+
+    public static Session getToDeleteOfFavourites() {
+        return toDeleteOfFavourites;
+    }
+
+    public static void setToDeleteOfFavourites(Session toDeleteOfFavourites) {
+        SessionTmpDates.toDeleteOfFavourites = toDeleteOfFavourites;
     }
 
     public static int getPos() {

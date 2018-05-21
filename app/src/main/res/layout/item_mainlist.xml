@@ -61,11 +61,14 @@
 
             <ImageView
                 android:id="@+id/imgFollow"
-                android:layout_width="24dp"
-                android:layout_height="@dimen/icon"
+                android:layout_width="@dimen/follow"
+                android:layout_height="@dimen/follow"
+                android:layout_marginTop="8dp"
                 android:clickable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.060000002"
                 app:srcCompat="@drawable/ic_follow" />
 
             <ImageView

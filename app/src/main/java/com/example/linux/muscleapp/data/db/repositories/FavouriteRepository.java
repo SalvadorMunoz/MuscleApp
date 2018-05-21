@@ -4,6 +4,7 @@ import com.example.linux.muscleapp.data.db.dao.CommentaryDao;
 import com.example.linux.muscleapp.data.db.dao.FavouriteDao;
 import com.example.linux.muscleapp.data.db.pojo.Commentary;
 import com.example.linux.muscleapp.data.db.pojo.Favourite;
+import com.example.linux.muscleapp.data.db.pojo.Session;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,14 @@ public class FavouriteRepository {
 
     public void add(Favourite favourite){
         favouriteDao.insert(favourite);
+    }
+
+    public ArrayList<Session> getFavourites(int follower){
+        return  favouriteDao.loadFavourites(follower);
+    }
+
+    public void delete(Favourite favourite){
+        favouriteDao.delete(favourite);
     }
 
 

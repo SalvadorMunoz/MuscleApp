@@ -15,6 +15,8 @@ import com.example.linux.muscleapp.data.db.repositories.SessionsRepository;
 import com.example.linux.muscleapp.ui.session.interactor.AddSessionInteractor;
 import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 
+import java.util.ArrayList;
+
 /**
  * Created by linux on 19/05/18.
  */
@@ -23,7 +25,8 @@ public class SessionService extends IntentService {
     private Excersice tmpEx = null;
     private SessionDate tmpDat = null;
     private Session session;
-
+    private ArrayList<Excersice> excersices;
+    private ArrayList<SessionDate> dates;
 
     public SessionService(){super("sessionService");}
 
@@ -35,19 +38,21 @@ public class SessionService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         session = intent.getParcelableExtra("current");
+        excersices = intent.getParcelableArrayListExtra("excersices");
+        dates = intent.getParcelableArrayListExtra("dates");
 
         Log.e("1", session.getName() );
         SessionsRepository.getInstace().add(session);
 
         int tmpId = SessionsRepository.getInstace().getIdFromSession(session);
 
-        for(int i = 0; i < SessionTmpDates.getExcersices().size(); i++){
+        for(int i = 0; i < excersices.size(); i++){
             tmpEx = SessionTmpDates.getExcersices().get(i);
             tmpEx.setSession(tmpId);
             ExcersiceRepository.getInstance().add(tmpEx);
         }
 
-        for(int i = 0; i < SessionTmpDates.getDates().size();i++){
+        for(int i = 0; i < dates.size();i++){
             tmpDat = SessionTmpDates.getDates().get(i);
             tmpDat.setSession(tmpId);
             SessionDatesRepository.getInstance().add(tmpDat);

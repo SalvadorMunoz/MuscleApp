@@ -107,4 +107,12 @@ public class Session implements Parcelable,Comparable<Session>{
     public int compareTo(@NonNull Session session) {
         return 0;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean res = false;
+        if(this.id == ((Session)obj).getId())
+             res = true;
+        return res;
+    }
 }

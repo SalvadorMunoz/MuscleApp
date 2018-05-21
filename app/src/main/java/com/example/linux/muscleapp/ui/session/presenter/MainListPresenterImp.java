@@ -50,10 +50,15 @@ public class MainListPresenterImp implements SessionContract.MainPresenter,MainL
         interactor.setFavourite(session, current);
     }
 
+    @Override
+    public void deleteFavourite(int session, int current) {
+        interactor.deleteFavourite(session,current);
+    }
+
 
     @Override
-    public void giveSessions(ArrayList<Session> sessions,ArrayList<User> usernames) {
-        view.fillSessions(sessions,usernames);
+    public void giveSessions(ArrayList<Session> sessions,ArrayList<User> usernames,ArrayList<Boolean> favourites,ArrayList<Session>favSessions) {
+        view.fillSessions(sessions,usernames,favourites,favSessions);
     }
 
     @Override

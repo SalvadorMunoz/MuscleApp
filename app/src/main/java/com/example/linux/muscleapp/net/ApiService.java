@@ -85,5 +85,13 @@ public interface ApiService {
     @POST("favourites/add")
     Call<Result> insertFavourite(@Body Favourite current);
 
+    @SerializedName("favourites")
+    @GET("favourites/{follower}")
+    Call<Result> getFavourites(@Path("follower") int follower);
+
+    @SerializedName("removeFavourite")
+    @POST("favourites/remove")
+    Call<Result> removeFavourite(@Body Favourite current);
+
 }
 

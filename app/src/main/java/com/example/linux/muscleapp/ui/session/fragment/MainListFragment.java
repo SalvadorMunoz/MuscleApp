@@ -50,6 +50,8 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     private User current;
     private MainListListener callback;
     private ArrayList<User> usernames;
+    private ArrayList<Boolean> favourites;
+    private ArrayList<Session> favSessions;
 
 
     SessionContract.MainPresenter presenter;
@@ -155,9 +157,11 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     @Override
-    public void fillSessions(ArrayList<Session> sessions, ArrayList<User> usernames) {
+    public void fillSessions(ArrayList<Session> sessions, ArrayList<User> usernames,ArrayList<Boolean> favourites,ArrayList<Session>favSessions) {
         this.sessions = sessions;
         this.usernames = usernames;
+        this.favourites = favourites;
+        this.favSessions = favSessions;
     }
 
     @Override
@@ -173,7 +177,7 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void closeRefreshing() {
         swipeContainer.setRefreshing(false);
-        adapter = new MainAdapter(sessions,usernames,current,callback,this);
+        adapter = new MainAdapter(sessions,usernames,current,callback,this,favourites,-1);
         recycler.setAdapter(adapter);
     }
 
@@ -198,5 +202,31 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
         super.onDestroy();
         adapter = null;
         presenter.onDestroy();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.toolbar_menu, menu);
+    }
+
+    void filterFavourites(){
+
+
+        adapter = new MainAdapter(favSessions,usernames,current,callback,this,favourites,5);
+        recycler.setAdapter(adapter);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.action_favourites);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.actionFavourites:
+                filterFavourites();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }

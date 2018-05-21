@@ -2,7 +2,6 @@ package com.example.linux.muscleapp.ui.excersice.fragment;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Application;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -183,29 +182,56 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
         presenter.onDestroy();
 
     }
+    int permission = 20;
+    boolean permissionGranted = true;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+
+        if (requestCode == 20 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                permissionGranted = false;
+                permission++;
+                requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, permission);
+            }
+
+        }
+
+        if (requestCode == 21 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                permissionGranted = false;
+
+                permission++;
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, permission);
+            }
+
+        }
+
+        if (requestCode == 22 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                permissionGranted = false;
+
+                permission++;
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, permission);
+            }
+
+        }
+        if (requestCode == 23 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            permissionGranted = true;
+
+        }
+        if(permissionGranted)
+            callback.goRecordVideo(current.getId());
     }
-
     private  void checkPermissions(){
-        int permission = 20;
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
             requestPermissions( new String[]{Manifest.permission.CAMERA}, permission);
-        }else if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
-            requestPermissions( new String[]{Manifest.permission.RECORD_AUDIO}, permission);
+        else
+            callback.goRecordVideo(current.getId());
 
-        }
-        else if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            requestPermissions( new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, permission);
 
-        }else if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            requestPermissions( new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, permission);
 
-        } else{
-             callback.goRecordVideo(current.getId());
-
-        }
     }
 }

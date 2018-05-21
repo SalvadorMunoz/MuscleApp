@@ -3,15 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/actionFavourites"
-            android:title="@string/action_favourites"
-            android:icon="@drawable/ic_follow"
-            />
-        <item
-            android:id="@+id/actionSessionsToday"
-            android:title="@string/action_today"
-            android:icon="@drawable/ic_nav_calendar"/>
+
         <item
             android:id="@+id/actionSearchUser"
             android:title="@string/action_search_user"

@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -193,4 +195,6 @@ public class MainActivity extends AppCompatActivity  implements MainContract.Vie
         civCurrentUser.setImageResource(R.drawable.no_photo);
         setUpNavigationDrawer();
     }
+
+
 }

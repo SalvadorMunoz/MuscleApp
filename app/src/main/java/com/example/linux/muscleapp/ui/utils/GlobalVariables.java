@@ -11,6 +11,7 @@ public class GlobalVariables {
     public static final int  OPEN_ABOUTUS= 3;
     public static boolean fromAboutUs = false;
 
+    public static final int FAVOURITES_VIEW=5;
 
 
     public static void setFromAboutUs(boolean value) {

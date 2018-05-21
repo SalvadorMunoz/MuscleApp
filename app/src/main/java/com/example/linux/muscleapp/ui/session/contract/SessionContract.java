@@ -16,7 +16,7 @@ import java.util.Calendar;
 public interface SessionContract {
 
      interface MainView {
-         void fillSessions(ArrayList<Session> sessions,ArrayList<User> usernames);
+         void fillSessions(ArrayList<Session> sessions,ArrayList<User> usernames,ArrayList<Boolean> favourites,ArrayList<Session> favSessions);
          void setPresenter(SessionContract.MainPresenter presenter);
          void getCurrentUser(User user);
          void openRefreshing();
@@ -36,7 +36,7 @@ public interface SessionContract {
          void getCurrentUser();
          void onDestroy();
          void setFavourite(int session, int current);
-
+         void deleteFavourite(int session,int current);
          }
 
     interface AddSessionView{
@@ -70,6 +70,10 @@ public interface SessionContract {
         void getExcersices(int sessionId);
         void onDestroy();
 
+    }
+
+    interface FromDeleteView{
+         void refreshAfterDelete();
     }
 
 

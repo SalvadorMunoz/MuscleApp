@@ -112,6 +112,8 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     {
         Intent service = new Intent(SessionActivity.this,SessionService.class);
         service.putExtra("current",session);
+        service.putExtra("excersices",SessionTmpDates.getExcersices());
+        service.putExtra("dates",SessionTmpDates.getDates());
         startService(service);
         finish();
     }

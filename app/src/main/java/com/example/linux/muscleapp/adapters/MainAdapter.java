@@ -34,10 +34,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     //Sessions repository
     private ArrayList<Session>sessions;
     private ArrayList<User> usernames;
+    private ArrayList<Boolean> favourites;
     private User current;
     private MainListFragment.MainListListener callback;
     private MainListPresenterImp presenter;
-
+    private ArrayList<SessionHolder> holders;
+    private int from;
 
     //Class listener
     clickItem listener;
@@ -45,13 +47,31 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     /**
      * Empty constructor add a session from the repository
      */
-    public MainAdapter(ArrayList<Session> sessions, ArrayList<User>usernames, User current, MainListFragment.MainListListener callback, SessionContract.MainView view){
+    public MainAdapter(ArrayList<Session> sessions, ArrayList<User>usernames, User current, MainListFragment.MainListListener callback, SessionContract.MainView view,ArrayList<Boolean> favourites, int from){
         this.sessions = sessions;
         this.current = current;
         listener = new clickItem();
         this.callback = callback;
         this.usernames = usernames;
+        this.from = from;
+        setFavourites(favourites,from);
         presenter = new MainListPresenterImp(view);
+        holders = new ArrayList<>();
+    }
+
+    private void setFavourites (ArrayList<Boolean> favourites,int from){
+        this.favourites = new ArrayList<>();
+        switch (from){
+            case GlobalVariables.FAVOURITES_VIEW:
+                for(int i = 0; i < favourites.size();i++){
+                    if(favourites.get(i))
+                        this.favourites.add(favourites.get(i));
+                }
+                break;
+            default:
+                this.favourites = favourites;
+                break;
+        }
     }
 
     /**
@@ -75,7 +95,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
      */
     @Override
     public void onBindViewHolder(SessionHolder holder, int position) {
-
+        holders.add(holder);
         holder.name.setText(sessions.get(position).getName());
         holder.result.setText(getName(sessions.get(position).getUser())+", "+format(sessions.get(position).getCreationDate()));
         holder.image.setImageResource(R.drawable.no_photo);
@@ -83,9 +103,18 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
         holder.name.setTag(sessions.get(position));
         holder.numComments.setOnClickListener(listener);
         holder.numComments.setTag(sessions.get(position));
+        setFavouriteImage(holder,position);
         holder.favourite.setTag(sessions.get(position));
         holder.favourite.setOnClickListener(listener);
 
+    }
+
+    private void setFavouriteImage(SessionHolder holder, int position){
+        if(favourites.get(position))
+            holder.favourite.setImageResource(R.drawable.ic_unfollow);
+
+        else
+            holder.favourite.setImageResource(R.drawable.ic_follow);
     }
 
     private  String getName(int id){
@@ -134,6 +163,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     }
 
     class clickItem implements View.OnClickListener{
+
+
         @Override
         public void onClick(View view) {
             String shaRes = Sha256Generator.bin2hex(Sha256Generator.getHash(""));
@@ -151,9 +182,29 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
                     break;
                 case R.id.imgFollow:
                         Session temp = (Session) view.getTag();
-                        presenter.setFavourite(temp.getId(),current.getId());
+                        int pos = getPosition(temp);
+                        favourites.set(pos,!favourites.get(pos));
+
+                        setFavouriteImage(holders.get(pos),pos);
+                        if(favourites.get(pos))
+                            presenter.setFavourite(temp.getId(),current.getId());
+                        else if(from == GlobalVariables.FAVOURITES_VIEW){
+                            presenter.deleteFavourite(temp.getId(), current.getId());
+                        }else{
+                            presenter.deleteFavourite(temp.getId(), current.getId());
+
+                        }
                     break;
             }
+        }
+
+        private int getPosition(Session session){
+            int res= -1;
+            for (int i = 0; i < sessions.size();i++){
+                if(session.getId() == sessions.get(i).getId())
+                    res = i;
+            }
+            return res;
         }
     }
 }

@@ -13,8 +13,9 @@ public interface MainListInteractor {
     void getSessions();
     void getCurrentUser(String email);
     void setFavourite(int session, int current);
+    void deleteFavourite(int sessionn, int current);
     interface onLoadFinish{
-        void giveSessions(ArrayList<Session> sessions,ArrayList<User>usernames);
+        void giveSessions(ArrayList<Session> sessions,ArrayList<User>usernames,ArrayList<Boolean> favourites,ArrayList<Session>favSessions);
         void giveCurrentUser(User user);
         void openProgress();
         void closeProgress();
