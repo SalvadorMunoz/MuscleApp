@@ -37,6 +37,7 @@
             android:layout_height="match_parent"
             android:hint="@string/login_email"
             android:textColor="@android:color/white"
+            android:singleLine="true"
             />
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout

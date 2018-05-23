@@ -160,6 +160,7 @@ public class AddSessionFragment extends ListFragment implements SessionContract.
         toolbar.setTitle(R.string.add_session);
 
         getListView().setAdapter(adapter);
+        getListView().setClickable(false);
 
         presenter.getExcersices();
 

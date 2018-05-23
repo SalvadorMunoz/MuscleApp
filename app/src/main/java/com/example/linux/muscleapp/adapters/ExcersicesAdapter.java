@@ -56,6 +56,10 @@ public class ExcersicesAdapter extends ArrayAdapter<Excersice>{
         holder.excersice.setText(getItem(position).getName());
         return view;
     }
+    @Override
+    public boolean isEnabled(int position) {
+        return false;
+    }
 
     class ExcersiceHolder{
         TextView excersice;

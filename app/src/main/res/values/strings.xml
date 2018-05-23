@@ -59,4 +59,7 @@
     <string name="autentication">Autenticando...</string>
     <string name="creating">Creando session de entrenamiento...</string>
     <string name="loading_session">Cargando sesión de entrenamiento</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

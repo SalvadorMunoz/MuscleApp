@@ -16,7 +16,7 @@
         app:titleTextColor="@android:color/white"
         />
     <FrameLayout
-        android:id="@+id/ctnSettings"
+        android:id="@+id/userContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

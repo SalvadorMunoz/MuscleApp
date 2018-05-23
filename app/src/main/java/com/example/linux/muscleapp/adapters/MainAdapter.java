@@ -39,7 +39,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     private MainListFragment.MainListListener callback;
     private MainListPresenterImp presenter;
     private ArrayList<SessionHolder> holders;
-    private int from;
 
     //Class listener
     clickItem listener;
@@ -47,32 +46,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
     /**
      * Empty constructor add a session from the repository
      */
-    public MainAdapter(ArrayList<Session> sessions, ArrayList<User>usernames, User current, MainListFragment.MainListListener callback, SessionContract.MainView view,ArrayList<Boolean> favourites, int from){
+    public MainAdapter(ArrayList<Session> sessions, ArrayList<User>usernames, User current, MainListFragment.MainListListener callback, SessionContract.MainView view,ArrayList<Boolean> favourites){
         this.sessions = sessions;
         this.current = current;
         listener = new clickItem();
         this.callback = callback;
         this.usernames = usernames;
-        this.from = from;
-        setFavourites(favourites,from);
+        this.favourites = favourites;
         presenter = new MainListPresenterImp(view);
         holders = new ArrayList<>();
     }
 
-    private void setFavourites (ArrayList<Boolean> favourites,int from){
-        this.favourites = new ArrayList<>();
-        switch (from){
-            case GlobalVariables.FAVOURITES_VIEW:
-                for(int i = 0; i < favourites.size();i++){
-                    if(favourites.get(i))
-                        this.favourites.add(favourites.get(i));
-                }
-                break;
-            default:
-                this.favourites = favourites;
-                break;
-        }
-    }
 
     /**
      * Inflate item layout when holder is created
@@ -188,9 +172,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.SessionHolder>
                         setFavouriteImage(holders.get(pos),pos);
                         if(favourites.get(pos))
                             presenter.setFavourite(temp.getId(),current.getId());
-                        else if(from == GlobalVariables.FAVOURITES_VIEW){
-                            presenter.deleteFavourite(temp.getId(), current.getId());
-                        }else{
+                        else{
                             presenter.deleteFavourite(temp.getId(), current.getId());
 
                         }

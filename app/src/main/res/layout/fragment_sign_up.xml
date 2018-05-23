@@ -34,7 +34,8 @@
             android:id="@+id/edtSingupEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/login_email" />
+            android:hint="@string/login_email"
+            android:singleLine="true"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -73,7 +74,8 @@
             android:id="@+id/edtSingupName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/signup_name" />
+            android:hint="@string/signup_name"
+            android:singleLine="true"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -92,7 +94,8 @@
             android:id="@+id/edtSingupResidence"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/signup_residence" />
+            android:hint="@string/signup_residence"
+            android:singleLine="true"/>
     </android.support.design.widget.TextInputLayout>
 
     <TextView
@@ -117,7 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:src="@mipmap/ic_datepicker"
+        android:src="@drawable/ic_datepicker"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txvSignUpDate" />
 

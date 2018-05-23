@@ -8,8 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -18,7 +16,6 @@ import com.example.linux.muscleapp.MuscleAppApplication;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
-import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
 import com.example.linux.muscleapp.ui.comment.contract.CommentsContract;
 import com.example.linux.muscleapp.ui.comment.fragment.CommentListFragment;
@@ -141,6 +138,8 @@ public class MainActivity extends AppCompatActivity  implements MainContract.Vie
     }
 
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -172,6 +171,9 @@ public class MainActivity extends AppCompatActivity  implements MainContract.Vie
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Intent intent = new Intent(MainActivity.this, UserActivity.class);
                 switch (item.getItemId()){
+                    case R.id.actionFavourites:
+                        intent.putExtra("mode",GlobalVariables.OPEN_FAVOURITES);
+                        break;
                     case R.id.actionAccountSettings:
                         intent.putExtra("mode", GlobalVariables.OPEN_SETTINGS);
                         break;
