@@ -93,5 +93,8 @@ public interface ApiService {
     @POST("favourites/remove")
     Call<Result> removeFavourite(@Body Favourite current);
 
+    @SerializedName("today")
+    @GET("today/{user}")
+    Call<Result> getTodaySessions(@Path("user") int user);
 }
 

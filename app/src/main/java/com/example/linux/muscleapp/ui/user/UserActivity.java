@@ -25,6 +25,8 @@ import com.example.linux.muscleapp.ui.session.fragment.MainListFragment;
 import com.example.linux.muscleapp.ui.session.fragment.SeeSessionFragment;
 import com.example.linux.muscleapp.ui.session.fragment.SeedatesFragment;
 import com.example.linux.muscleapp.ui.setting.SettingsFragment;
+import com.example.linux.muscleapp.ui.today.fragment.TodayFragment;
+import com.example.linux.muscleapp.ui.user.fragment.SearchUserFragment;
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 
 import java.util.ArrayList;
@@ -37,8 +39,8 @@ public class UserActivity extends AppCompatActivity implements FavouritesFragmen
     private CommentListFragment commentListFragment;
     private CommentsContract.CommentsPresenter commentsPresenter;
     private CheckPassDialog checkPassDialog;
-
-
+    private TodayFragment todayFragment;
+    private SearchUserFragment searchUserFragment;
 
 
     @Override
@@ -54,6 +56,12 @@ public class UserActivity extends AppCompatActivity implements FavouritesFragmen
         switch (option){
             case GlobalVariables.OPEN_FAVOURITES:
                 goFavourites();
+                break;
+            case GlobalVariables.OPEN_TODAY:
+                goToday();
+                break;
+            case GlobalVariables.OPEN_SEARCH_USER:
+                goSeachUser();
                 break;
             case GlobalVariables.OPEN_SETTINGS:
                 goSettings();
@@ -73,6 +81,29 @@ public class UserActivity extends AppCompatActivity implements FavouritesFragmen
             android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             favouritesFragment = FavouritesFragment.newInstance(bundle);
             transaction.add(R.id.userContent,favouritesFragment,FavouritesFragment.TAG).commit();
+        }
+    }
+
+    private void goToday(){
+        todayFragment = (TodayFragment) getSupportFragmentManager().findFragmentByTag(TodayFragment.TAG);
+
+        if(todayFragment == null){
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("current",current);
+            android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            todayFragment = TodayFragment.newInstance(bundle);
+            transaction.add(R.id.userContent,todayFragment,TodayFragment.TAG).commit();
+        }
+    }
+    private void goSeachUser(){
+        searchUserFragment = (SearchUserFragment) getSupportFragmentManager().findFragmentByTag(SearchUserFragment.TAG);
+
+        if(searchUserFragment == null){
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("current",current);
+            android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            searchUserFragment = SearchUserFragment.newInstance(bundle);
+            transaction.add(R.id.userContent,searchUserFragment,SearchUserFragment.TAG).commit();
         }
     }
 

@@ -47,13 +47,13 @@ public class SessionService extends IntentService {
         int tmpId = SessionsRepository.getInstace().getIdFromSession(session);
 
         for(int i = 0; i < excersices.size(); i++){
-            tmpEx = SessionTmpDates.getExcersices().get(i);
+            tmpEx = excersices.get(i);
             tmpEx.setSession(tmpId);
             ExcersiceRepository.getInstance().add(tmpEx);
         }
 
         for(int i = 0; i < dates.size();i++){
-            tmpDat = SessionTmpDates.getDates().get(i);
+            tmpDat = dates.get(i);
             tmpDat.setSession(tmpId);
             SessionDatesRepository.getInstance().add(tmpDat);
         }

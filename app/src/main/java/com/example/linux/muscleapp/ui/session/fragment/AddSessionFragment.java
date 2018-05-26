@@ -192,6 +192,5 @@ public class AddSessionFragment extends ListFragment implements SessionContract.
     public void onDetach() {
         super.onDetach();
         callback = null;
-        SessionTmpDates.destroyDates();
     }
 }

@@ -174,6 +174,12 @@ public class MainActivity extends AppCompatActivity  implements MainContract.Vie
                     case R.id.actionFavourites:
                         intent.putExtra("mode",GlobalVariables.OPEN_FAVOURITES);
                         break;
+                    case R.id.actionSessionsToday:
+                        intent.putExtra("mode",GlobalVariables.OPEN_TODAY);
+                        break;
+                    case R.id.actionSearchUser:
+                        intent.putExtra("mode",GlobalVariables.OPEN_SEARCH_USER);
+                        break;
                     case R.id.actionAccountSettings:
                         intent.putExtra("mode", GlobalVariables.OPEN_SETTINGS);
                         break;

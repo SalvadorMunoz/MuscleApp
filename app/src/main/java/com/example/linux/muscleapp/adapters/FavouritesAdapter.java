@@ -132,7 +132,8 @@ public class FavouritesAdapter extends ArrayAdapter<Session>{
                     if(session.getPass().equalsIgnoreCase(shaRes))
                         callback.openSession(session);
                     else
-                        callback.checkSessionPassword(session);                    break;
+                        callback.checkSessionPassword(session);
+                    break;
 
             }
         }

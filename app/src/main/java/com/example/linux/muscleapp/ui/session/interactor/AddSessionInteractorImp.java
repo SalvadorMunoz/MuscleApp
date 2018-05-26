@@ -33,7 +33,6 @@ public class AddSessionInteractorImp implements AddSessionInteractor{
             onAddSessionFinish.onEmptyName();
         else {
 
-
             onAddSessionFinish.onSuccess(tmp = new Session(-1, user, name, pass, formatDate(new Date())));
 
         }

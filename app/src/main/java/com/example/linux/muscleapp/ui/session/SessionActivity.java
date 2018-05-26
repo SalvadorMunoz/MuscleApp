@@ -111,6 +111,9 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     public void goMain(Session session)
     {
         Intent service = new Intent(SessionActivity.this,SessionService.class);
+
+        ArrayList<Excersice> a = SessionTmpDates.getExcersices();
+        ArrayList<SessionDate> s = SessionTmpDates.getDates();
         service.putExtra("current",session);
         service.putExtra("excersices",SessionTmpDates.getExcersices());
         service.putExtra("dates",SessionTmpDates.getDates());
@@ -182,6 +185,13 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
             transaction.replace(android.R.id.content,seedatesFragment, SeedatesFragment.TAG).commit();
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SessionTmpDates.destroyDates();
+
     }
 
     @Override

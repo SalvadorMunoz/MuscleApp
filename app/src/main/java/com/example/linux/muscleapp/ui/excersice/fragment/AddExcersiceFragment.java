@@ -27,6 +27,7 @@ import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.ui.excersice.contract.ExcersiceContract;
 import com.example.linux.muscleapp.ui.excersice.presenter.ExcersicePresenter;
+import com.example.linux.muscleapp.ui.utils.SessionTmpDates;
 
 
 public class AddExcersiceFragment extends Fragment implements ExcersiceContract.AddExcersiceView{
@@ -133,6 +134,7 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 presenter.addExcersice(new Excersice(0,0,edtName.getText().toString(),edtMuscle.getText().toString(),"",type.getSelectedItem().toString(),series.getValue(),repetitions.getValue(),time.getValue()));
             }
         });

@@ -36,7 +36,6 @@ public class FavouritesFragment extends ListFragment implements FavouriteContrac
     private User current;
     private FavouritesAdapter adapter;
     private SeeDetailsListener callback;
-    private ArrayList<User> usernames;
 
     public interface SeeDetailsListener{
         void goComments(int session,ArrayList<User> usernames);
@@ -106,7 +105,6 @@ public class FavouritesFragment extends ListFragment implements FavouriteContrac
     public void fillFavourites(ArrayList<Session> favourites,ArrayList<User> usernames) {
 
         favouriteSessions = favourites;
-        this.usernames = usernames;
         adapter = new FavouritesAdapter(getContext(),presenter,current,callback,usernames,favourites);
 
 
