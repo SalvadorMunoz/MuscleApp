@@ -27,11 +27,12 @@ import com.example.linux.muscleapp.ui.session.fragment.SeedatesFragment;
 import com.example.linux.muscleapp.ui.setting.SettingsFragment;
 import com.example.linux.muscleapp.ui.today.fragment.TodayFragment;
 import com.example.linux.muscleapp.ui.user.fragment.SearchUserFragment;
+import com.example.linux.muscleapp.ui.user.fragment.UserProfileFragment;
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 
 import java.util.ArrayList;
 
-public class UserActivity extends AppCompatActivity implements FavouritesFragment.SeeDetailsListener,CheckPassDialog.CheckDialogListener {
+public class UserActivity extends AppCompatActivity implements FavouritesFragment.SeeDetailsListener,CheckPassDialog.CheckDialogListener, SearchUserFragment.SearchUserListener {
     private User current;
     private Toolbar toolbar;
     private SettingsFragment settingsFragment;
@@ -41,6 +42,7 @@ public class UserActivity extends AppCompatActivity implements FavouritesFragmen
     private CheckPassDialog checkPassDialog;
     private TodayFragment todayFragment;
     private SearchUserFragment searchUserFragment;
+    private UserProfileFragment userProfileFragment;
 
 
     @Override
@@ -172,4 +174,21 @@ public class UserActivity extends AppCompatActivity implements FavouritesFragmen
         intent.putExtra("mode",GlobalVariables.OPEN_SEE);
         startActivity(intent);
     }
+
+    @Override
+    public void goUserProfile(User user) {
+        userProfileFragment = (UserProfileFragment) getSupportFragmentManager().findFragmentByTag(UserProfileFragment.TAG);
+        if(userProfileFragment == null){
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("current",current);
+            bundle.putParcelable("clicked",user);
+            userProfileFragment = UserProfileFragment.newInstance(bundle);
+            android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.addToBackStack(null);
+            transaction.replace(R.id.userContent,userProfileFragment,UserProfileFragment.TAG).commit();
+
+        }
+    }
+
+
 }

@@ -61,6 +61,19 @@ public class UserDao {
 
         return tmp;
     }
+
+    public ArrayList<User> getFilteredUsers(String name){
+        tmp = new ArrayList<>();
+        Call<Result> call = ApiAdapter.getInstance().getFilteredUsers(name);
+
+        try {
+            Result result = call.execute().body();
+            tmp = result.getUsers();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return  tmp;
+    }
     public void insertUser(User user){
         Call<Result> call = ApiAdapter.getInstance().insertUser(user);
         String message = "";

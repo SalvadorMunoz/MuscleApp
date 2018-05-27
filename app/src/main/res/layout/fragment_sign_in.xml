@@ -9,6 +9,7 @@
     android:background="@color/colorPrimary"
     >
 
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="250dp"
@@ -83,16 +84,18 @@
 
     <Button
         android:id="@+id/btnLoginSignIn"
+        style="@style/Widget.Button.Transparent"
         android:layout_width="@dimen/btnlogin_width"
         android:layout_height="wrap_content"
-        style="@style/Widget.Button.Transparent"
-        android:text="@string/sign_in"
-        android:background="@drawable/btnlogin_shape"
-        android:textColor="@android:color/white"
         android:layout_marginBottom="@dimen/btnlogin_margin"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/btnlogin_shape"
+        android:text="@string/sign_in"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/txvLoginForget"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>

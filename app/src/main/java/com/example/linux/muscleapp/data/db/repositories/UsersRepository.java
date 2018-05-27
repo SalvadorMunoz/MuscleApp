@@ -66,6 +66,9 @@ public class UsersRepository {
         currentUser = userDao.loadActual(email).get(0);
     }
 
+    public ArrayList<User> getFilteredUsers(String name){
+        return userDao.getFilteredUsers(name);
+    }
 
     public ArrayList<User> getNameFronId(){
         return userDao.LoadNameFromId();

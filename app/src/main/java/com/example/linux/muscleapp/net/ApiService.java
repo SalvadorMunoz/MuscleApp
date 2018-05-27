@@ -96,5 +96,10 @@ public interface ApiService {
     @SerializedName("today")
     @GET("today/{user}")
     Call<Result> getTodaySessions(@Path("user") int user);
+
+    @SerializedName("filtered")
+    @GET("user/{name}")
+    Call<Result> getFilteredUsers(@Path("name") String name);
+
 }
 
