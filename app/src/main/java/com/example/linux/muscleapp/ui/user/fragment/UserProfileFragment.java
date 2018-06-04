@@ -1,10 +1,12 @@
 package com.example.linux.muscleapp.ui.user.fragment;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,24 +14,44 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.linux.muscleapp.R;
+import com.example.linux.muscleapp.adapters.SessionListAdapter;
+import com.example.linux.muscleapp.adapters.UserProfileAdapter;
+import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
+import com.example.linux.muscleapp.ui.user.contract.ProfileContract;
+import com.example.linux.muscleapp.ui.user.presenter.ProfilePresenter;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserProfileFragment extends Fragment {
+public class UserProfileFragment extends Fragment  implements ProfileContract.View{
     public static final String TAG ="userProfile";
     private TextView txvName,txvAge, txvResidence;
     private ListView ltvSessions;
     private User current,clicked;
+    private ProfileContract.Presenter presenter;
+    private UserProfileAdapter adapter;
+    private SeeDetailsListener callback;
+    public interface SeeDetailsListener{
+        void goComments(int session, ArrayList<User> usernames);
+        void openSession(Session session);
+        void checkSessionPassword(Session session);
+    }
 
     public UserProfileFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        callback = (SeeDetailsListener) activity;
     }
 
     public static UserProfileFragment newInstance(Bundle bundle){
@@ -49,7 +71,10 @@ public class UserProfileFragment extends Fragment {
         txvName = (TextView) view.findViewById(R.id.txvProfileName);
         txvAge = (TextView) view.findViewById(R.id.txvProfileAge);
         txvResidence = (TextView) view.findViewById(R.id.txvProfileResidence);
-        // Inflate the layout for this fragment
+        ltvSessions = (ListView) view.findViewById(R.id.ltvProfileSessions);
+
+        presenter = new ProfilePresenter(this);
+
         return view;
     }
 
@@ -66,6 +91,7 @@ public class UserProfileFragment extends Fragment {
         txvName.setText( clicked.getName());
         txvAge.setText(String.valueOf(getAge(clicked.getBornDate()))+" "+getResources().getString(R.string.years));
         txvResidence.setText(clicked.getResidence());
+        presenter.getSessions(clicked.getId());
     }
     private long getAge(String bornDate)  {
         long ageInMillis = 0;
@@ -95,4 +121,12 @@ public class UserProfileFragment extends Fragment {
     }
 
 
+    @Override
+    public void fillSessions(ArrayList<Session> sessions, ArrayList<Boolean> favourites, ArrayList<User> usernames) {
+
+        adapter = new UserProfileAdapter(getContext(),current,usernames,sessions,favourites,presenter,callback);
+        SessionListAdapter adapter1 = new SessionListAdapter(getContext(),current,usernames,sessions,null,null,favourites);
+        ltvSessions.setAdapter(adapter);
+
+    }
 }

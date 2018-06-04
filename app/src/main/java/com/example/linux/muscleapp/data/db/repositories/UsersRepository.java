@@ -53,6 +53,10 @@ public class UsersRepository {
         return res;
     }
 
+    public ArrayList<User> getAllUsers(){
+        return userDao.getAllUsers();
+    }
+
     public User getLocalCurrentUser(String email) {
         return localUserDao.loadCurrent(email).get(0);
     }
@@ -66,12 +70,12 @@ public class UsersRepository {
         currentUser = userDao.loadActual(email).get(0);
     }
 
-    public ArrayList<User> getFilteredUsers(String name){
-        return userDao.getFilteredUsers(name);
+    public ArrayList<User> getFilteredUsers(User user){
+        return userDao.getFilteredUsers(user);
     }
 
-    public ArrayList<User> getNameFronId(){
-        return userDao.LoadNameFromId();
+    public ArrayList<User> getNameFronId(int current){
+        return userDao.LoadNameFromId(current);
     }
 
     public void sendConfirmEmail(String email){

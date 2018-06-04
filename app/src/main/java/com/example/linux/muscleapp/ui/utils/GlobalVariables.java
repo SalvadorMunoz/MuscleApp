@@ -14,6 +14,8 @@ public class GlobalVariables {
     public static final int OPEN_SEARCH_USER=6;
     public static boolean fromAboutUs = false;
 
+    public static boolean fromMain = true;
+
     public static final int FAVOURITES_VIEW=10;
 
 

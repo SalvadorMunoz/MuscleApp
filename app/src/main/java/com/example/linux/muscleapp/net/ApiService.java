@@ -8,17 +8,11 @@ import com.example.linux.muscleapp.data.db.pojo.SessionDate;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Path;
-
 
 
 public interface ApiService {
@@ -98,8 +92,16 @@ public interface ApiService {
     Call<Result> getTodaySessions(@Path("user") int user);
 
     @SerializedName("filtered")
-    @GET("user/{name}")
-    Call<Result> getFilteredUsers(@Path("name") String name);
+    @POST("users/filtered")
+    Call<Result> getFilteredUsers(@Body User user);
+
+    @SerializedName("userSessions")
+    @GET("sessions/user/{id}")
+    Call<Result> getUsersSessions(@Path("id") int id);
+
+    @SerializedName("allUsers")
+    @GET("all/users")
+    Call<Result> getAllUsers();
 
 }
 

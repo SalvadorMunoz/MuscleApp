@@ -45,10 +45,10 @@ public class UserDao {
 
     }
 
-    public ArrayList<User> LoadNameFromId(){
-        int id = 0;
+    public ArrayList<User> LoadNameFromId(int current){
+
         tmp = new ArrayList<>();
-        Call<Result> call = ApiAdapter.getInstance().getUserName(id);
+        Call<Result> call = ApiAdapter.getInstance().getUserName(current);
 
         try {
             Result result = call.execute().body();
@@ -62,9 +62,26 @@ public class UserDao {
         return tmp;
     }
 
-    public ArrayList<User> getFilteredUsers(String name){
+    public ArrayList<User> getAllUsers(){
+
         tmp = new ArrayList<>();
-        Call<Result> call = ApiAdapter.getInstance().getFilteredUsers(name);
+        Call<Result> call = ApiAdapter.getInstance().getAllUsers();
+
+        try {
+            Result result = call.execute().body();
+            tmp = result.getUsers();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+        return tmp;
+    }
+
+    public ArrayList<User> getFilteredUsers(User user){
+        tmp = new ArrayList<>();
+        Call<Result> call = ApiAdapter.getInstance().getFilteredUsers(user);
 
         try {
             Result result = call.execute().body();

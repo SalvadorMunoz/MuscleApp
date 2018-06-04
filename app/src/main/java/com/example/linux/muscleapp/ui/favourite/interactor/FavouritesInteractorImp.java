@@ -43,7 +43,7 @@ public class FavouritesInteractorImp implements FavouritesInteractor {
 
         @Override
         protected ArrayList<Session> doInBackground(Integer... integers) {
-            usernames = UsersRepository.getInstance().getNameFronId();
+            usernames = UsersRepository.getInstance().getAllUsers();
             return FavouriteRepository.getInstace().getFavourites(integers[0]);
         }
 

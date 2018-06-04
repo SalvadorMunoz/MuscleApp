@@ -36,12 +36,12 @@ public class UserPresenter implements UserContract.Presenter,UserInteractor.OnUs
     }
 
     @Override
-    public void getUsers() {
-        interactor.getUsers();
+    public void getUsers(int current) {
+        interactor.getUsers(current);
     }
 
     @Override
-    public void getFilteredUsers(String name) {
-        interactor.filterUsers(name);
+    public void getFilteredUsers(int current,String name) {
+        interactor.filterUsers(current,name);
     }
 }

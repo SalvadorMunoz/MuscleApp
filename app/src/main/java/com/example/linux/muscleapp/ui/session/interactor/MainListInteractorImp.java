@@ -61,7 +61,7 @@ public class MainListInteractorImp implements MainListInteractor {
 
         @Override
         protected ArrayList<Session> doInBackground(Void... voids) {
-            usernames = UsersRepository.getInstance().getNameFronId();
+            usernames = UsersRepository.getInstance().getAllUsers();
               tmp= FavouriteRepository.getInstace().getFavourites(21);
             return SessionsRepository.getInstace().getSessions();
         }

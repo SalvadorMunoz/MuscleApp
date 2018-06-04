@@ -9,8 +9,8 @@ import java.util.ArrayList;
  */
 
 public interface UserInteractor {
-    void getUsers();
-    void filterUsers(String name);
+    void getUsers(int current);
+    void filterUsers(int current,String name);
 
     interface OnUsersLoad{
         void openDialog();

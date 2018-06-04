@@ -72,7 +72,11 @@ public class CheckPassDialog extends DialogFragment {
                     callback.seeSession(tmp, GlobalVariables.OPEN_SEE);
                     dismiss();
                 }else{
-                    Snackbar.make(getActivity().findViewById(R.id.ctlMain),getResources().getString(R.string.err_invalid_pass),Snackbar.LENGTH_LONG).show();
+                    if(GlobalVariables.fromMain)
+                        Snackbar.make(getActivity().findViewById(R.id.ctlMain),getResources().getString(R.string.err_invalid_pass),Snackbar.LENGTH_LONG).show();
+                    else
+                        Snackbar.make(getActivity().findViewById(R.id.userContent),getResources().getString(R.string.err_invalid_pass),Snackbar.LENGTH_LONG).show();
+
                     dismiss();
                 }
             }

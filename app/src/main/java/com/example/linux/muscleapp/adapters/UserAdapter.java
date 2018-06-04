@@ -23,9 +23,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class UserAdapter extends ArrayAdapter<User> {
+    private User current;
+    private int hideCount= 0;
 
-    public UserAdapter(@NonNull Context context) {
+    public UserAdapter(@NonNull Context context,User current) {
         super(context, R.layout.item_userlist);
+        this.current = current;
     }
 
     @NonNull
@@ -36,13 +39,20 @@ public class UserAdapter extends ArrayAdapter<User> {
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.item_userlist, null);
-            holder.userImage = (CircleImageView) view.findViewById(R.id.civUser);
-            holder.userName = (TextView) view.findViewById(R.id.txvListUserName);
+
+                holder.userImage = (CircleImageView) view.findViewById(R.id.civUser);
+                holder.userName = (TextView) view.findViewById(R.id.txvListUserName);
+
 
             view.setTag(holder);
         }else
             holder = (UserHolder) view.getTag();
-        holder.userName.setText(getItem(position).getName());
+        if(current.getId() != getItem(position).getId()) {
+            holder.userName.setText(getItem(position).getName());
+        }else{
+            view.setVisibility(View.GONE);
+            hideCount++;
+        }
 
         return view;
     }

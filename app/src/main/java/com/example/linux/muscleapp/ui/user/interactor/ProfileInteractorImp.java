@@ -1,27 +1,33 @@
-package com.example.linux.muscleapp.ui.today.interactor;
+package com.example.linux.muscleapp.ui.user.interactor;
 
 import android.os.AsyncTask;
 
 import com.example.linux.muscleapp.data.db.pojo.Favourite;
 import com.example.linux.muscleapp.data.db.pojo.Session;
+import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.db.repositories.FavouriteRepository;
-import com.example.linux.muscleapp.data.db.repositories.TodaySessionRepository;
+import com.example.linux.muscleapp.data.db.repositories.SessionsRepository;
 import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
-import com.example.linux.muscleapp.ui.session.interactor.MainListInteractorImp;
 
 import java.util.ArrayList;
 
 /**
- * Created by linux on 26/05/18.
+ * Created by linux on 30/05/18.
  */
 
-public class TodaySessionsInteractorImp implements TodaySessionInteractor{
-    private OnLoadTodaySessions onLoadTodaySessions;
-    private boolean isAdding ;
+public class ProfileInteractorImp implements ProfileInteractor {
+    private OnUsersSessionLoad onUsersSessionLoad;
+    private boolean isAdding;
 
-    public TodaySessionsInteractorImp(OnLoadTodaySessions onLoadTodaySessions) {
-        this.onLoadTodaySessions = onLoadTodaySessions;
+    public ProfileInteractorImp(OnUsersSessionLoad onUsersSessionLoad) {
+        this.onUsersSessionLoad = onUsersSessionLoad;
     }
+
+    @Override
+    public void getSessions(int id) {
+        new LoadUserSessionTask().execute(id);
+    }
+
     @Override
     public void setFavourite(int session, int current) {
         Favourite tmp = new Favourite(session,current);
@@ -36,20 +42,16 @@ public class TodaySessionsInteractorImp implements TodaySessionInteractor{
         new FavouriteAsyncTask().execute(tmp);
     }
 
-    @Override
-    public void getTodaySession(int id) {
-        new TodayAsync().execute(id);
-    }
-
-    private class TodayAsync extends AsyncTask<Integer,Void,ArrayList<Session>>{
-        ArrayList usernames;
-        ArrayList favourites;
+    private class LoadUserSessionTask extends AsyncTask<Integer,Void,ArrayList<Session>>{
+        private  ArrayList<Session> favourites;
+        private ArrayList<User> usernames;
+        private int user;
         @Override
         protected ArrayList<Session> doInBackground(Integer... integers) {
+            user = integers[0];
+            favourites = FavouriteRepository.getInstace().getFavourites(integers[0]);
             usernames = UsersRepository.getInstance().getAllUsers();
-            favourites= FavouriteRepository.getInstace().getFavourites(21);
-
-            return TodaySessionRepository.getInstance().getTodaySessions(integers[0]);
+            return SessionsRepository.getInstace().getUsersSession(integers[0]);
         }
 
         @Override
@@ -57,15 +59,16 @@ public class TodaySessionsInteractorImp implements TodaySessionInteractor{
             super.onPostExecute(sessions);
             ArrayList<Boolean> res = new ArrayList<>();
             for(int i = 0; i < sessions.size();i++){
-                if(favourites.contains(sessions.get(i)))
-                    res.add(true);
-                else
-                    res.add(false);
-            }
-            onLoadTodaySessions.fllSessions(sessions,usernames,res);
+                    if (favourites.contains(sessions.get(i)))
+                        res.add(true);
+                    else
+                        res.add(false);
+                }
+
+            onUsersSessionLoad.fillSessions(sessions,res,usernames);
         }
     }
-      class FavouriteAsyncTask extends  AsyncTask<Favourite,Void,Void>{
+    class FavouriteAsyncTask extends  AsyncTask<Favourite,Void,Void>{
 
         @Override
         protected Void doInBackground(Favourite... favourites) {
@@ -76,4 +79,6 @@ public class TodaySessionsInteractorImp implements TodaySessionInteractor{
             return null;
         }
     }
+
 }
+

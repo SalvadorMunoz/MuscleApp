@@ -68,17 +68,18 @@ public class SearchUserFragment extends Fragment implements UserContract.View{
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.action_search_user));
         if(getArguments() != null)
             current = getArguments().getParcelable("current");
+        adapter = new UserAdapter(getContext(),current);
         ltvUsers.setAdapter(adapter);
-        presenter.getUsers();
+        presenter.getUsers(current.getId());
 
         imgSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!edtName.getText().toString().isEmpty()) {
-                    presenter.getFilteredUsers(edtName.getText().toString());
+                    presenter.getFilteredUsers(current.getId(),edtName.getText().toString());
                     isFiltered = true;
                 }else if(isFiltered)
-                    presenter.getUsers();
+                    presenter.getUsers(current.getId());
             }
         });
         ltvUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -101,7 +102,6 @@ public class SearchUserFragment extends Fragment implements UserContract.View{
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage(getResources().getString(R.string.downloading));
 
-        adapter = new UserAdapter(getContext());
         presenter = new UserPresenter(this);
         // Inflate the layout for this fragment
         isFiltered = false;

@@ -16,7 +16,7 @@ public interface UserContract {
     }
 
     interface Presenter{
-        void getUsers();
-        void getFilteredUsers(String name);
+        void getUsers(int current);
+        void getFilteredUsers(int current,String name);
     }
 }

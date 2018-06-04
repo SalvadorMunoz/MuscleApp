@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.adapters.FavouritesAdapter;
 import com.example.linux.muscleapp.adapters.SessionListAdapter;
+import com.example.linux.muscleapp.adapters.UserProfileAdapter;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.ui.favourite.fragment.FavouritesFragment;
@@ -81,7 +82,6 @@ public class TodayFragment extends ListFragment implements TodaySessionContract.
     @Override
     public void fillSessions(ArrayList<Session> today,ArrayList<User> usernames,ArrayList<Boolean> favourites) {
         adapter = new SessionListAdapter(getContext(),current,usernames,today,presenter,callback,favourites);
-
 
         getListView().setAdapter(adapter);
     }

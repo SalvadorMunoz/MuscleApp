@@ -32,7 +32,7 @@ import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 
 import java.util.ArrayList;
 
-public class UserActivity extends AppCompatActivity implements FavouritesFragment.SeeDetailsListener,CheckPassDialog.CheckDialogListener, SearchUserFragment.SearchUserListener {
+public class UserActivity extends AppCompatActivity implements FavouritesFragment.SeeDetailsListener,CheckPassDialog.CheckDialogListener, SearchUserFragment.SearchUserListener,UserProfileFragment.SeeDetailsListener {
     private User current;
     private Toolbar toolbar;
     private SettingsFragment settingsFragment;
@@ -157,6 +157,7 @@ public class UserActivity extends AppCompatActivity implements FavouritesFragmen
     @Override
     public void checkSessionPassword(Session session) {
         checkPassDialog = (CheckPassDialog) getSupportFragmentManager().findFragmentByTag(CheckPassDialog.TAG);
+        GlobalVariables.fromMain = false;
         if(checkPassDialog == null){
             Bundle bundle = new Bundle();
             bundle.putParcelable("current",session);

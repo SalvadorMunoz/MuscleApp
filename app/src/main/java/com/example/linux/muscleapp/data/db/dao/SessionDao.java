@@ -58,9 +58,9 @@ public class SessionDao {
 
     }
 
-    /*public ArrayList<Session> getEmptiesPass(){
+    public ArrayList<Session> getUsersSession(int id){
         tmp = new ArrayList<>();
-        Call<Result> call = ApiAdapter.getInstance().getEmptiesPass();
+        Call<Result> call = ApiAdapter.getInstance().getUsersSessions(id);
         try {
             Result result = call.execute().body();
             tmp = result.getSessions();
@@ -70,6 +70,6 @@ public class SessionDao {
 
         return tmp;
 
-    }*/
+    }
 
 }

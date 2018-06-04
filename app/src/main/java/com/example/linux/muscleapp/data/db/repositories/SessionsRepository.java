@@ -1,12 +1,9 @@
 package com.example.linux.muscleapp.data.db.repositories;
 
-import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.dao.SessionDao;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 
 /**
  * @author Salvador Muñoz
@@ -43,7 +40,9 @@ public class SessionsRepository {
         return sessionDao.getIdFomSession(session);
     }
 
-
+    public ArrayList<Session> getUsersSession(int id){
+        return sessionDao.getUsersSession(id);
+    }
 
 
 }

@@ -14,18 +14,21 @@ import java.util.ArrayList;
 
 public class UserInteractorImp implements UserInteractor {
     private  OnUsersLoad onUsersLoad;
+    private  int current;
 
     public UserInteractorImp(OnUsersLoad onUsersLoad) {
         this.onUsersLoad = onUsersLoad;
     }
 
     @Override
-    public void getUsers() {
+    public void getUsers(int current) {
+        this.current = current;
         new UserAsync().execute("");
     }
 
     @Override
-    public void filterUsers(String name) {
+    public void filterUsers(int current,String name) {
+        this.current = current;
         new UserAsync().execute(name);
     }
 
@@ -39,9 +42,9 @@ public class UserInteractorImp implements UserInteractor {
         @Override
         protected ArrayList<User> doInBackground(String... strings) {
             if(strings[0].isEmpty())
-                return UsersRepository.getInstance().getNameFronId();
+                return UsersRepository.getInstance().getNameFronId(current);
             else
-                return UsersRepository.getInstance().getFilteredUsers(strings[0]);
+                return UsersRepository.getInstance().getFilteredUsers(new User(current,null,null,strings[0],null,null,-1,null));
         }
 
         @Override
