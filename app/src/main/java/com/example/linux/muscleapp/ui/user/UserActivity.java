@@ -56,6 +56,9 @@ public class UserActivity extends AppCompatActivity implements FavouritesFragmen
         setSupportActionBar(toolbar);
         int option = getIntent().getIntExtra("mode",-1);
         switch (option){
+            case GlobalVariables.OPEN_PROFILE:
+                goUserProfile(current,GlobalVariables.OPEN_PROFILE);
+                break;
             case GlobalVariables.OPEN_FAVOURITES:
                 goFavourites();
                 break;
@@ -177,16 +180,21 @@ public class UserActivity extends AppCompatActivity implements FavouritesFragmen
     }
 
     @Override
-    public void goUserProfile(User user) {
+    public void goUserProfile(User user,int from) {
         userProfileFragment = (UserProfileFragment) getSupportFragmentManager().findFragmentByTag(UserProfileFragment.TAG);
         if(userProfileFragment == null){
             Bundle bundle = new Bundle();
             bundle.putParcelable("current",current);
-            bundle.putParcelable("clicked",user);
+            if(from != GlobalVariables.OPEN_PROFILE)
+                bundle.putParcelable("clicked",user);
             userProfileFragment = UserProfileFragment.newInstance(bundle);
             android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.addToBackStack(null);
-            transaction.replace(R.id.userContent,userProfileFragment,UserProfileFragment.TAG).commit();
+            if(from != GlobalVariables.OPEN_PROFILE) {
+                transaction.addToBackStack(null);
+                transaction.replace(R.id.userContent, userProfileFragment, UserProfileFragment.TAG).commit();
+            }else
+                transaction.add(R.id.userContent,userProfileFragment,UserProfileFragment.TAG).commit();
+
 
         }
     }

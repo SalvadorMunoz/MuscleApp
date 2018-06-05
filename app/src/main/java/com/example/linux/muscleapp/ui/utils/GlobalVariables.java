@@ -12,11 +12,12 @@ public class GlobalVariables {
     public static final int OPEN_FAVOURITES=4;
     public static final int OPEN_TODAY=5;
     public static final int OPEN_SEARCH_USER=6;
+    public static final  int OPEN_PROFILE = 7;
     public static boolean fromAboutUs = false;
 
     public static boolean fromMain = true;
 
-    public static final int FAVOURITES_VIEW=10;
+    public static boolean  fromMyProfile=false;
 
 
     public static void setFromAboutUs(boolean value) {

@@ -1,6 +1,8 @@
 package com.example.linux.muscleapp.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -12,10 +14,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.linux.muscleapp.R;
+import com.example.linux.muscleapp.data.db.pojo.Favourite;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.ui.user.contract.ProfileContract;
 import com.example.linux.muscleapp.ui.user.fragment.UserProfileFragment;
+import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 import com.example.linux.muscleapp.ui.utils.Sha256Generator;
 
 import java.util.ArrayList;
@@ -59,6 +63,7 @@ public class UserProfileAdapter extends ArrayAdapter<Session> {
             holder.commentaries = (TextView) view.findViewById(R.id.txvProfileSessionComments);
             holder.result = (TextView) view.findViewById(R.id.txvProfileSessionRes);
             holder.follow = (ImageView) view.findViewById(R.id.imgProfileSessionFollow);
+            holder.delete = (ImageView) view.findViewById(R.id.imgProfileDelete);
 
             view.setTag(holder);
         }else
@@ -75,6 +80,11 @@ public class UserProfileAdapter extends ArrayAdapter<Session> {
         holder.commentaries.setTag(holder);
         holder.commentaries.setOnClickListener(listener);
 
+        if(GlobalVariables.fromMyProfile) {
+            holder.delete.setVisibility(View.VISIBLE);
+            holder.delete.setTag(getItem(position));
+            holder.delete.setOnClickListener(listener);
+        }
 
         return view;
     }
@@ -103,22 +113,38 @@ public class UserProfileAdapter extends ArrayAdapter<Session> {
 
     class ProfileHolder {
         TextView sessionName,result,commentaries;
-        ImageView follow;
+        ImageView follow,delete;
         int id;
     }
 
 
     class ClickItem implements View.OnClickListener{
+        private  void openDialog(final int sesion){
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Borrar de favoritos").setMessage("¿Deseas borrar la sesión de entrenamiento?").
+                    setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
+                        }
+                    }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+
+            builder.create().show();
+        }
         @Override
         public void onClick(View view) {
             String shaRes = Sha256Generator.bin2hex(Sha256Generator.getHash(""));
 
-            ProfileHolder holder = (ProfileHolder) view.getTag();
 
 
             switch (view.getId()) {
                 case R.id.imgProfileSessionFollow:
+                    ProfileHolder holder = (ProfileHolder) view.getTag();
 
                     int pos =-1;
                     for(int i =0; i< sessionsTmp.size();i++){
@@ -136,12 +162,16 @@ public class UserProfileAdapter extends ArrayAdapter<Session> {
 
                     break;
                 case R.id.txvProfileSessionComments:
-                    callback.goComments(holder.id, usernames);
+                    ProfileHolder holder1 = (ProfileHolder) view.getTag();
+
+                    callback.goComments(holder1.id, usernames);
                     break;
                 case R.id.txvProfileSessionName:
+                    ProfileHolder holder2 = (ProfileHolder) view.getTag();
+
                     String pass ="";
                     for(int i =0; i< sessionsTmp.size();i++){
-                        if(sessionsTmp.get(i).getId() == holder.id){
+                        if(sessionsTmp.get(i).getId() == holder2.id){
                             if (sessionsTmp.get(i).getPass().equalsIgnoreCase(shaRes))
                                 callback.openSession(sessionsTmp.get(i));
                             else
@@ -150,7 +180,10 @@ public class UserProfileAdapter extends ArrayAdapter<Session> {
                         }
                     }
 
-
+                case R.id.imgProfileDelete:
+                    Session session = (Session) view.getTag();
+                    openDialog(session.getId());
+                    break;
             }
         }
     }

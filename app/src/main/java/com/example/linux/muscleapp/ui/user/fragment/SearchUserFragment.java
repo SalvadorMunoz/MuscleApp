@@ -41,7 +41,7 @@ public class SearchUserFragment extends Fragment implements UserContract.View{
     private SearchUserListener callback;
 
     public  interface SearchUserListener{
-        void goUserProfile(User user);
+        void goUserProfile(User user, int from);
     }
 
     public SearchUserFragment() {
@@ -86,7 +86,7 @@ public class SearchUserFragment extends Fragment implements UserContract.View{
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 User temp = (User) adapterView.getItemAtPosition(i);
-                callback.goUserProfile(temp);
+                callback.goUserProfile(temp,-1);
             }
         });
     }

@@ -41,7 +41,7 @@ public class UserInteractorImp implements UserInteractor {
 
         @Override
         protected ArrayList<User> doInBackground(String... strings) {
-            if(strings[0].isEmpty())
+            if(strings[0].equals(""))
                 return UsersRepository.getInstance().getNameFronId(current);
             else
                 return UsersRepository.getInstance().getFilteredUsers(new User(current,null,null,strings[0],null,null,-1,null));

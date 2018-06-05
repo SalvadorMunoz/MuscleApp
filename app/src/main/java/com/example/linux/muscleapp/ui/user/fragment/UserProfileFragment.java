@@ -4,6 +4,7 @@ package com.example.linux.muscleapp.ui.user.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.ui.user.contract.ProfileContract;
 import com.example.linux.muscleapp.ui.user.presenter.ProfilePresenter;
+import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -34,10 +36,12 @@ public class UserProfileFragment extends Fragment  implements ProfileContract.Vi
     public static final String TAG ="userProfile";
     private TextView txvName,txvAge, txvResidence;
     private ListView ltvSessions;
+    private FloatingActionButton fbtEdit;
     private User current,clicked;
     private ProfileContract.Presenter presenter;
     private UserProfileAdapter adapter;
     private SeeDetailsListener callback;
+
     public interface SeeDetailsListener{
         void goComments(int session, ArrayList<User> usernames);
         void openSession(Session session);
@@ -72,6 +76,7 @@ public class UserProfileFragment extends Fragment  implements ProfileContract.Vi
         txvAge = (TextView) view.findViewById(R.id.txvProfileAge);
         txvResidence = (TextView) view.findViewById(R.id.txvProfileResidence);
         ltvSessions = (ListView) view.findViewById(R.id.ltvProfileSessions);
+        fbtEdit = (FloatingActionButton) view.findViewById(R.id.fbtEditImage);
 
         presenter = new ProfilePresenter(this);
 
@@ -88,10 +93,21 @@ public class UserProfileFragment extends Fragment  implements ProfileContract.Vi
             clicked = getArguments().getParcelable("clicked");
         }
 
-        txvName.setText( clicked.getName());
-        txvAge.setText(String.valueOf(getAge(clicked.getBornDate()))+" "+getResources().getString(R.string.years));
-        txvResidence.setText(clicked.getResidence());
-        presenter.getSessions(clicked.getId());
+        if(clicked != null) {
+            GlobalVariables.fromMyProfile = false;
+            txvName.setText(clicked.getName());
+            txvAge.setText(String.valueOf(getAge(clicked.getBornDate())) + " " + getResources().getString(R.string.years));
+            txvResidence.setText(clicked.getResidence());
+            presenter.getSessions(clicked.getId());
+        }else {
+            GlobalVariables.fromMyProfile = true;
+
+            fbtEdit.setVisibility(View.VISIBLE);
+            txvName.setText(current.getName());
+            txvAge.setText(String.valueOf(getAge(current.getBornDate())) + " " + getResources().getString(R.string.years));
+            txvResidence.setText(current.getResidence());
+            presenter.getSessions(current.getId());
+        }
     }
     private long getAge(String bornDate)  {
         long ageInMillis = 0;

@@ -69,5 +69,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_delete"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:clickable="true"/>
 </android.support.constraint.ConstraintLayout>

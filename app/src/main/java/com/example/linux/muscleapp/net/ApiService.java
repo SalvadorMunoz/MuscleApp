@@ -13,7 +13,28 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+/*
+$app->post('/users/filtered', function ($request, $response,$args) {
+    $result = new Result();
+    $input = $request->getParsedBody();
+    try {
+        $dbquery =  $this->db->prepare("SELECT * FROM ".TABLE_USER." WHERE id <> ? AND name like '%".$args['name']."%' ORDER BY LOWER(name)");
+        $dbquery->bindParam(1,$input['id']);
+        $dbquery->execute();
+        $users = $dbquery->fetchAll();
+        $result->setCode(TRUE);
+        $result->setStatus(OK);
+        $result->setUsers($users);
+        $result->setMessage($args['users']);
 
+    } catch (PDOException $e) {
+        $result->setCode(FALSE);
+        $result->setStatus(CONFLICT);
+        $result->setMessage("Error: " . $e->getMessage());
+    }
+    return $this->response->withJson($result);
+});
+* */
 
 public interface ApiService {
     @SerializedName("users")
@@ -92,7 +113,7 @@ public interface ApiService {
     Call<Result> getTodaySessions(@Path("user") int user);
 
     @SerializedName("filtered")
-    @POST("users/filtered")
+    @POST("c")
     Call<Result> getFilteredUsers(@Body User user);
 
     @SerializedName("userSessions")
