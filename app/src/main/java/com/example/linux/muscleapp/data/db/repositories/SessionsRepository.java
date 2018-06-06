@@ -44,5 +44,7 @@ public class SessionsRepository {
         return sessionDao.getUsersSession(id);
     }
 
-
+    public void removeSession(int id){
+        sessionDao.removeSession(id);
+    }
 }

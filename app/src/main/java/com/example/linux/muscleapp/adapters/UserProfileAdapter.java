@@ -125,7 +125,7 @@ public class UserProfileAdapter extends ArrayAdapter<Session> {
                     setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-
+                            presenter.deleteSession(sesion);
                         }
                     }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override

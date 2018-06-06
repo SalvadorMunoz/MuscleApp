@@ -14,6 +14,9 @@ public class GlobalVariables {
     public static final int OPEN_SEARCH_USER=6;
     public static final  int OPEN_PROFILE = 7;
     public static boolean fromAboutUs = false;
+    public static String imgPath;
+    public static boolean fromSelectImage = false;
+
 
     public static boolean fromMain = true;
 

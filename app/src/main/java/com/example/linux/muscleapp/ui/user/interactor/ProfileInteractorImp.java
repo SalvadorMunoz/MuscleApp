@@ -1,5 +1,6 @@
 package com.example.linux.muscleapp.ui.user.interactor;
 
+import android.app.IntentService;
 import android.os.AsyncTask;
 
 import com.example.linux.muscleapp.data.db.pojo.Favourite;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 public class ProfileInteractorImp implements ProfileInteractor {
     private OnUsersSessionLoad onUsersSessionLoad;
     private boolean isAdding;
+    private int session;
 
     public ProfileInteractorImp(OnUsersSessionLoad onUsersSessionLoad) {
         this.onUsersSessionLoad = onUsersSessionLoad;
@@ -40,6 +42,12 @@ public class ProfileInteractorImp implements ProfileInteractor {
         Favourite tmp =  new Favourite(sessionn,current);
         isAdding = false;
         new FavouriteAsyncTask().execute(tmp);
+    }
+
+    @Override
+    public void deleteSession(int session) {
+        this.session = session;
+        new SessionAsyncTask().execute(session);
     }
 
     private class LoadUserSessionTask extends AsyncTask<Integer,Void,ArrayList<Session>>{
@@ -76,6 +84,20 @@ public class ProfileInteractorImp implements ProfileInteractor {
                 FavouriteRepository.getInstace().add(favourites[0]);
             else
                 FavouriteRepository.getInstace().delete(favourites[0]);
+            return null;
+        }
+    }
+
+    class SessionAsyncTask extends  AsyncTask<Integer,Void,Void>{
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            onUsersSessionLoad.removeFromList(session);
+        }
+
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            SessionsRepository.getInstace().removeSession(integers[0]);
             return null;
         }
     }

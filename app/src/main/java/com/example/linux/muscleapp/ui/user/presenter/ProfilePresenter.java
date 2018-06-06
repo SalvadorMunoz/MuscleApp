@@ -37,7 +37,17 @@ public class ProfilePresenter implements ProfileContract.Presenter ,ProfileInter
     }
 
     @Override
+    public void deleteSession(int session) {
+        interactor.deleteSession(session);
+    }
+
+    @Override
     public void fillSessions(ArrayList<Session> sessions, ArrayList<Boolean> favourites, ArrayList<User> usernames) {
         view.fillSessions(sessions,favourites,usernames);
+    }
+
+    @Override
+    public void removeFromList(int current) {
+        view.removeFromList(current);
     }
 }

@@ -30,6 +30,19 @@ public class SessionDao {
 
     }
 
+    public void removeSession( int id){
+        Call<Result> call = ApiAdapter.getInstance().removeSession(id);
+        boolean code = false;
+        try {
+            Result result = call.execute().body();
+            code = result.getCode();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ;
+        boolean b = code;
+    }
+
     public void insert(Session session){
         Call<Result> call = ApiAdapter.getInstance().insertSession(session);
         String message = "";

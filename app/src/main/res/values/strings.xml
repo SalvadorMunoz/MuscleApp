@@ -59,7 +59,8 @@
     <string name="autentication">Autenticando...</string>
     <string name="creating">Creando session de entrenamiento...</string>
     <string name="loading_session">Cargando sesión de entrenamiento</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="years">años</string>
+    <string name="gallery">Galería</string>
+    <string name="camera">Cámara</string>
+
 </resources>

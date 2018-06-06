@@ -13,9 +13,10 @@ public interface ProfileInteractor {
     void getSessions(int id);
     void setFavourite(int session, int user);
     void deleteFavourite(int session, int user);
-
+    void deleteSession(int session);
 
     interface OnUsersSessionLoad{
         void fillSessions(ArrayList<Session> sessions, ArrayList<Boolean> favourites, ArrayList<User> usernames);
+        void removeFromList(int current);
     }
 }

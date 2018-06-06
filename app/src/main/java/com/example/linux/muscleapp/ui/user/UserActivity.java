@@ -2,10 +2,13 @@ package com.example.linux.muscleapp.ui.user;
 
 import android.content.Intent;
 import android.app.FragmentTransaction;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
+import com.afollestad.materialcamera.MaterialCamera;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Excersice;
 import com.example.linux.muscleapp.data.db.pojo.Favourite;
@@ -26,13 +29,16 @@ import com.example.linux.muscleapp.ui.session.fragment.SeeSessionFragment;
 import com.example.linux.muscleapp.ui.session.fragment.SeedatesFragment;
 import com.example.linux.muscleapp.ui.setting.SettingsFragment;
 import com.example.linux.muscleapp.ui.today.fragment.TodayFragment;
+import com.example.linux.muscleapp.ui.user.fragment.FromOptionDialogFragment;
 import com.example.linux.muscleapp.ui.user.fragment.SearchUserFragment;
 import com.example.linux.muscleapp.ui.user.fragment.UserProfileFragment;
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
+import com.example.linux.muscleapp.ui.utils.UriConverter;
 
+import java.io.File;
 import java.util.ArrayList;
 
-public class UserActivity extends AppCompatActivity implements FavouritesFragment.SeeDetailsListener,CheckPassDialog.CheckDialogListener, SearchUserFragment.SearchUserListener,UserProfileFragment.SeeDetailsListener {
+public class UserActivity extends AppCompatActivity implements FavouritesFragment.SeeDetailsListener,CheckPassDialog.CheckDialogListener, SearchUserFragment.SearchUserListener,UserProfileFragment.SeeDetailsListener,FromOptionDialogFragment.ImageOptionListener {
     private User current;
     private Toolbar toolbar;
     private SettingsFragment settingsFragment;
@@ -43,6 +49,9 @@ public class UserActivity extends AppCompatActivity implements FavouritesFragmen
     private TodayFragment todayFragment;
     private SearchUserFragment searchUserFragment;
     private UserProfileFragment userProfileFragment;
+    private FromOptionDialogFragment fromOptionDialogFragment;
+    private static final int OPEN_CAMERA=1;
+    private static final int OPEN_GALLERY=2;
 
 
     @Override
@@ -58,6 +67,7 @@ public class UserActivity extends AppCompatActivity implements FavouritesFragmen
         switch (option){
             case GlobalVariables.OPEN_PROFILE:
                 goUserProfile(current,GlobalVariables.OPEN_PROFILE);
+                GlobalVariables.fromSelectImage= false;
                 break;
             case GlobalVariables.OPEN_FAVOURITES:
                 goFavourites();
@@ -172,6 +182,16 @@ public class UserActivity extends AppCompatActivity implements FavouritesFragmen
     }
 
     @Override
+    public void openSelectImage() {
+        fromOptionDialogFragment = (FromOptionDialogFragment) getSupportFragmentManager().findFragmentByTag(FromOptionDialogFragment.TAG);
+        if(fromOptionDialogFragment == null){
+            fromOptionDialogFragment = FromOptionDialogFragment.getInstance(null);
+            fromOptionDialogFragment.show(getSupportFragmentManager(),FromOptionDialogFragment.TAG);
+
+        }
+    }
+
+    @Override
     public void seeSession(Session session, int mode) {
         Intent intent = new Intent(UserActivity.this, SessionActivity.class);
         intent.putExtra("current",session);
@@ -200,4 +220,31 @@ public class UserActivity extends AppCompatActivity implements FavouritesFragmen
     }
 
 
+    @Override
+    public void openCamera() {
+        File saveFolder = new File(Environment.getExternalStorageDirectory(), "muscleapp");
+        new MaterialCamera(this).maxAllowedFileSize(1024 * 1024 * 5)
+                .primaryColor(getResources().getColor(R.color.colorPrimary))
+                .saveDir(saveFolder)
+                .qualityProfile(MaterialCamera.QUALITY_480P).
+                showPortraitWarning(false)
+                .stillShot() //
+                .start(OPEN_CAMERA);
+
+    }
+
+    @Override
+    public void openGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), OPEN_GALLERY);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+            GlobalVariables.imgPath =  UriConverter.getRealPathFromURI(this,data.getData());
+
+    }
 }

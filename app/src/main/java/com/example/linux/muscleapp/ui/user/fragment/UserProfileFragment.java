@@ -2,6 +2,8 @@ package com.example.linux.muscleapp.ui.user.fragment;
 
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,6 +26,7 @@ import com.example.linux.muscleapp.ui.user.contract.ProfileContract;
 import com.example.linux.muscleapp.ui.user.presenter.ProfilePresenter;
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,16 +40,19 @@ public class UserProfileFragment extends Fragment  implements ProfileContract.Vi
     public static final String TAG ="userProfile";
     private TextView txvName,txvAge, txvResidence;
     private ListView ltvSessions;
+    private ImageView imgProfileImage;
     private FloatingActionButton fbtEdit;
     private User current,clicked;
     private ProfileContract.Presenter presenter;
     private UserProfileAdapter adapter;
     private SeeDetailsListener callback;
+    private ArrayList<Session> sessions;
 
     public interface SeeDetailsListener{
         void goComments(int session, ArrayList<User> usernames);
         void openSession(Session session);
         void checkSessionPassword(Session session);
+        void openSelectImage();
     }
 
     public UserProfileFragment() {
@@ -77,6 +84,7 @@ public class UserProfileFragment extends Fragment  implements ProfileContract.Vi
         txvResidence = (TextView) view.findViewById(R.id.txvProfileResidence);
         ltvSessions = (ListView) view.findViewById(R.id.ltvProfileSessions);
         fbtEdit = (FloatingActionButton) view.findViewById(R.id.fbtEditImage);
+        imgProfileImage = (ImageView) view.findViewById(R.id.imgUserProfile);
 
         presenter = new ProfilePresenter(this);
 
@@ -108,7 +116,20 @@ public class UserProfileFragment extends Fragment  implements ProfileContract.Vi
             txvResidence.setText(current.getResidence());
             presenter.getSessions(current.getId());
         }
+        fbtEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callback.openSelectImage();
+            }
+        });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
     private long getAge(String bornDate)  {
         long ageInMillis = 0;
 
@@ -139,10 +160,19 @@ public class UserProfileFragment extends Fragment  implements ProfileContract.Vi
 
     @Override
     public void fillSessions(ArrayList<Session> sessions, ArrayList<Boolean> favourites, ArrayList<User> usernames) {
-
+        this.sessions = sessions;
         adapter = new UserProfileAdapter(getContext(),current,usernames,sessions,favourites,presenter,callback);
-        SessionListAdapter adapter1 = new SessionListAdapter(getContext(),current,usernames,sessions,null,null,favourites);
         ltvSessions.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void removeFromList(int current) {
+        for(int i = 0; i < sessions.size();i++){
+            if(sessions.get(i).getId() == current){
+                adapter.remove(sessions.get(i));
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 }

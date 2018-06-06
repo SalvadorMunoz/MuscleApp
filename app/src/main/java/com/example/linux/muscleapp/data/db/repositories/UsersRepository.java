@@ -74,6 +74,7 @@ public class UsersRepository {
         return userDao.getFilteredUsers(user);
     }
 
+
     public ArrayList<User> getNameFronId(int current){
         return userDao.LoadNameFromId(current);
     }

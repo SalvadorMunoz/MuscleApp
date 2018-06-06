@@ -124,5 +124,9 @@ public interface ApiService {
     @GET("all/users")
     Call<Result> getAllUsers();
 
+    @SerializedName("removeSession")
+    @GET("session/remove/{id}")
+    Call<Result> removeSession(@Path("id") int id);
+
 }
 
