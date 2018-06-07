@@ -43,6 +43,19 @@ public class SessionDao {
 
         String fin = message;
     }
+    public void remove(int id){
+        Call<Result> call = ApiAdapter.getInstance().removeSession(id);
+        String message = "";
+        try {
+            Result result = call.execute().body();
+            message = result.getMessage();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String fin = message;
+    }
 
     public int getIdFomSession(Session session){
         tmp = new ArrayList<>();

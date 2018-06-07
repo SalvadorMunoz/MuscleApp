@@ -47,7 +47,7 @@ public class TodaySessionsInteractorImp implements TodaySessionInteractor{
         @Override
         protected ArrayList<Session> doInBackground(Integer... integers) {
             usernames = UsersRepository.getInstance().getAllUsers();
-            favourites= FavouriteRepository.getInstace().getFavourites(21);
+            favourites= FavouriteRepository.getInstace().getFavourites(integers[0]);
 
             return TodaySessionRepository.getInstance().getTodaySessions(integers[0]);
         }

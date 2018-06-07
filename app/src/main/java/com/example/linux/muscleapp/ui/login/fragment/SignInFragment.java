@@ -156,6 +156,8 @@ public class SignInFragment extends Fragment implements LoginContract.LoginView 
     @Override
     public void onResume() {
         super.onResume();
+        edtEmail.setText("");
+        edtPass.setText("");
         if(MuscleAppApplication.getContex().getAppPreferencesHelper().getRemember() == true) {
             getActivity().finish();
         }

@@ -41,6 +41,7 @@ public class UserProfileFragment extends Fragment  implements ProfileContract.Vi
     private ProfileContract.Presenter presenter;
     private UserProfileAdapter adapter;
     private SeeDetailsListener callback;
+    private ArrayList<Session> sessions;
 
     public interface SeeDetailsListener{
         void goComments(int session, ArrayList<User> usernames);
@@ -139,10 +140,20 @@ public class UserProfileFragment extends Fragment  implements ProfileContract.Vi
 
     @Override
     public void fillSessions(ArrayList<Session> sessions, ArrayList<Boolean> favourites, ArrayList<User> usernames) {
-
+        this.sessions = sessions;
         adapter = new UserProfileAdapter(getContext(),current,usernames,sessions,favourites,presenter,callback);
         SessionListAdapter adapter1 = new SessionListAdapter(getContext(),current,usernames,sessions,null,null,favourites);
         ltvSessions.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void removeFromList(int id) {
+        for(int i = 0; i < sessions.size();i++){
+            if(sessions.get(i).getId() == id){
+                adapter.remove(sessions.get(i));
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 }

@@ -120,12 +120,12 @@ public class UserProfileAdapter extends ArrayAdapter<Session> {
 
     class ClickItem implements View.OnClickListener{
         private  void openDialog(final int sesion){
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("Borrar de favoritos").setMessage("¿Deseas borrar la sesión de entrenamiento?").
                     setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-
+                            presenter.deleteSession(sesion);
                         }
                     }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override

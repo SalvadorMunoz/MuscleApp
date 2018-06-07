@@ -157,12 +157,11 @@ public class MainActivity extends AppCompatActivity  implements MainContract.Vie
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
         else {
-            if(MuscleAppApplication.getContex().getAppPreferencesHelper().getRemember() == false)
+           /* if(MuscleAppApplication.getContex().getAppPreferencesHelper().getRemember() == false)
                 startActivity(new Intent(MainActivity.this, LogInActivity.class));
-            else {
-                finish();
+            else {*/
                 super.onBackPressed();
-            }
+            //}
         }
     }
 
