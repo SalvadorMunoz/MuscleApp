@@ -43,6 +43,7 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
     private Spinner type;
     private ExcersiceContract.AddExcersicePresenter presenter;
     private AddExcersiceListener callback;
+    private int excersiceId ;
 
     private static final int LIMIT = 30;
 
@@ -65,6 +66,11 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
         return addExcersiceFragment;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     @Nullable
     @Override
@@ -96,6 +102,9 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
         super.onViewCreated(view, savedInstanceState);
         toolbar.setTitle(R.string.add_excersice_title);
         setNumberPickerLimits();
+        if(getArguments() !=  null){
+            excersiceId = getArguments().getInt("excericeId");
+        }
 
         edtName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -135,7 +144,7 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
             @Override
             public void onClick(View view) {
 
-                presenter.addExcersice(new Excersice(0,0,edtName.getText().toString(),edtMuscle.getText().toString(),"",type.getSelectedItem().toString(),series.getValue(),repetitions.getValue(),time.getValue()));
+                presenter.addExcersice(new Excersice(excersiceId,0,edtName.getText().toString(),edtMuscle.getText().toString(),"",type.getSelectedItem().toString(),series.getValue(),repetitions.getValue(),time.getValue()));
             }
         });
         fbtVideo.setOnClickListener(new View.OnClickListener() {

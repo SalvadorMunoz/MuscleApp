@@ -95,11 +95,11 @@ public class SessionActivity extends AppCompatActivity implements AddSessionFrag
     }
 
     @Override
-    public void goAddExcersice(User current) {
+    public void goAddExcersice(int excersiceId) {
         addExcersiceFragment = (AddExcersiceFragment) getSupportFragmentManager().findFragmentByTag(AddExcersiceFragment.TAG);
         if(addExcersiceFragment == null){
             Bundle bundle = new Bundle();
-            bundle.putParcelable("currentUser", current);
+            bundle.putInt("excericeId",excersiceId);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             addExcersiceFragment = AddExcersiceFragment.newInstance(bundle);
             transaction.addToBackStack(null);

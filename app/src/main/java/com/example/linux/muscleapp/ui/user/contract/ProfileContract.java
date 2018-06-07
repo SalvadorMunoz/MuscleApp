@@ -12,21 +12,13 @@ import java.util.ArrayList;
 public interface ProfileContract {
     interface View{
         void fillSessions(ArrayList<Session> sessions, ArrayList<Boolean> favourites, ArrayList<User> usernames);
-<<<<<<< HEAD
-        void removeFromList(int current);
-=======
         void removeFromList(int id);
->>>>>>> HEAD@{2}
     }
 
     interface Presenter{
         void getSessions(int id);
         void setFavourite(int session, int user);
         void deleteFavourite(int session, int user);
-<<<<<<< HEAD
-        void deleteSession(int session);
-=======
         void deleteSession(int id);
->>>>>>> HEAD@{2}
     }
 }
