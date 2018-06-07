@@ -185,7 +185,7 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
 
     }
     int permission = 20;
-    boolean permissionGranted = true;
+    boolean permissionGranted = false;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -194,29 +194,33 @@ public class AddExcersiceFragment extends Fragment implements ExcersiceContract.
 
         if (requestCode == 20 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-                permissionGranted = false;
                 permission++;
                 requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, permission);
+            }else{
+                permissionGranted = true;
             }
 
         }
 
         if (requestCode == 21 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                permissionGranted = false;
 
                 permission++;
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, permission);
+            }else{
+                permissionGranted = true;
             }
+
 
         }
 
         if (requestCode == 22 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                permissionGranted = false;
 
                 permission++;
                 requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, permission);
+            }else{
+                permissionGranted = true;
             }
 
         }

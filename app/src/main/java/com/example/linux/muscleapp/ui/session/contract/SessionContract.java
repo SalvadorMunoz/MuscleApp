@@ -31,7 +31,7 @@ public interface SessionContract {
 
     interface MainPresenter {
 
-         void getSessions();
+         void getSessions(int user);
          void getCurrentUser(String email);
          void getCurrentUser();
          void onDestroy();

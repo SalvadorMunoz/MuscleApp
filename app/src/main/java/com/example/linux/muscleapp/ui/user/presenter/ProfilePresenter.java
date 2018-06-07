@@ -37,8 +37,13 @@ public class ProfilePresenter implements ProfileContract.Presenter ,ProfileInter
     }
 
     @Override
+<<<<<<< HEAD
     public void deleteSession(int session) {
         interactor.deleteSession(session);
+=======
+    public void deleteSession(int id) {
+        interactor.deleteSession(id);
+>>>>>>> HEAD@{2}
     }
 
     @Override
@@ -47,7 +52,12 @@ public class ProfilePresenter implements ProfileContract.Presenter ,ProfileInter
     }
 
     @Override
+<<<<<<< HEAD
     public void removeFromList(int current) {
         view.removeFromList(current);
+=======
+    public void removeFromList(int id) {
+        view.removeFromList(id);
+>>>>>>> HEAD@{2}
     }
 }

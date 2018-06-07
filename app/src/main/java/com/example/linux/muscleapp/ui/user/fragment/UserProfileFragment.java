@@ -167,9 +167,15 @@ public class UserProfileFragment extends Fragment  implements ProfileContract.Vi
     }
 
     @Override
+<<<<<<< HEAD
     public void removeFromList(int current) {
         for(int i = 0; i < sessions.size();i++){
             if(sessions.get(i).getId() == current){
+=======
+    public void removeFromList(int id) {
+        for(int i = 0; i < sessions.size();i++){
+            if(sessions.get(i).getId() == id){
+>>>>>>> HEAD@{2}
                 adapter.remove(sessions.get(i));
                 adapter.notifyDataSetChanged();
             }

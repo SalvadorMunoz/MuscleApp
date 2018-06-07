@@ -107,7 +107,6 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
         presenter = new MainListPresenterImp(this);
 
         Log.d("ASS", MuscleAppApplication.getContex().getAppPreferencesHelper().getCurrentUser());
-            presenter.getCurrentUser(MuscleAppApplication.getContex().getAppPreferencesHelper().getCurrentUser());
 
 
         return root;
@@ -142,11 +141,11 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onResume() {
         super.onResume();
-        getSessions();
+        presenter.getCurrentUser(MuscleAppApplication.getContex().getAppPreferencesHelper().getCurrentUser());
     }
 
     private void getSessions(){
-        presenter.getSessions();
+        presenter.getSessions(current.getId());
 
     }
     //Change tag when swipe activity refresh
@@ -165,6 +164,8 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void getCurrentUser(User user) {
         current = user;
+        getSessions();
+
     }
 
     @Override

@@ -44,7 +44,11 @@ public class SessionsRepository {
         return sessionDao.getUsersSession(id);
     }
 
+<<<<<<< HEAD
     public void removeSession(int id){
         sessionDao.removeSession(id);
     }
+=======
+    public void delete(int session){sessionDao.remove(session);}
+>>>>>>> HEAD@{2}
 }

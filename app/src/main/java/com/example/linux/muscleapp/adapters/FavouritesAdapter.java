@@ -69,13 +69,24 @@ public class FavouritesAdapter extends ArrayAdapter<Session>{
         holder.sessionName.setText(getItem(position).getName());
         holder.sessionName.setTag(getItem(position));
         holder.sessionName.setOnClickListener(listener);
-        holder.result.setText(getItem(position).getUser()+", "+format(getItem(position).getCreationDate()));
+        holder.result.setText(getName(getItem(position).getUser())+", "+format(getItem(position).getCreationDate()));
         holder.follow.setImageResource(R.drawable.ic_unfollow);
         holder.follow.setTag(getItem(position));
         holder.follow.setOnClickListener(listener);
         holder.commentaries.setTag(getItem(position));
         holder.commentaries.setOnClickListener(listener);
         return view;
+    }
+
+    private  String getName(int id){
+        String res= "";
+
+        for (int i = 0; i< usernames.size();i++){
+            if(usernames.get(i).getId() == id)
+                res = usernames.get(i).getName();
+
+        }
+        return  res;
     }
     @Override
     public boolean isEnabled(int position) {

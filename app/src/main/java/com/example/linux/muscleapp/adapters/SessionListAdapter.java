@@ -75,7 +75,7 @@ public View getView(int position, @Nullable View convertView, @NonNull ViewGroup
         holder.sessionName.setText(getItem(position).getName());
         holder.sessionName.setTag(getItem(position));
         holder.sessionName.setOnClickListener(listener);
-        holder.result.setText(getItem(position).getUser()+", "+format(getItem(position).getCreationDate()));
+        holder.result.setText(getName(getItem(position).getUser())+", "+format(getItem(position).getCreationDate()));
         setFavouriteImage(holder,position);
         holder.follow.setTag(getItem(position));
         holder.follow.setOnClickListener(listener);
@@ -90,6 +90,14 @@ public View getView(int position, @Nullable View convertView, @NonNull ViewGroup
 public boolean isEnabled(int position) {
         return false;
         }
+private  String getName(int id){
+         String res= "";
+         for (int i = 0; i< usernames.size();i++){
+                 if(usernames.get(i).getId() == id)
+                         res = usernames.get(i).getName();
+         }
+        return  res;
+}
 
 private String format(String date){
         String tmp = date.split(" ")[0];
@@ -104,6 +112,7 @@ private void setFavouriteImage(SessionListHolder holder, int position){
         else
                 holder.follow.setImageResource(R.drawable.ic_follow);
         }
+
 
 
 class SessionListHolder {

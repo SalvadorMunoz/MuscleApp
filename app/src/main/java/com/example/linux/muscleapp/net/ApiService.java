@@ -120,6 +120,10 @@ public interface ApiService {
     @GET("sessions/user/{id}")
     Call<Result> getUsersSessions(@Path("id") int id);
 
+    @SerializedName("removeSession")
+    @GET("session/remove/{id}")
+    Call<Result> removeSession(@Path("id") int id);
+
     @SerializedName("allUsers")
     @GET("all/users")
     Call<Result> getAllUsers();

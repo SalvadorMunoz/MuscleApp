@@ -24,8 +24,8 @@ public class MainListPresenterImp implements SessionContract.MainPresenter,MainL
 
 
     @Override
-    public void getSessions() {
-        interactor.getSessions();
+    public void getSessions(int user) {
+        interactor.getSessions(user);
 
     }
 

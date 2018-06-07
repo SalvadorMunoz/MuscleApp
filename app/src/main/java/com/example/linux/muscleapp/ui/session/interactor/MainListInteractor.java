@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 
 public interface MainListInteractor {
-    void getSessions();
+    void getSessions(int user);
     void getCurrentUser(String email);
     void setFavourite(int session, int current);
     void deleteFavourite(int sessionn, int current);

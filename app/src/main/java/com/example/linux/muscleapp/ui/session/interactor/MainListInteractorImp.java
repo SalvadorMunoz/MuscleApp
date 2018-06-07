@@ -25,9 +25,9 @@ public class MainListInteractorImp implements MainListInteractor {
     }
 
     @Override
-    public void getSessions() {
+    public void getSessions(int user) {
         loadAsyncTask = new LoadAsyncTask();
-        loadAsyncTask.execute();
+        loadAsyncTask.execute(user);
     }
 
 
@@ -50,7 +50,7 @@ public class MainListInteractorImp implements MainListInteractor {
         new FavouriteAsyncTask().execute(tmp);
     }
 
-    class LoadAsyncTask extends AsyncTask<Void,Void,ArrayList<Session>>{
+    class LoadAsyncTask extends AsyncTask<Integer,Void,ArrayList<Session>>{
         private  ArrayList<User> usernames;
         private ArrayList<Session> tmp;
         @Override
@@ -60,9 +60,9 @@ public class MainListInteractorImp implements MainListInteractor {
         }
 
         @Override
-        protected ArrayList<Session> doInBackground(Void... voids) {
+        protected ArrayList<Session> doInBackground(Integer... integers) {
             usernames = UsersRepository.getInstance().getAllUsers();
-              tmp= FavouriteRepository.getInstace().getFavourites(21);
+              tmp= FavouriteRepository.getInstace().getFavourites(integers[0]);
             return SessionsRepository.getInstace().getSessions();
         }
 

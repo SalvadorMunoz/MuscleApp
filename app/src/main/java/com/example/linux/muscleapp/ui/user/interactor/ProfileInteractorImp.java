@@ -45,9 +45,14 @@ public class ProfileInteractorImp implements ProfileInteractor {
     }
 
     @Override
+<<<<<<< HEAD
     public void deleteSession(int session) {
         this.session = session;
         new SessionAsyncTask().execute(session);
+=======
+    public void deleteSession(int id) {
+        new SessionAsyncTask().execute(id);
+>>>>>>> HEAD@{2}
     }
 
     private class LoadUserSessionTask extends AsyncTask<Integer,Void,ArrayList<Session>>{
@@ -85,6 +90,20 @@ public class ProfileInteractorImp implements ProfileInteractor {
             else
                 FavouriteRepository.getInstace().delete(favourites[0]);
             return null;
+        }
+    }
+    class SessionAsyncTask extends AsyncTask<Integer,Void,Integer>{
+
+        @Override
+        protected Integer doInBackground(Integer... integers) {
+            SessionsRepository.getInstace().delete(integers[0]);
+            return integers[0];
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
+            onUsersSessionLoad.removeFromList(integer);
         }
     }
 
