@@ -176,9 +176,9 @@ public class UserProfileAdapter extends ArrayAdapter<Session> {
                                 callback.openSession(sessionsTmp.get(i));
                             else
                                 callback.checkSessionPassword(sessionsTmp.get(i));
-                            break;
                         }
                     }
+                    break;
 
                 case R.id.imgProfileDelete:
                     Session session = (Session) view.getTag();
