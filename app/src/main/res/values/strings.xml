@@ -62,5 +62,8 @@
     <string name="years">años</string>
     <string name="gallery">Galería</string>
     <string name="camera">Cámara</string>
+    <string name="err_no_favourites">No sigues ninguna sesión</string>
+    <string name="err_no_today">No tienes entrenamientos</string>
+    <string name="noProfileSession">No hay sesiones</string>
 
 </resources>

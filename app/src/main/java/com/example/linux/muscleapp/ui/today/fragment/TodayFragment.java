@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.adapters.FavouritesAdapter;
@@ -34,6 +35,7 @@ public class TodayFragment extends ListFragment implements TodaySessionContract.
     private SessionListAdapter adapter;
     private FavouritesFragment.SeeDetailsListener callback;
     private ProgressDialog progressDialog;
+    private TextView no_Sessions;
 
 
     public TodayFragment() {
@@ -57,12 +59,15 @@ public class TodayFragment extends ListFragment implements TodaySessionContract.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_today, container, false);
         presenter = new TodaySessionsPresenter(this);
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage(getResources().getString(R.string.downloading));
 
+        no_Sessions = (TextView) view.findViewById(R.id.txvNoToday);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_today, container, false);
+        return view;
     }
 
     @Override
@@ -71,7 +76,6 @@ public class TodayFragment extends ListFragment implements TodaySessionContract.
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.action_today));
         if(getArguments()!=null)
             current = getArguments().getParcelable("current");
-        presenter.getTodaySession(current.getId());
     }
 
     @Override
@@ -81,9 +85,24 @@ public class TodayFragment extends ListFragment implements TodaySessionContract.
 
     @Override
     public void fillSessions(ArrayList<Session> today,ArrayList<User> usernames,ArrayList<Boolean> favourites) {
-        adapter = new SessionListAdapter(getContext(),current,usernames,today,presenter,callback,favourites);
 
-        getListView().setAdapter(adapter);
+        if(today.size() ==0){
+            getListView().setVisibility(View.GONE);
+            no_Sessions.setVisibility(View.VISIBLE);
+        }else {
+            getListView().setVisibility(View.VISIBLE);
+            no_Sessions.setVisibility(View.GONE);
+            adapter = new SessionListAdapter(getContext(), current, usernames, today, presenter, callback, favourites);
+
+            getListView().setAdapter(adapter);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.getTodaySession(current.getId());
+
     }
 
     @Override

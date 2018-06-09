@@ -18,6 +18,7 @@ import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
+import com.example.linux.muscleapp.net.Connection;
 import com.example.linux.muscleapp.ui.comment.contract.CommentsContract;
 import com.example.linux.muscleapp.ui.comment.fragment.CommentListFragment;
 import com.example.linux.muscleapp.ui.comment.presenter.CommentsPresenterImp;
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity  implements MainContract.Vie
         setContentView(R.layout.activity_base);
         presenter = new MainPresenter(this);
 
+
+
         drawerLayout = (DrawerLayout) findViewById(R.id.navDraw);
         navigationView = (NavigationView) findViewById(R.id.navView);
         header = navigationView.getHeaderView(0);
@@ -74,11 +77,12 @@ public class MainActivity extends AppCompatActivity  implements MainContract.Vie
             AppPreferencesHelper.newInstance().setNumVideo(0);
         }
 
-
-        presenter.getCurrentUser(AppPreferencesHelper.newInstance().getCurrentUser());
+        if(Connection.check(this))
+            presenter.getCurrentUser(AppPreferencesHelper.newInstance().getCurrentUser());
 
 
     }
+
 
     @Override
     protected void onResume() {
@@ -143,10 +147,12 @@ public class MainActivity extends AppCompatActivity  implements MainContract.Vie
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
-                break;
+        if(Connection.check(this)){
+            switch (item.getItemId()) {
+                case android.R.id.home:
+                    drawerLayout.openDrawer(GravityCompat.START);
+                    break;
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -157,11 +163,12 @@ public class MainActivity extends AppCompatActivity  implements MainContract.Vie
         if (drawerLayout.isDrawerOpen(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
         else {
-           /* if(MuscleAppApplication.getContex().getAppPreferencesHelper().getRemember() == false)
+            if(MuscleAppApplication.getContex().getAppPreferencesHelper().getRemember() == false) {
                 startActivity(new Intent(MainActivity.this, LogInActivity.class));
-            else {*/
+                finish();
+            }else {
                 super.onBackPressed();
-            //}
+            }
         }
     }
 

@@ -36,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/name"
+            android:maxLength="30"
             android:singleLine="true"/>
     </android.support.design.widget.TextInputLayout>
 
@@ -55,6 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
+            android:maxLength="256"
             android:hint="@string/login_pass" />
     </android.support.design.widget.TextInputLayout>
 

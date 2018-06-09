@@ -6,16 +6,6 @@
             android:key="rememberUser"
             android:title="@string/set_remember"
             android:summary="@string/set_description_remember"/>
-    <EditTextPreference
-        android:key="changeName"
-        android:title="@string/set_name"
-        android:singleLine="true"
-        android:selectAllOnFocus="true"/>
-    <EditTextPreference
-        android:key="changePass"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:title="@string/set_pass"
-        android:inputType="textPassword"/>
+
 
 </PreferenceScreen>

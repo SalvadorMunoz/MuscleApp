@@ -29,6 +29,7 @@ import com.example.linux.muscleapp.data.db.pojo.Session;
 import com.example.linux.muscleapp.data.db.pojo.User;
 import com.example.linux.muscleapp.data.prefs.AppPreferences;
 import com.example.linux.muscleapp.data.prefs.AppPreferencesHelper;
+import com.example.linux.muscleapp.net.Connection;
 import com.example.linux.muscleapp.ui.session.contract.SessionContract;
 import com.example.linux.muscleapp.ui.session.presenter.MainListPresenterImp;
 import com.example.linux.muscleapp.ui.utils.GlobalVariables;
@@ -55,6 +56,8 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     SessionContract.MainPresenter presenter;
     private RecyclerView recycler;
+    private TextView errConection;
+    private boolean fromOnresume = false;
 
     MainAdapter adapter;
 
@@ -100,6 +103,7 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
         swipeContainer = (SwipeRefreshLayout) root.findViewById(R.id.rcvSession);
         fbtAdd = (FloatingActionButton) root.findViewById(R.id.fbtAdd);
         recycler = (RecyclerView) root.findViewById(R.id.rcvMain);
+        errConection = (TextView) root.findViewById(R.id.txvConnectionError);
 
         setRetainInstance(true);
 
@@ -122,6 +126,7 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
         fbtAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(Connection.check(getActivity()))
                 callback.addSession(current, GlobalVariables.OPEN_ADD);
 
             }
@@ -141,7 +146,18 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onResume() {
         super.onResume();
-        presenter.getCurrentUser(MuscleAppApplication.getContex().getAppPreferencesHelper().getCurrentUser());
+        fromOnresume = true;
+        if (Connection.check(getActivity())) {
+            recycler.setVisibility(View.VISIBLE);
+            errConection.setVisibility(View.GONE);
+            presenter.getCurrentUser(MuscleAppApplication.getContex().getAppPreferencesHelper().getCurrentUser());
+        } else {
+            recycler.setVisibility(View.GONE);
+            errConection.setVisibility(View.VISIBLE);
+        }
+        fromOnresume = false;
+
+
     }
 
     private void getSessions(){
@@ -151,7 +167,32 @@ public class MainListFragment extends Fragment implements SwipeRefreshLayout.OnR
     //Change tag when swipe activity refresh
     @Override
     public void onRefresh() {
-        getSessions();
+        if(! fromOnresume) {
+            if (Connection.check(getActivity())) {
+                recycler.setVisibility(View.VISIBLE);
+                errConection.setVisibility(View.GONE);
+                presenter.getSessions(current.getId());
+            } else {
+                recycler.setVisibility(View.GONE);
+                errConection.setVisibility(View.VISIBLE);
+                swipeContainer.setRefreshing(false);
+            }
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e( "onPause: ","paso" );
+    }
+
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.e( "onStop: ","paso" );
+
     }
 
     @Override

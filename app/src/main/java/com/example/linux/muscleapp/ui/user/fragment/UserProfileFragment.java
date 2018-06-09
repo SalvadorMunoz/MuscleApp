@@ -38,7 +38,7 @@ import java.util.Date;
  */
 public class UserProfileFragment extends Fragment  implements ProfileContract.View{
     public static final String TAG ="userProfile";
-    private TextView txvName,txvAge, txvResidence;
+    private TextView txvName,txvAge, txvResidence,txvNoSessions;
     private ListView ltvSessions;
     private ImageView imgProfileImage;
     private FloatingActionButton fbtEdit;
@@ -81,6 +81,7 @@ public class UserProfileFragment extends Fragment  implements ProfileContract.Vi
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
         txvName = (TextView) view.findViewById(R.id.txvProfileName);
         txvAge = (TextView) view.findViewById(R.id.txvProfileAge);
+        txvNoSessions = (TextView) view.findViewById(R.id.txvNoProfileSession);
         txvResidence = (TextView) view.findViewById(R.id.txvProfileResidence);
         ltvSessions = (ListView) view.findViewById(R.id.ltvProfileSessions);
         fbtEdit = (FloatingActionButton) view.findViewById(R.id.fbtEditImage);
@@ -101,6 +102,12 @@ public class UserProfileFragment extends Fragment  implements ProfileContract.Vi
             clicked = getArguments().getParcelable("clicked");
         }
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         if(clicked != null) {
             GlobalVariables.fromMyProfile = false;
             txvName.setText(clicked.getName());
@@ -122,11 +129,6 @@ public class UserProfileFragment extends Fragment  implements ProfileContract.Vi
                 callback.openSelectImage();
             }
         });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
 
     }
 
@@ -160,11 +162,19 @@ public class UserProfileFragment extends Fragment  implements ProfileContract.Vi
 
     @Override
     public void fillSessions(ArrayList<Session> sessions, ArrayList<Boolean> favourites, ArrayList<User> usernames) {
-        this.sessions = sessions;
-        adapter = new UserProfileAdapter(getContext(),current,usernames,sessions,favourites,presenter,callback);
-        ltvSessions.setAdapter(adapter);
+        if(sessions.size() == 0){
+            ltvSessions.setVisibility(View.GONE);
+            txvNoSessions.setVisibility(View.VISIBLE);
+        }else {
+            ltvSessions.setVisibility(View.VISIBLE);
+            txvNoSessions.setVisibility(View.GONE);
+            this.sessions = sessions;
+            adapter = new UserProfileAdapter(getContext(), current, usernames, sessions, favourites, presenter, callback);
+            ltvSessions.setAdapter(adapter);
+        }
 
     }
+
 
     @Override
     public void removeFromList(int id) {

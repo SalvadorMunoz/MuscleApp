@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.linux.muscleapp.MuscleAppApplication;
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.data.db.repositories.UsersRepository;
 import com.example.linux.muscleapp.ui.login.contract.LoginContract;
@@ -64,6 +65,8 @@ public class LogInActivity extends AppCompatActivity implements SignInFragment.L
 
     @Override
     public void goMain() {
+        MuscleAppApplication.getContex().getAppPreferencesHelper().setRemember(true);
+
         Intent intent = new Intent("com.example.linux.muscleapp.ui.login.intent");
         startActivity(new Intent(LogInActivity.this, MainActivity.class));
         sendBroadcast(intent);

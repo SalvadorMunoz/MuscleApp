@@ -6,35 +6,47 @@
     tools:context="com.example.linux.muscleapp.ui.session.MainActivity"
     android:id="@+id/rcvSession"
     >
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <LinearLayout android:id="@+id/ctlMain"
+<android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
+    <LinearLayout android:id="@+id/ctlMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
 
+    <android.support.v7.widget.Toolbar
+        android:background="?attr/colorPrimary"
+        android:id="@+id/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorPrimary"
-                android:minHeight="?attr/actionBarSize"
-
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:titleTextColor="@android:color/white"
-                />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextColor="@android:color/white" />
 
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rcvMain"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcvMain"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
 
-        </LinearLayout>
+
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/txvConnectionError"
+        android:text="@string/err_no_conection"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fbtAdd"

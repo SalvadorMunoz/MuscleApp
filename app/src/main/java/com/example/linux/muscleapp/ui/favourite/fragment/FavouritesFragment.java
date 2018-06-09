@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.linux.muscleapp.R;
 import com.example.linux.muscleapp.adapters.FavouritesAdapter;
@@ -36,6 +37,7 @@ public class FavouritesFragment extends ListFragment implements FavouriteContrac
     private User current;
     private FavouritesAdapter adapter;
     private SeeDetailsListener callback;
+    private TextView noSession;
 
     public interface SeeDetailsListener{
         void goComments(int session,ArrayList<User> usernames);
@@ -70,11 +72,12 @@ public class FavouritesFragment extends ListFragment implements FavouriteContrac
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage(getActivity().getResources().getString(R.string.downloading));
 
+        noSession = (TextView) view.findViewById(R.id.txvNoFavourites);
+
         if(getArguments() != null)
             current = getArguments().getParcelable("current");
 
         presenter = new FavouritesPresenter(this);
-        presenter.getFavourites(current.getId());
 
         return view;
     }
@@ -85,15 +88,14 @@ public class FavouritesFragment extends ListFragment implements FavouriteContrac
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.action_favourites));
 
-
-
-
-
-
-
-
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.getFavourites(current.getId());
+
+    }
 
     @Override
     public void openDialog() {
@@ -104,11 +106,17 @@ public class FavouritesFragment extends ListFragment implements FavouriteContrac
     @Override
     public void fillFavourites(ArrayList<Session> favourites,ArrayList<User> usernames) {
 
-        favouriteSessions = favourites;
-        adapter = new FavouritesAdapter(getContext(),presenter,current,callback,usernames,favourites);
+        if(favourites.size() == 0){
+            getListView().setVisibility(View.GONE);
+            noSession.setVisibility(View.VISIBLE);
+        }else{
+            getListView().setVisibility(View.VISIBLE);
+            noSession.setVisibility(View.GONE);
+            favouriteSessions = favourites;
+            adapter = new FavouritesAdapter(getContext(),presenter,current,callback,usernames,favourites);
+            getListView().setAdapter(adapter);
+        }
 
-
-        getListView().setAdapter(adapter);
     }
 
     @Override
