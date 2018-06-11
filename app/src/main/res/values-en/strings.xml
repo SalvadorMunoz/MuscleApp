@@ -61,4 +61,24 @@
     <string name="set_remember">Remember user</string>
     <string name="set_description_remember">Keep the session open</string>
     <string name="access">You have accessed MuscleApp!</string>
+    <string name="err_invalid_pass">Invalid password</string>
+    <string name="err_user_not_exists">User doesn\'t exists</string>
+    <string name="err_no_conection">"There isn't connection. "</string>
+    <string name="conecting">Connecting</string>
+    <string name="recovery_pass_title">Recover password</string>
+    <string name="activate">" Activate your user "</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="years">years old</string>
+    <string name="loading_session">Loading session</string>
+    <string name="creating">Creating session</string>
+    <string name="autentication">" Authenticating... "</string>
+    <string name="recovery_pass_message">" Please enter your email address "</string>
+    <string name="err_no_favourites">" You don't follow any session "</string>
+    <string name="err_no_today">You haven\'t got any training session</string>
+    <string name="noProfileSession">There aren\'t trainning sessions</string>
+    <string name="remove_favourite_title">Remove favourite</string>
+    <string name="remove_session_title">Remove trainning session</string>
+    <string name="remove_favourite_message">Do you want to remove session from favourites?</string>
+    <string name="remove_session_message">Do you want to remove this session?</string>
 </resources>

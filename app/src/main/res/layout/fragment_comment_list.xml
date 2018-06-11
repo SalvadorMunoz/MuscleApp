@@ -48,6 +48,7 @@ android:padding="@dimen/activity_padding">
         android:clickable="true"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/edtWriteComment"
-        app:srcCompat="@drawable/ic_send_white_24dp" />
+        app:srcCompat="@drawable/ic_send_white_24dp"
+        android:layout_marginBottom="8dp"/>
 </RelativeLayout>
 

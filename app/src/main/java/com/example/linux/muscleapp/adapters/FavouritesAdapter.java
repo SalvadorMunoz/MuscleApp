@@ -101,7 +101,7 @@ public class FavouritesAdapter extends ArrayAdapter<Session>{
 
     private  void openDialog(final int sesion){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Borrar de favoritos").setMessage("¿Deseas borrar la sesión de favoritos?").
+        builder.setTitle(getContext().getResources().getString(R.string.remove_favourite_title)).setMessage(getContext().getResources().getString(R.string.remove_favourite_message)).
                 setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

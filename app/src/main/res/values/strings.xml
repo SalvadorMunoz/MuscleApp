@@ -65,5 +65,8 @@
     <string name="err_no_favourites">No sigues ninguna sesión</string>
     <string name="err_no_today">No tienes entrenamientos</string>
     <string name="noProfileSession">No hay sesiones</string>
-
+    <string name="remove_favourite_title">Borrar de favoritos</string>
+    <string name="remove_favourite_message">¿Deseas borrar la sesión de favoritos?</string>
+    <string name="remove_session_title">Borrar session de entrenamiento</string>
+    <string name="remove_session_message">¿Deseas borrar la sesión de entrenamiento?</string>
 </resources>
