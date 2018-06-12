@@ -69,7 +69,7 @@ public class LogInActivity extends AppCompatActivity implements SignInFragment.L
 
         Intent intent = new Intent("com.example.linux.muscleapp.ui.login.intent");
         startActivity(new Intent(LogInActivity.this, MainActivity.class));
-        sendBroadcast(intent);
+        finish();
     }
 
     @Override

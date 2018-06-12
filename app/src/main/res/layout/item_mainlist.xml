@@ -45,7 +45,7 @@
                 android:textColor="@android:color/primary_text_light"
                 app:layout_constraintStart_toEndOf="@+id/civItemSessionImage"
                 app:layout_constraintTop_toTopOf="parent"
-                android:textSize="24dp"/>
+                android:textSize="18dp"/>
 
             <TextView
                 android:id="@+id/txvSessionRes"
