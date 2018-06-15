@@ -75,6 +75,7 @@ public class UserProfileAdapter extends ArrayAdapter<Session> {
         holder.sessionName.setOnClickListener(listener);
         holder.result.setText(format(getItem(position).getCreationDate()));
         setFavouriteImage(holder,position);
+        holder.follow.setVisibility(View.GONE);
         holder.follow.setTag(holder);
         holder.follow.setOnClickListener(listener);
         holder.commentaries.setTag(holder);

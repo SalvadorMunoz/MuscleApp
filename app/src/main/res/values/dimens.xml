@@ -15,5 +15,5 @@
     <dimen name="text_size">18dp</dimen>
     <dimen name="height_header_nav">154dp</dimen>
     <dimen name="header_left_padding">16dp</dimen>
-    <dimen name="perfil_size">96dp</dimen>
+    <dimen name="perfil_size">80dp</dimen>
 </resources>

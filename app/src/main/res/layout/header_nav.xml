@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/navHeader"
     android:layout_height="@dimen/height_header_nav"
@@ -7,13 +8,18 @@
     android:orientation="vertical"
     android:background="@color/colorPrimary"
     android:paddingLeft="@dimen/header_left_padding">
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civCurrentUser"
         android:layout_width="@dimen/perfil_size"
         android:layout_height="@dimen/perfil_size"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:scaleType="centerCrop"
         app:civ_border_color="@android:color/white"
-        app:civ_border_width="2dp"/>
+        app:civ_border_width="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <!-- Nombre de usuario -->
@@ -21,18 +27,23 @@
         android:id="@+id/txvNavUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Hola"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/civCurrentUser"
+        tools:layout_editor_absoluteX="16dp" />
 
     <!-- Correo de usuario -->
     <TextView
         android:id="@+id/txvNavEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:text="caracola"
-        android:textColor="@android:color/white"
 
-        />
-</LinearLayout>
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvNavUser"
+        tools:layout_editor_absoluteX="16dp" />
+</android.support.constraint.ConstraintLayout>

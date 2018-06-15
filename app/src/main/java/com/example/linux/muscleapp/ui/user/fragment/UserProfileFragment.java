@@ -48,6 +48,7 @@ public class UserProfileFragment extends Fragment  implements ProfileContract.Vi
     private SeeDetailsListener callback;
     private ArrayList<Session> sessions;
 
+
     public interface SeeDetailsListener{
         void goComments(int session, ArrayList<User> usernames);
         void openSession(Session session);
