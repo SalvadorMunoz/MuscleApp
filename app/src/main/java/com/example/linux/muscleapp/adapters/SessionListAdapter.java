@@ -77,6 +77,7 @@ public View getView(int position, @Nullable View convertView, @NonNull ViewGroup
         holder.sessionName.setOnClickListener(listener);
         holder.result.setText(getName(getItem(position).getUser())+", "+format(getItem(position).getCreationDate()));
         setFavouriteImage(holder,position);
+        holder.follow.setVisibility(View.GONE);
         holder.follow.setTag(getItem(position));
         holder.follow.setOnClickListener(listener);
         holder.commentaries.setTag(getItem(position));
